@@ -23,10 +23,12 @@ import 'package:rebora/presentation/mypage/mypage_alarm.dart';
 import 'package:rebora/presentation/mypage/participation_list.dart';
 import 'package:rebora/presentation/mypage/profile_update.dart';
 import 'package:rebora/presentation/recruitment/binding/participation_view_binding.dart';
+import 'package:rebora/presentation/recruitment/binding/payment_binding.dart';
 import 'package:rebora/presentation/recruitment/binding/recruitment_create_binding.dart';
 import 'package:rebora/presentation/recruitment/binding/recruitment_view_binding.dart';
 import 'package:rebora/presentation/recruitment/participation_cancel.dart';
 import 'package:rebora/presentation/recruitment/participation_view.dart';
+import 'package:rebora/presentation/recruitment/payment.dart';
 import 'package:rebora/presentation/recruitment/recruitment_create.dart';
 import 'package:rebora/presentation/recruitment/recruitment_view.dart';
 import 'package:rebora/presentation/search/binding/search_binding.dart';
@@ -121,6 +123,11 @@ class AppPages {
       name: Routes.MOVIE_RECRUITMENT_CANCEL,
       page: ()=> const ParticipationCancel(),
       binding: ParticipationViewBinding(),
+    ),
+    GetPage(
+      name: Routes.PAYMENT,
+      page: ()=> const Payment(),
+      binding: PaymentBinding(),
     ),
   ];
 

@@ -12,6 +12,7 @@ class RecruitmentVo {
   final String theaterStartDatetime;
   final String theaterEndDatetime;
   final String theaterDay;
+  final int theaterPrice;
   final String theaterCinemaName;
   final String theaterCinemaBrandName;
   final int theaterMaxPeople;
@@ -39,6 +40,7 @@ class RecruitmentVo {
     required this.theaterStartDatetime,
     required this.theaterEndDatetime,
     required this.theaterDay,
+    required this.theaterPrice,
     required this.theaterCinemaName,
     required this.theaterCinemaBrandName,
     required this.theaterMaxPeople,
@@ -66,6 +68,7 @@ class RecruitmentVo {
     movieImage: (json["movieImage"] == null)?"":json["movieImage"] as String,
     theaterStartDatetime: (json["theaterStartDatetime"] == null)?"":json["theaterStartDatetime"] as String,
     theaterEndDatetime: (json["theaterEndDatetime"] == null)?"":json["theaterEndDatetime"] as String,
+    theaterPrice: (json["theaterPrice"] == null)?0:json["theaterPrice"] as int,
     theaterDay: (json["theaterDay"] == null)?"":json["theaterDay"] as String,
     theaterCinemaName: (json["theaterCinemaName"] == null)?"":json["theaterCinemaName"] as String,
     theaterCinemaBrandName: (json["theaterCinemaBrandName"] == null)?"":json["theaterCinemaBrandName"] as String,

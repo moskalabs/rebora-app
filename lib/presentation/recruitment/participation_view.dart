@@ -12,6 +12,7 @@ class ParticipationView extends GetView<ParticipationViewController> {
   @override
   Widget build(BuildContext context) {
 
+    controller.setContext(context);
     final DateUtil dateUtil = DateUtil();
     return Scaffold(
         backgroundColor: Colors.white,
@@ -320,87 +321,190 @@ class ParticipationView extends GetView<ParticipationViewController> {
                               ],
                             ),
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 49,
-                            margin: const EdgeInsets.fromLTRB(25, 40, 25, 20),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: InkWell(
-                                    onTap: () {
-                                      controller.participation();
-                                    },
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(7),
-                                      child: Stack(
-                                        children: <Widget>[
-                                          Positioned.fill(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: const Color.fromRGBO(255, 127, 34, 1),
-                                                  borderRadius: const BorderRadius.all(Radius.circular(6)),
-                                                  border: Border.all(
-                                                    width: 1,
-                                                    color: const Color.fromRGBO(255, 127, 34, 1),
-                                                  )
-                                              ),
+                          Column(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(left: 23,top: 44),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      controller.payInfoText.value,
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color.fromRGBO(72, 72, 72, 1)
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10,),
+                                    Text(
+                                      "${controller.displayPrice.value}원",
+                                      style: const TextStyle(
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color.fromRGBO(255, 127, 34, 1)
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(left: 23,top: 14),
+                                child: Text(
+                                  controller.payInfoContent.value,
+                                  style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                      height: 1.2,
+                                      color: Color.fromRGBO(100, 100, 100, 1)
+                                  ),
+                                ),
+                              ),
+                              Stack(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 15,left: 35),
+                                    child: Row(
+                                      children: [
+                                        if (controller.isAgree.value) ... [
+                                          InkWell(
+                                            onTap: () {
+                                              controller.checkedAgree(false);
+                                            },
+                                            child: const Image(
+                                                width: 20,
+                                                height: 20,
+                                                fit: BoxFit.fill,
+                                                image: AssetImage("assets/images/iv_checked.png")
                                             ),
-                                          ),
-                                          const Center(
-                                            child: Text(
-                                              "참여하기",
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w500,
-                                                  color:Colors.white
-                                              ),
+                                          )
+                                        ] else ... [
+                                          InkWell(
+                                            onTap: () {
+                                              controller.checkedAgree(true);
+                                            },
+                                            child: Image.asset(
+                                              "assets/images/iv_big_unchecked.png",
+                                              width: 20,
+                                              height: 20,
                                             ),
                                           )
                                         ],
-                                      ),
+                                        const SizedBox(width: 13,),
+                                        const Text(
+                                          "상기내용을 확인했습니다.",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: Color.fromRGBO(57, 57, 57, 1)
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  )
-                                ),
-                                const SizedBox(width: 15,),
-                                Expanded(
+                                  ),
+                                  Positioned(
+                                    top:16,
+                                    right: 40,
                                     child: InkWell(
                                       onTap: () {
-                                        Get.back();
+                                        controller.refundInfo();
                                       },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(7),
-                                        child: Stack(
-                                          children: <Widget>[
-                                            Positioned.fill(
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius: const BorderRadius.all(Radius.circular(6)),
-                                                    border: Border.all(
-                                                        width: 1,
-                                                        color: const Color.fromRGBO(230, 230, 230, 1)
-                                                    )
-                                                ),
-                                              ),
-                                            ),
-                                            const Center(
-                                              child: Text(
-                                                "취소",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.w500,
-                                                    color:Color.fromRGBO(91, 91, 91, 1)
-                                                ),
-                                              ),
-                                            )
-                                          ],
+                                      child: const Text(
+                                        "환불정책",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            decoration: TextDecoration.underline,
+                                            decorationColor: Color.fromRGBO(255, 127, 34, 1),
+                                            fontWeight: FontWeight.w500,
+                                            color: Color.fromRGBO(255, 127, 34, 1)
                                         ),
                                       ),
                                     )
-                                )
-                              ],
-                            ),
+                                  )
+                                ],
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 49,
+                                margin: const EdgeInsets.fromLTRB(25, 37, 25, 20),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            controller.participation();
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(7),
+                                            child: Stack(
+                                              children: <Widget>[
+                                                Positioned.fill(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        color: const Color.fromRGBO(255, 127, 34, 1),
+                                                        borderRadius: const BorderRadius.all(Radius.circular(6)),
+                                                        border: Border.all(
+                                                          width: 1,
+                                                          color: const Color.fromRGBO(255, 127, 34, 1),
+                                                        )
+                                                    ),
+                                                  ),
+                                                ),
+                                                Center(
+                                                  child: Text(
+                                                    controller.submitText.value,
+                                                    style: const TextStyle(
+                                                        fontSize: 15,
+                                                        fontWeight: FontWeight.w500,
+                                                        color:Colors.white
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                    ),
+                                    const SizedBox(width: 15,),
+                                    Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            Get.back();
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(7),
+                                            child: Stack(
+                                              children: <Widget>[
+                                                Positioned.fill(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius: const BorderRadius.all(Radius.circular(6)),
+                                                        border: Border.all(
+                                                            width: 1,
+                                                            color: const Color.fromRGBO(230, 230, 230, 1)
+                                                        )
+                                                    ),
+                                                  ),
+                                                ),
+                                                const Center(
+                                                  child: Text(
+                                                    "취소",
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        fontWeight: FontWeight.w500,
+                                                        color:Color.fromRGBO(91, 91, 91, 1)
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
                           )
                         ],
                       ),

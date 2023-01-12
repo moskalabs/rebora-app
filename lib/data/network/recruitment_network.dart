@@ -5,7 +5,11 @@ import 'package:rebora/domain/vo/recruitment/participation_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_cinema_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_create_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_day_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_default_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_instant_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_list_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_reservation_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_reserve_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_view_vo.dart';
 import 'package:rebora/presentation/common/data_singleton.dart';
 import 'package:rebora/presentation/common/const.dart';
@@ -21,6 +25,12 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
   final _myRecruitmentListPath = "/api/user/mypage/getMyRecruiter";
   final _recruitmentCancelPath = "/api/recruitment/cancelRecruitment";
   final _searchRecruitmentListPath = "/api/recruitment/getSearchList";
+  final _recruitmentReservationPath = "/api/payment/createCustomerUid";
+  final _recruitmentReservationCompletePath = "/api/payment/reserveRecruitment";
+  final _recruitmentInstantPath = "/api/payment/createMerchantUid";
+  final _recruitmentInstantCompletePath = "/api/payment/saveImmediatePayment";
+  final _reserveRecruitmentPath = "/api/recruitment/reserveRecruitment";
+  final _createRecruitmentPath = "/api/recruitment/createRecruitment";
 
   @override
   void onInit() {
@@ -143,6 +153,89 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
         },
         query: data,
         decoder: (value) => RecruitmentTabVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+  @override
+  Future<Response<RecruitmentReservationVo>> reservation(Map<String, dynamic> data) {
+    return post(
+        _recruitmentReservationPath,
+        data,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "token" : DataSingleton.token
+        },
+        query: data,
+        decoder: (value) => RecruitmentReservationVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+  @override
+  Future<Response<RecruitmentDefaultVo>> reservationComplete(String userRecruitmentId) {
+    return post(
+        "$_recruitmentReservationCompletePath/$userRecruitmentId",
+        userRecruitmentId,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "token" : DataSingleton.token
+        },
+        decoder: (value) => RecruitmentDefaultVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+  @override
+  Future<Response<RecruitmentInstantVo>> instantPayment(Map<String, dynamic> data) {
+    return post(
+        _recruitmentInstantPath,
+        data,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "token" : DataSingleton.token
+        },
+        query: data,
+        decoder: (value) => RecruitmentInstantVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+  @override
+  Future<Response<RecruitmentDefaultVo>> instantPaymentComplete(Map<String, dynamic> data) {
+    return post(
+        "$_recruitmentInstantCompletePath/${data["userRecruitmentId"]}",
+        data,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "token" : DataSingleton.token
+        },
+        query: data,
+        decoder: (value) => RecruitmentDefaultVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+  @override
+  Future<Response<RecruitmentReserveVo>> reserveRecruitment(Map<String, dynamic> data) {
+    return post(
+        _reserveRecruitmentPath,
+        data,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "token" : DataSingleton.token
+        },
+        query: data,
+        decoder: (value) => RecruitmentReserveVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+  @override
+  Future<Response<RecruitmentDefaultVo>> reserveRecruitmentComplete(Map<String, dynamic> data) {
+    return post(
+        "$_createRecruitmentPath/${data["recruitmentId"]}",
+        data,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "token" : DataSingleton.token
+        },
+        query: data,
+        decoder: (value) => RecruitmentDefaultVo.fromJson(value as Map<String, dynamic>)
     );
   }
 }

@@ -7,6 +7,7 @@ class RecruitmentCinemaRowVo {
   final String theaterDay;
   final String theaterCinemaBrandName;
   final String theaterCinemaName;
+  final int theaterPrice;
   final int theaterMaxPeople;
   final int theaterMinPeople;
   final int theaterTime;
@@ -20,6 +21,7 @@ class RecruitmentCinemaRowVo {
     required this.theaterDay,
     required this.theaterCinemaBrandName,
     required this.theaterCinemaName,
+    required this.theaterPrice,
     required this.theaterMaxPeople,
     required this.theaterMinPeople,
     required this.theaterTime,
@@ -34,6 +36,7 @@ class RecruitmentCinemaRowVo {
     theaterDay: (json["theaterDay"] == null)?"":json["theaterDay"] as String,
     theaterCinemaBrandName: (json["theaterCinemaBrandName"] == null)?"":json["theaterCinemaBrandName"] as String,
     theaterCinemaName: (json["theaterCinemaName"] == null)?"":json["theaterCinemaName"] as String,
+    theaterPrice: (json["theaterPrice"] == null)?-1:json["theaterPrice"] as int,
     theaterMaxPeople: (json["theaterMaxPeople"] == null)?-1:json["theaterMaxPeople"] as int,
     theaterMinPeople: (json["theaterMinPeople"] == null)?-1:json["theaterMinPeople"] as int,
     theaterTime: (json["theaterTime"] == null)?-1:json["theaterTime"] as int,

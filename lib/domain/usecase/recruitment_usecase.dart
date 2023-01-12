@@ -3,7 +3,11 @@ import 'package:rebora/domain/vo/recruitment/participation_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_cinema_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_create_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_day_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_default_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_instant_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_list_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_reservation_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_reserve_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_view_vo.dart';
 
 abstract class RecruitmentUseCase{
@@ -16,4 +20,10 @@ abstract class RecruitmentUseCase{
   Future<RecruitmentListVo> recruitmentList(Map<String,dynamic> data);
   Future<RecruitmentListVo> myRecruitmentList(Map<String,dynamic> data);
   Future<RecruitmentTabVo> searchRecruitmentList(Map<String,dynamic> data);
+  Future<RecruitmentReservationVo> reservation(Map<String,dynamic> data);
+  Future<RecruitmentDefaultVo> reservationComplete(String userRecruitmentId);
+  Future<RecruitmentInstantVo> instantPayment(Map<String,dynamic> data);
+  Future<RecruitmentDefaultVo> instantPaymentComplete(Map<String,dynamic> data);
+  Future<RecruitmentReserveVo> reserveRecruitment(Map<String,dynamic> data);
+  Future<RecruitmentDefaultVo> reserveRecruitmentComplete(Map<String,dynamic> data);
 }

@@ -16,4 +16,5 @@ abstract class Routes {
   static const MY_ALARM = '/myAlarm';
   static const SEARCH = '/search';
   static const MOVIE_RECRUITMENT_CANCEL = '/movieRecruitmentCancel';
+  static const PAYMENT = '/payment';
 }

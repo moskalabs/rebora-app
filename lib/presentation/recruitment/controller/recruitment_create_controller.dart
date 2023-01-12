@@ -4,6 +4,7 @@ import 'package:rebora/domain/usecase/recruitment_usecase.dart';
 import 'package:rebora/domain/vo/main/movie_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_cinema_row_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_create_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_default_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_vo.dart';
 import 'package:rebora/presentation/common/date_util.dart';
 import 'package:rebora/presentation/common/ui/app_toast.dart';
@@ -182,7 +183,10 @@ class RecruitmentCreateController extends SuperController{
       for (var element in movieVo.movieCategoryVo!) {
         category += "${element.categoryName} / ";
       }
-      category = category.substring(0,category.length-3);
+      if (category.length > 3) {
+        category = category.substring(0,category.length-3);
+      }
+
       this.category.value = category;
     }
     isMovieSelected.value = true;
@@ -229,60 +233,76 @@ class RecruitmentCreateController extends SuperController{
 
 
     if ( checkSubmit ) {
+      isLoading.value = true;
       Map<String,dynamic> data = {};
       data["movieId"] = "${movieVo!.id}";
       data["theaterId"] = "${recruitmentCinemaRowVo!.theaterId}";
       data["recruitmentIntroduce"] = movieInfoController.text;
-      data["userRecruitmentPeople"] = "0";
       data["bannerYn"] ="${isCheckedBanner.value}";
       data["bannerMainText"] = movieBannerMainTextController.text;
       data["bannerSubText"] = movieBannerSubTextController.text;
 
-      var result = await Get.toNamed(Routes.PARTICIPATION, arguments: {
-        "status" : "",
-        "data" : RecruitmentVo(
-            userRecruitmentId: 0,
-            userRecruitmentWish: false,
-            userRecruitmentYn: false,
-            userRecruitmentPeople: 0,
-            movieRecruitmentImage: '',
-            movieName: movieVo!.movieName,
-            movieImage: movieVo!.movieImage,
-            theaterStartDatetime: recruitmentCinemaRowVo!.theaterStartTime,
-            theaterEndDatetime: recruitmentCinemaRowVo!.theaterEndTime,
-            theaterDay: recruitmentCinemaRowVo!.theaterDay,
-            theaterCinemaName: recruitmentCinemaRowVo!.theaterCinemaName,
-            theaterCinemaBrandName: recruitmentCinemaRowVo!.theaterCinemaBrandName,
-            theaterMaxPeople: recruitmentCinemaRowVo!.theaterMaxPeople,
-            theaterMinPeople: recruitmentCinemaRowVo!.theaterMinPeople,
-            recruitmentIntroduce: '',
-            recruitmentStatus: '',
-            recruitmentId: 0,
-            recruitmentPeople: 0,
-            recruitmentEndDate: '',
-            recruitmentUserImage: '',
-            recruiterUserImage: '',
-            recruiterNickname: '',
-            myNickname: ''
-        ),
-        "createDate" : data,
-      });
-
-      if ( result != null ) {
-        var resultValue = result as RecruitmentCreateVo;
-        if (resultValue.result) {
-          Get.back(result: true);
+      recruitmentUseCase.reserveRecruitment(data).then((value) {
+        isLoading.value = false;
+        if (value.result && value.content != null) {
+          _payment(value.content!.recruitmentId, value.content!.merchantUid);
         } else {
-          showDialog(context: context,
-              builder: (BuildContext context){
-                return CustomDialog(
-                  title: resultValue.message,
-                  okText: "확인",
-                  okCallBack: alertOkCallBack,
-                );
-              }
-          );
+          Get.back(result: "참여에 실패하였습니다.\n증상이 계속되면 고객센터로 문의해주세요.");
         }
+      });
+    }
+  }
+
+  _payment(int recruitmentId, String merchantUid) async {
+    Map<String,dynamic> data = {};
+    data["recruitmentId"] = "$recruitmentId";
+    data["merchantUid"] = merchantUid;
+
+    var result = await Get.toNamed(Routes.PARTICIPATION, arguments: {
+      "status" : "",
+      "data" : RecruitmentVo(
+          userRecruitmentId: 0,
+          userRecruitmentWish: false,
+          userRecruitmentYn: false,
+          userRecruitmentPeople: 0,
+          movieRecruitmentImage: '',
+          movieName: movieVo!.movieName,
+          movieImage: movieVo!.movieImage,
+          theaterStartDatetime: recruitmentCinemaRowVo!.theaterStartTime,
+          theaterEndDatetime: recruitmentCinemaRowVo!.theaterEndTime,
+          theaterDay: recruitmentCinemaRowVo!.theaterDay,
+          theaterCinemaName: recruitmentCinemaRowVo!.theaterCinemaName,
+          theaterCinemaBrandName: recruitmentCinemaRowVo!.theaterCinemaBrandName,
+          theaterMaxPeople: recruitmentCinemaRowVo!.theaterMaxPeople,
+          theaterMinPeople: recruitmentCinemaRowVo!.theaterMinPeople,
+          theaterPrice: recruitmentCinemaRowVo!.theaterPrice,
+          recruitmentIntroduce: '',
+          recruitmentStatus: '',
+          recruitmentId: 0,
+          recruitmentPeople: 0,
+          recruitmentEndDate: '',
+          recruitmentUserImage: '',
+          recruiterUserImage: '',
+          recruiterNickname: '',
+          myNickname: ''
+      ),
+      "createDate" : data,
+    });
+
+    if ( result != null ) {
+      var resultValue = result as RecruitmentDefaultVo;
+      if (resultValue.result) {
+        Get.back(result: true);
+      } else {
+        showDialog(context: context,
+            builder: (BuildContext context){
+              return CustomDialog(
+                title: resultValue.message,
+                okText: "확인",
+                okCallBack: alertOkCallBack,
+              );
+            }
+        );
       }
     }
   }
@@ -402,14 +422,20 @@ class RecruitmentCreateController extends SuperController{
     var month = changeMonthSelected.value.replaceAll("월", "");
     var day = changeDaySelected.value.replaceAll("일", "");
 
+    var monthInt = int.tryParse(month);
+    if (monthInt != null && monthInt < 10) {
+      month = "0$month";
+    }
+    var dayInt = int.tryParse(day);
+    if (dayInt != null && dayInt < 10) {
+      day = "0$day";
+    }
+
     isLoading.value = true;
     Map<String,dynamic> data = {};
     data["theaterRegion"] = changeAreaSelected.value;
-    // data["theaterRegion"] = "서울";
     data["selectDate"] = "$year-$month-$day";
-    // data["selectDate"] = "2022-11-20";
     data["movieId"] = "${movieVo!.id}";
-    // data["movieId"] = "1";
     data["page"] = "0";
     recruitmentUseCase.findCinema(data).then((value) {
       isLoading.value = false;

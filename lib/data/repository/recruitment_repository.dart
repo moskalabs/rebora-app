@@ -5,7 +5,11 @@ import 'package:rebora/domain/vo/recruitment/participation_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_cinema_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_create_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_day_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_default_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_instant_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_list_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_reservation_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_reserve_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_view_vo.dart';
 
 class RecruitmentRepository implements RecruitmentUseCase {
@@ -64,6 +68,42 @@ class RecruitmentRepository implements RecruitmentUseCase {
   @override
   Future<RecruitmentTabVo> searchRecruitmentList(Map<String, dynamic> data) async {
     final result = await provider.searchRecruitmentList(data);
+    return result.body!;
+  }
+
+  @override
+  Future<RecruitmentReservationVo> reservation(Map<String, dynamic> data) async {
+    final result = await provider.reservation(data);
+    return result.body!;
+  }
+
+  @override
+  Future<RecruitmentDefaultVo> reservationComplete(String userRecruitmentId) async {
+    final result = await provider.reservationComplete(userRecruitmentId);
+    return result.body!;
+  }
+
+  @override
+  Future<RecruitmentInstantVo> instantPayment(Map<String, dynamic> data) async {
+    final result = await provider.instantPayment(data);
+    return result.body!;
+  }
+
+  @override
+  Future<RecruitmentDefaultVo> instantPaymentComplete(Map<String, dynamic> data) async {
+    final result = await provider.instantPaymentComplete(data);
+    return result.body!;
+  }
+
+  @override
+  Future<RecruitmentReserveVo> reserveRecruitment(Map<String, dynamic> data) async {
+    final result = await provider.reserveRecruitment(data);
+    return result.body!;
+  }
+
+  @override
+  Future<RecruitmentDefaultVo> reserveRecruitmentComplete(Map<String, dynamic> data) async {
+    final result = await provider.reserveRecruitmentComplete(data);
     return result.body!;
   }
 }
