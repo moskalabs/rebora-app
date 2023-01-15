@@ -20,17 +20,14 @@ class CommonBottom extends StatelessWidget{
             width: MediaQuery.of(context).size.width,
             child: Stack(
               children: [
-                const Text(
-                  "RE:BORA",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white
-                  ),
+                const Image(
+                  width: 72,
+                  height: 17,
+                  image: AssetImage("assets/images/bottom_logo.png"),
                 ),
                 Positioned(
                   right: 0,
-                  top: 3,
+                  top: 0,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -83,7 +80,57 @@ class CommonBottom extends StatelessWidget{
             )
           ),
           Container(
-            margin: const EdgeInsets.fromLTRB(30, 27, 30, 27),
+            margin: const EdgeInsets.fromLTRB(30, 27, 30, 0),
+            child: Column(
+              children: [
+                Row(
+                  children: const [
+                    Text(
+                      "통신판매신고번호",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w200,
+                        color: Color.fromRGBO(135, 135, 135, 1)
+                      ),
+                    ),
+                    SizedBox(width: 8,),
+                    Text(
+                      "제2022-충남천안-2702호",
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          color: Color.fromRGBO(215, 215, 215, 1)
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 5,),
+                Row(
+                  children: const [
+                    Text(
+                      "고객센터",
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w200,
+                          color: Color.fromRGBO(135, 135, 135, 1)
+                      ),
+                    ),
+                    SizedBox(width: 8,),
+                    Text(
+                      "010-3599-7682",
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          color: Color.fromRGBO(215, 215, 215, 1)
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.fromLTRB(30, 13, 30, 19),
             child: const Text(
               """상호명 : (주)모스카스튜디오
 대표자 : 모성환 | 사업자등록번호 851-81-02201
@@ -91,9 +138,9 @@ class CommonBottom extends StatelessWidget{
 개인정보보호책임자 모성환
 Copyright c 2022 MOSCA. All rights Reserved.""",
               style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color.fromRGBO(190, 190, 190, 1)
+                  fontSize: 13,
+                  fontWeight: FontWeight.w100,
+                  color: Color.fromRGBO(218, 218, 218, 1)
               ),
             ),
           )

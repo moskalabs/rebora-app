@@ -23,6 +23,7 @@ class ParticipationViewController extends SuperController{
   final _stringUtil = StringUtil();
   var isLoading = false.obs;
   var isAgree = false.obs;
+  var isDetailTerm = false.obs;
   var peopleCount = 1.obs;
   var payInfoText = "".obs;
   var payInfoContent = "".obs;
