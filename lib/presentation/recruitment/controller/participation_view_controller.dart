@@ -207,7 +207,7 @@ class ParticipationViewController extends SuperController{
       "amount" : (price * peopleCount.value),
     });
 
-    if (resultValue["impUid"] != "") {
+    if (resultValue["error_code"] == "" && resultValue["impUid"] != "") {
       isLoading.value = true;
 
       Map<String,dynamic> data = {};

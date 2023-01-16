@@ -88,10 +88,14 @@ class ChangePasswordController extends SuperController {
       isLoading.value = false;
 
       if (value.result) {
+        var message = value.message;
+        if (message == null || message == "") {
+          message = "비밀번호가 변경되었습니다.";
+        }
         showDialog(context: context,
             builder: (BuildContext context){
               return CustomDialog(
-                title: value.message!,
+                title: message,
                 okText: "확인",
                 okCallBack: alertLoginCallBack,
               );

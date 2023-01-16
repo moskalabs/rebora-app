@@ -34,6 +34,8 @@ class PaymentController extends SuperController{
 
     if (merchantUid != "") {
       Get.back(result: {
+        "error_code" : (result["error_code"] == null) ? "" : result["error_code"],
+        "error_msg" : (result["error_msg"] == null) ? "" : result["error_msg"],
         "impUid" : (result["imp_uid"] == null) ? "" : result["imp_uid"],
       });
     } else {

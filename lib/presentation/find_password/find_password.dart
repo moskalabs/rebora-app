@@ -161,6 +161,7 @@ class FindPassword extends GetView<FindPasswordController>{
                                 margin: const EdgeInsets.fromLTRB(21, 17, 21, 0),
                                 width: MediaQuery.of(context).size.width,
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       children: [
@@ -250,6 +251,16 @@ class FindPassword extends GetView<FindPasswordController>{
                                       ],
                                     ),
                                     Container(
+                                      margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                      child: Text(
+                                        controller.emailAuthText.value,
+                                        style: const TextStyle(
+                                            fontSize: 14,
+                                            color: Color.fromRGBO(255, 114, 114, 1)
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
                                       alignment: Alignment.center,
                                       width: MediaQuery.of(context).size.width,
                                       margin: const EdgeInsets.fromLTRB(0, 123, 0, 90),
@@ -289,16 +300,7 @@ class FindPassword extends GetView<FindPasswordController>{
                                   ],
                                 )
                             ),
-                            Container(
-                              margin: const EdgeInsets.fromLTRB(21, 5, 0, 0),
-                              child: Text(
-                                controller.emailAuthText.value,
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Color.fromRGBO(255, 114, 114, 1)
-                                ),
-                              ),
-                            ),
+
                           ],
                         ),
                       )
