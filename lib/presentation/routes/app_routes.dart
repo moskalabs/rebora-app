@@ -3,6 +3,7 @@ abstract class Routes {
   static const LOGIN = '/login';
   static const AGREE = '/agree';
   static const JOIN = '/join';
+  static const SNS_JOIN = '/SNSJoin';
   static const FIND_PASSWORD = '/findPassword';
   static const CHANGE_PASSWORD = '/changePassword';
   static const RECRUITMENT_VIEW = '/recruitmentView';

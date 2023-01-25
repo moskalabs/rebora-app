@@ -144,7 +144,7 @@ class RecruitmentRow extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 4,),
                                   Text(
-                                    "${recruitmentData.recruitmentPeople}",
+                                    "${recruitmentData.userRecruitmentPeople}",
                                     style: TextStyle(
                                         height: 0.8,
                                         fontSize: 16,

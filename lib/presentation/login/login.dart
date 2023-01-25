@@ -170,63 +170,68 @@ class Login extends GetView<LoginController> {
                       )
                     ],
                   ),
-                  // Container(
-                  //   margin: const EdgeInsets.fromLTRB(0, 53, 0, 37),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //       Container(
-                  //         width: 83,
-                  //         height: 1,
-                  //         margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                  //         color: const Color.fromRGBO(226, 226, 226, 1),
-                  //       ),
-                  //       const Text(
-                  //           "다른 서비스 계정으로 로그인",
-                  //           style: TextStyle(
-                  //             fontSize: 16,   // This is not so important
-                  //             color: Color.fromRGBO(65, 65, 65, 1),
-                  //           )
-                  //       ),
-                  //       Container(
-                  //         width: 83,
-                  //         height: 1,
-                  //         margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  //         color: const Color.fromRGBO(226, 226, 226, 1),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     IconButton(
-                  //         padding: const EdgeInsets.all(0.0),
-                  //         onPressed: (){
-                  //         },
-                  //         icon: const Image(
-                  //             image:AssetImage("assets/images/btn_sns_kakao.png")
-                  //         )
-                  //     ),
-                  //     Container(
-                  //       margin: const EdgeInsets.fromLTRB(37, 0, 37, 0),
-                  //       child: IconButton(
-                  //           padding: const EdgeInsets.all(0.0),
-                  //           onPressed: (){},
-                  //           icon: const Image(
-                  //               image:AssetImage("assets/images/btn_sns_naver.png")
-                  //           )
-                  //       ),
-                  //     ),
-                  //     IconButton(
-                  //         padding: const EdgeInsets.all(0.0),
-                  //         onPressed: (){},
-                  //         icon: const Image(
-                  //             image:AssetImage("assets/images/btn_sns_apple.png")
-                  //         )
-                  //     )
-                  //   ],
-                  // )
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(0, 53, 0, 37),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 83,
+                          height: 1,
+                          margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                          color: const Color.fromRGBO(226, 226, 226, 1),
+                        ),
+                        const Text(
+                            "다른 서비스 계정으로 로그인",
+                            style: TextStyle(
+                              fontSize: 16,   // This is not so important
+                              color: Color.fromRGBO(65, 65, 65, 1),
+                            )
+                        ),
+                        Container(
+                          width: 83,
+                          height: 1,
+                          margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                          color: const Color.fromRGBO(226, 226, 226, 1),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                          padding: const EdgeInsets.all(0.0),
+                          onPressed: (){
+                            controller.kakaoLogin();
+                          },
+                          icon: const Image(
+                              image:AssetImage("assets/images/btn_sns_kakao.png")
+                          )
+                      ),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(37, 0, 37, 0),
+                        child: IconButton(
+                            padding: const EdgeInsets.all(0.0),
+                            onPressed: (){
+                              controller.naverLogin();
+                            },
+                            icon: const Image(
+                                image:AssetImage("assets/images/btn_sns_naver.png")
+                            )
+                        ),
+                      ),
+                      IconButton(
+                          padding: const EdgeInsets.all(0.0),
+                          onPressed: (){
+                            controller.appleLogin();
+                          },
+                          icon: const Image(
+                              image:AssetImage("assets/images/btn_sns_apple.png")
+                          )
+                      )
+                    ],
+                  )
                 ],
               ),
             ),

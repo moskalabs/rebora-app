@@ -7,6 +7,7 @@ class DataSingleton {
   static String nickName = "";
   static String profile = "";
   static String recruitmentMore = "";
+  static String pushToken = "";
 
   factory DataSingleton(){
     return _instance;

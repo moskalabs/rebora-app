@@ -94,7 +94,7 @@ class ParticipationViewController extends SuperController{
   }
 
   plusPeople () {
-    if (peopleCount.value == recruitmentVo.theaterMaxPeople) return;
+    if (peopleCount.value == (recruitmentVo.theaterMaxPeople-recruitmentVo.userRecruitmentPeople)) return;
     peopleCount.value += 1;
     var price = this.price * peopleCount.value;
     displayPrice.value = _stringUtil.numberFormat(price);

@@ -14,6 +14,8 @@ class Search extends GetView<SearchController> {
   @override
   Widget build(BuildContext context) {
 
+    controller.setContext(context);
+
     void backEvent() {
       Get.back();
     }

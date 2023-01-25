@@ -61,10 +61,23 @@ class DateUtil {
     return dateFormat.format(toDay);
   }
 
+
+  String yearDateFormat(DateTime time) {
+    DateFormat dateFormat = DateFormat("yyyy");
+
+    return dateFormat.format(time);
+  }
+
   String nowMonth() {
     var toDay = DateTime.now();
     DateFormat dateFormat = DateFormat("MM");
 
     return dateFormat.format(toDay);
+  }
+
+  String monthDateFormat(DateTime time) {
+    DateFormat dateFormat = DateFormat("MM");
+
+    return dateFormat.format(time);
   }
 }

@@ -234,7 +234,7 @@ class RecruitmentView extends GetView<RecruitmentViewController> {
                                         width: 33,
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${controller.recruitmentViewVo[0].recruitmentVo!.recruitmentPeople}",
+                                          "${controller.recruitmentViewVo[0].recruitmentVo!.userRecruitmentPeople}",
                                           style: TextStyle(
                                               color: controller.statusColor.value,
                                               fontSize: 14,

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>928932521400-0v715mfsar7lms8mbn1vfjcn1a4s66ru.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.928932521400-0v715mfsar7lms8mbn1vfjcn1a4s66ru</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCVA6nx0IkQvlZN961BihcExeTcE2E3hvQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>928932521400</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.moca.rebora</string>
+	<key>PROJECT_ID</key>
+	<string>rebora-98afa</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rebora-98afa.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:928932521400:ios:37f45eff1761d6a3541b4d</string>
+</dict>
+</plist>

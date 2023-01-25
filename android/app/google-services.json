@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "928932521400",
+    "project_id": "rebora-98afa",
+    "storage_bucket": "rebora-98afa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928932521400:android:01e45d8a8723ed64541b4d",
+        "android_client_info": {
+          "package_name": "com.moca.rebora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928932521400-eclp978oslqc0irfv2a3bdogsqlqov87.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwgNGPNZhzTFvn03iYkBD1NGcwk_JTk-U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928932521400-eclp978oslqc0irfv2a3bdogsqlqov87.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "928932521400-0v715mfsar7lms8mbn1vfjcn1a4s66ru.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.moca.rebora",
+                "app_store_id": "6444668509"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:rebora/domain/usecase/recruitment_usecase.dart';
 import 'package:rebora/domain/vo/main/movie_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_cinema_row_vo.dart';
-import 'package:rebora/domain/vo/recruitment/recruitment_create_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_default_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_vo.dart';
 import 'package:rebora/presentation/common/date_util.dart';
@@ -61,6 +60,7 @@ class RecruitmentCreateController extends SuperController{
   var changeYearSelected = "".obs;
   var changeMonthSelected = "".obs;
   var changeDaySelected = "".obs;
+  DateTime? addThreeMount;
 
   String? selectedValue;
   String? selectedYearValue;
@@ -98,6 +98,9 @@ class RecruitmentCreateController extends SuperController{
     }
     recruitmentCinemaRowVo = null;
 
+    DateTime now = DateTime.now();
+    addThreeMount = now.add(const Duration(days: 90));
+
     _setYear();
     _setMonth();
     _setDay();
@@ -105,9 +108,13 @@ class RecruitmentCreateController extends SuperController{
 
   _setYear() {
     var nowYear = int.parse(dateUtil.nowYear());
+    var addYear = int.parse(dateUtil.yearDateFormat(addThreeMount!));
+
     yearItems.clear();
     yearItems.add('$nowYear년');
-    yearItems.add('${nowYear+1}년');
+    if (nowYear != addYear) {
+      yearItems.add('$addYear년');
+    }
     selectedYearValue = "$nowYear년";
     changeYearSelected.value = "$nowYear년";
   }
@@ -117,11 +124,19 @@ class RecruitmentCreateController extends SuperController{
     var nowYear = int.parse(dateUtil.nowYear());
 
     var nowMonth = 1;
+    var maxMonth = int.parse(dateUtil.monthDateFormat(addThreeMount!));
     if (changeYearSelected.value == "$nowYear년") {
       nowMonth = int.parse(dateUtil.nowMonth());
+      if (maxMonth < nowMonth) {
+        maxMonth = 12;
+      }
     }
 
-    for ( var month = nowMonth; month <= 12; month++ ) {
+    if (changeYearSelected.value != "$nowYear년") {
+      nowMonth = 1;
+    }
+
+    for ( var month = nowMonth; month <= maxMonth; month++ ) {
       monthItems.add('$month월');
     }
     selectedMonthValue = "$nowMonth월";
@@ -230,8 +245,6 @@ class RecruitmentCreateController extends SuperController{
     if ( !_checkBannerSubTextInfo() ) checkSubmit = false;
     if ( !_checkAgreed() )checkSubmit = false;
 
-
-
     if ( checkSubmit ) {
       isLoading.value = true;
       Map<String,dynamic> data = {};
@@ -245,9 +258,31 @@ class RecruitmentCreateController extends SuperController{
       recruitmentUseCase.reserveRecruitment(data).then((value) {
         isLoading.value = false;
         if (value.result && value.content != null) {
-          _payment(value.content!.recruitmentId, value.content!.merchantUid);
+          showDialog(context: context,
+              builder: (BuildContext context){
+                return CustomDialog(
+                  title: "선택하신 상영관을 임시 예약 했습니다.\n15분내 결제 완료 진행해 주세요",
+                  okText: "확인",
+                  okCallBack: () {
+                    Navigator.of(context).pop();
+                    _payment(value.content!.recruitmentId, value.content!.merchantUid);
+                  },
+                );
+              }
+          );
         } else {
-          Get.back(result: "참여에 실패하였습니다.\n증상이 계속되면 고객센터로 문의해주세요.");
+
+          showDialog(context: context,
+              builder: (BuildContext context){
+                return CustomDialog(
+                  title: "죄송합니다. \n선택하신 상영관이 다른회원에 먼저 예약되었습니다. 상영관을 다시 선택해 주세요.",
+                  okText: "확인",
+                  okCallBack: () {
+                    Navigator.of(context).pop();
+                  },
+                );
+              }
+          );
         }
       });
     }

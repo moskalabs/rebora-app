@@ -8,7 +8,9 @@ import 'package:rebora/presentation/home/home.dart';
 import 'package:rebora/presentation/join/agree.dart';
 import 'package:rebora/presentation/join/binding/agree_binding.dart';
 import 'package:rebora/presentation/join/binding/join_binding.dart';
+import 'package:rebora/presentation/join/binding/sns_join_binding.dart';
 import 'package:rebora/presentation/join/join.dart';
+import 'package:rebora/presentation/join/sns_join.dart';
 import 'package:rebora/presentation/login/binding/login_binding.dart';
 import 'package:rebora/presentation/login/login.dart';
 import 'package:rebora/presentation/movie/binding/movie_recruitment_view_binding.dart';
@@ -58,6 +60,11 @@ class AppPages {
       name: Routes.JOIN,
       page: ()=> const Join(),
       binding: JoinBinding(),
+    ),
+    GetPage(
+      name: Routes.SNS_JOIN,
+      page: ()=> const SNSJoin(),
+      binding: SNSJoinBinding(),
     ),
     GetPage(
       name: Routes.FIND_PASSWORD,
