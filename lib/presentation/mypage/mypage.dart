@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -94,11 +95,6 @@ class MyPage extends GetView<MyPageController> {
                                             )
                                           ),
                                           Container(
-                                            width: MediaQuery.of(context).size.width,
-                                            height: 1,
-                                            color: const Color.fromRGBO(244, 244, 244, 1)
-                                          ),
-                                          Container(
                                             height: 50,
                                             margin: const EdgeInsets.only(left: 25),
                                             child: InkWell(
@@ -127,11 +123,6 @@ class MyPage extends GetView<MyPageController> {
                                             ),
                                           ),
                                           Container(
-                                              width: MediaQuery.of(context).size.width,
-                                              height: 1,
-                                              color: const Color.fromRGBO(244, 244, 244, 1)
-                                          ),
-                                          Container(
                                             height: 50,
                                             margin: const EdgeInsets.only(left: 27),
                                             child: InkWell(
@@ -157,6 +148,95 @@ class MyPage extends GetView<MyPageController> {
                                                 ],
                                               ),
                                             )
+                                          ),
+                                          Container(
+                                              height: 50,
+                                              margin: const EdgeInsets.only(left: 34),
+                                              child: Row(
+                                                children: [
+                                                  Image.asset(
+                                                    "assets/images/icon_push.png",
+                                                    width: 15,
+                                                    height: 19,
+                                                  ),
+                                                  const SizedBox(width: 20,),
+                                                  const Expanded(
+                                                      child: Text(
+                                                        "푸시알림 설정",
+                                                        style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight: FontWeight.w500,
+                                                            color: Color.fromRGBO(66, 66, 66, 1)
+                                                        ),
+                                                      )
+                                                  ),
+                                                  SizedBox(
+                                                    width: 34,
+                                                    height: 18,
+                                                    child: Transform.scale(
+                                                      transformHitTests: false,
+                                                      scale: .9,
+                                                      child: CupertinoSwitch(
+                                                        value: controller.isPushAlarm.value,
+                                                        onChanged: (value) {
+                                                          controller.isPushAlarm.value = value;
+                                                          // switchValue = value;
+                                                        },
+                                                        activeColor: const Color.fromRGBO(138, 94, 255, 1),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 32,),
+                                                ],
+                                              ),
+                                          ),
+                                          Container(
+                                            height: 70,
+                                            margin: const EdgeInsets.only(left: 34),
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(top: 17),
+                                                  child: Image.asset(
+                                                    "assets/images/icon_push_sleep.png",
+                                                    width: 17,
+                                                    height: 17,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 20,),
+                                                Expanded(
+                                                    child: Container(
+                                                      margin: const EdgeInsets.only(top: 13),
+                                                      child: const Text(
+                                                        "야간 푸시알림을 받지 않습니다.\n( 오후 11시부터 오전 8시까지 )",
+                                                        style: TextStyle(
+                                                            fontSize: 15,
+                                                            fontWeight: FontWeight.w400,
+                                                            color: Color.fromRGBO(111, 111, 111, 1)
+                                                        ),
+                                                      ),
+                                                    )
+                                                ),
+                                                Container(
+                                                  width: 34,
+                                                  height: 18,
+                                                  margin: const EdgeInsets.only(top: 17),
+                                                  child: Transform.scale(
+                                                    transformHitTests: false,
+                                                    scale: .9,
+                                                    child: CupertinoSwitch(
+                                                      value: controller.isNightPushAlarm.value,
+                                                      onChanged: (value) {
+                                                        controller.isNightPushAlarm.value = value;
+                                                      },
+                                                      activeColor: const Color.fromRGBO(138, 94, 255, 1),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 32,),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),

@@ -129,6 +129,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    //initialRoute: (token == "")?AppPages.LOGIN:AppPages.HOME,
     return GetMaterialApp(
       enableLog: false,
       initialRoute: (token == "")?AppPages.LOGIN:AppPages.HOME,

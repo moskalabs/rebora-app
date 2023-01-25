@@ -107,7 +107,7 @@ class LoginController extends SuperController<LoginVo> {
         isLoading.value = false;
 
         if (value.result) {
-          if ( value.errorCode == 500) {
+          if ( value.errorCode == "500") {
 
           } else {
             prefs.setString(AppConst.LOGIN_TOKEN,value.token);
@@ -153,7 +153,7 @@ class LoginController extends SuperController<LoginVo> {
       isLoading.value = false;
 
       if (value.result) {
-        if ( value.errorCode == 500) {
+        if ( value.errorCode == "500") {
 
         } else {
           prefs.setString(AppConst.LOGIN_TOKEN,value.token);

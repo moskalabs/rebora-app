@@ -19,6 +19,8 @@ class MyPageController extends SuperController {
   var myRecruitment = "".obs;
   var participationHistory = "".obs;
   var isLoading = false.obs;
+  var isPushAlarm = false.obs;
+  var isNightPushAlarm = false.obs;
 
   StringUtil stringUtil = StringUtil();
 
