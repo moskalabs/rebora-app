@@ -69,7 +69,7 @@ class MyPageController extends SuperController {
               isLoading.value = true;
 
               Map<String,dynamic> data = {};
-              data["userPushYn"] = selectAgree;
+              data["userPushYn"] = "$selectAgree";
               data["userPushKey"] = DataSingleton.pushToken;
 
               userUseCase.updatePushAgree("${DataSingleton.userId}", data).then((value) {
@@ -110,7 +110,7 @@ class MyPageController extends SuperController {
               isLoading.value = true;
 
               Map<String,dynamic> data = {};
-              data["userPushNightYn"] = selectAgree;
+              data["userPushNightYn"] = "$selectAgree";
               data["userPushKey"] = DataSingleton.pushToken;
 
               userUseCase.updateNightPushAgree("${DataSingleton.userId}", data).then((value) {

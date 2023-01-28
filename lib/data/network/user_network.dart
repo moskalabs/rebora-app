@@ -108,6 +108,7 @@ class UserNetwork extends GetConnect implements UserProvider {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
           "token" : DataSingleton.token
         },
+        query: data,
         decoder: (value) => DefaultVo.fromJson(value as Map<String, dynamic>)
     );
   }
@@ -121,6 +122,7 @@ class UserNetwork extends GetConnect implements UserProvider {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
           "token" : DataSingleton.token
         },
+        query: data,
         decoder: (value) => DefaultVo.fromJson(value as Map<String, dynamic>)
     );
   }
