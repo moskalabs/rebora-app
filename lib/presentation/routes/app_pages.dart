@@ -17,9 +17,12 @@ import 'package:rebora/presentation/movie/binding/movie_recruitment_view_binding
 import 'package:rebora/presentation/movie/binding/movie_search_view_binding.dart';
 import 'package:rebora/presentation/movie/movie_recruitment_view.dart';
 import 'package:rebora/presentation/movie/movie_search_view.dart';
+import 'package:rebora/presentation/mypage/binding/favor_binding.dart';
+import 'package:rebora/presentation/mypage/binding/mypage_alarm_binding.dart';
 import 'package:rebora/presentation/mypage/binding/mypage_binding.dart';
 import 'package:rebora/presentation/mypage/binding/participation_list_binding.dart';
 import 'package:rebora/presentation/mypage/binding/profile_update_binding.dart';
+import 'package:rebora/presentation/mypage/favor.dart';
 import 'package:rebora/presentation/mypage/mypage.dart';
 import 'package:rebora/presentation/mypage/mypage_alarm.dart';
 import 'package:rebora/presentation/mypage/participation_list.dart';
@@ -119,7 +122,7 @@ class AppPages {
     GetPage(
       name: Routes.MY_ALARM,
       page: ()=> const MyPageAlarm(),
-      // binding: ProfileUpdateBinding(),
+      binding: MyPageAlarmBinding(),
     ),
     GetPage(
       name: Routes.SEARCH,
@@ -135,6 +138,11 @@ class AppPages {
       name: Routes.PAYMENT,
       page: ()=> const Payment(),
       binding: PaymentBinding(),
+    ),
+    GetPage(
+      name: Routes.MY_FAVOR,
+      page: ()=> const Favor(),
+      binding: FavorBinding(),
     ),
   ];
 

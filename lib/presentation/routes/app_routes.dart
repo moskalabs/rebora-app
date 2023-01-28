@@ -15,6 +15,7 @@ abstract class Routes {
   static const MY_PAGE_RECRUITMENT = '/myPageRecruitment';
   static const PROFILE_UPDATE = '/profileUpdate';
   static const MY_ALARM = '/myAlarm';
+  static const MY_FAVOR = '/myFavor';
   static const SEARCH = '/search';
   static const MOVIE_RECRUITMENT_CANCEL = '/movieRecruitmentCancel';
   static const PAYMENT = '/payment';

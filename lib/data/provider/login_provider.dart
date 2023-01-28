@@ -6,4 +6,5 @@ abstract class LoginProvider{
   Future<Response<LoginVo>> login(Map<String,dynamic> data);
   Future<Response<SNSLoginVo>> naverLogin(Map<String,dynamic> data);
   Future<Response<SNSLoginVo>> kakaoLogin(Map<String,dynamic> data);
+  Future<Response<SNSLoginVo>> appleLogin(Map<String,dynamic> data);
 }

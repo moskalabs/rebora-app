@@ -23,6 +23,8 @@ class AgreeController extends SuperController<AgreeVo> {
   var showBox2 = false.obs;
   var showBox3 = false.obs;
 
+  late dynamic argument;
+
   AgreeController({
     required this.joinUseCase
   });
@@ -34,6 +36,11 @@ class AgreeController extends SuperController<AgreeVo> {
   @override
   void onInit() {
     super.onInit();
+
+    if ( Get.arguments != null ) {
+      argument = Get.arguments;
+      print("@@@@ = ${Get.arguments}");
+    }
 
     joinUseCase.agree().then((value) {
       if ( value.result ) {
@@ -138,7 +145,14 @@ class AgreeController extends SuperController<AgreeVo> {
       return;
     }
 
-    Get.toNamed(Routes.JOIN, arguments: check3.value);
+    if ( argument == null ) {
+      Get.toNamed(Routes.JOIN, arguments: check3.value);
+    } else {
+      Get.toNamed(Routes.SNS_JOIN, arguments: {
+        "snsObj" : argument,
+        "check3" : check3.value
+      });
+    }
   }
 
   @override

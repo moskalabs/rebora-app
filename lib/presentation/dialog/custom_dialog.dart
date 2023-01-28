@@ -42,7 +42,8 @@ class CustomDialogState extends State<CustomDialog> {
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       fontSize: 16,
-                      color: Color.fromRGBO(40, 40, 40, 1)
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromRGBO(48, 48, 48, 1)
                   ),
                 ),
               )
@@ -53,9 +54,11 @@ class CustomDialogState extends State<CustomDialog> {
                 margin: const EdgeInsets.fromLTRB(32, 10, 32, 0),
                 child: Text(
                   widget.descriptions!,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
-                      fontSize: 16,
-                      color: Color.fromRGBO(69, 69, 69, 1)
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Color.fromRGBO(98, 98, 98, 1)
                   ),
                 ),
               )

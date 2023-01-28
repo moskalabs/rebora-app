@@ -6,6 +6,9 @@ class LoginVo {
   final String token;
   final String userImage;
   final String userNickname;
+  final int userId;
+  final bool userPushYn;
+  final bool userPushNightYn;
 
   LoginVo({
     required this.result,
@@ -13,7 +16,10 @@ class LoginVo {
     required this.message,
     required this.token,
     required this.userImage,
-    required this.userNickname
+    required this.userNickname,
+    required this.userId,
+    required this.userPushYn,
+    required this.userPushNightYn
   });
 
   factory LoginVo.fromJson(Map<String, dynamic> json) => LoginVo(
@@ -23,5 +29,8 @@ class LoginVo {
     token: (json["token"] == null)?"":json["token"] as String,
     userImage: (json["userImage"] == null)?"":json["userImage"] as String,
     userNickname: (json["userNickname"] == null)?"":json["userNickname"] as String,
+    userId : (json["userId"] == null)?-1:json["userId"] as int,
+    userPushYn: (json["userPushYn"] == null)?false:json["userPushYn"] as bool,
+    userPushNightYn: (json["userPushNightYn"] == null)?false:json["userPushNightYn"] as bool,
   );
 }

@@ -74,9 +74,12 @@ class LoginController extends SuperController<LoginVo> {
         prefs.setString(AppConst.NICKNAME,value.userNickname);
         prefs.setString(AppConst.PROFILE_IMAGE,value.userImage);
 
+        DataSingleton.userId = value.userId;
         DataSingleton.token = value.token;
         DataSingleton.nickName = value.userNickname;
         DataSingleton.profile = value.userImage;
+        DataSingleton.userPushYn = value.userPushYn;
+        DataSingleton.userPushNightYn = value.userPushNightYn;
         Get.offAllNamed(Routes.HOME);
       } else {
         showDialog(context: context,
@@ -108,15 +111,18 @@ class LoginController extends SuperController<LoginVo> {
 
         if (value.result) {
           if ( value.errorCode == "500") {
-
+            _snsJoinPage(value.userEmail,value.userSnsKind,value.userSnsId);
           } else {
             prefs.setString(AppConst.LOGIN_TOKEN,value.token);
             prefs.setString(AppConst.NICKNAME,value.userNickname);
             prefs.setString(AppConst.PROFILE_IMAGE,value.userImage);
 
+            DataSingleton.userId = value.userId;
             DataSingleton.token = value.token;
             DataSingleton.nickName = value.userNickname;
             DataSingleton.profile = value.userImage;
+            DataSingleton.userPushYn = value.userPushYn;
+            DataSingleton.userPushNightYn = value.userPushNightYn;
             Get.offAllNamed(Routes.HOME);
           }
         } else {
@@ -154,15 +160,18 @@ class LoginController extends SuperController<LoginVo> {
 
       if (value.result) {
         if ( value.errorCode == "500") {
-
+          _snsJoinPage(value.userEmail,value.userSnsKind,value.userSnsId);
         } else {
           prefs.setString(AppConst.LOGIN_TOKEN,value.token);
           prefs.setString(AppConst.NICKNAME,value.userNickname);
           prefs.setString(AppConst.PROFILE_IMAGE,value.userImage);
 
+          DataSingleton.userId = value.userId;
           DataSingleton.token = value.token;
           DataSingleton.nickName = value.userNickname;
           DataSingleton.profile = value.userImage;
+          DataSingleton.userPushYn = value.userPushYn;
+          DataSingleton.userPushNightYn = value.userPushNightYn;
           Get.offAllNamed(Routes.HOME);
         }
       } else {
@@ -182,20 +191,65 @@ class LoginController extends SuperController<LoginVo> {
   }
 
   appleLogin() async {
+    var aa = Uri.parse("${AppConst.BASE_URL}/api/user/oath/appleCallback");
+    print("@@@  = $aa");
     final credential = await SignInWithApple.getAppleIDCredential(
       scopes: [
         AppleIDAuthorizationScopes.email,
       ],
       webAuthenticationOptions: WebAuthenticationOptions(
         clientId: "rebora.com.moca",
-        redirectUri: Uri.parse("https://rebora-98afa.firebaseapp.com/__/auth/handler"),
+        redirectUri: Uri.parse("${AppConst.BASE_URL}/api/user/oath/appleCallback"),
       )
     );
 
+    var idToken = credential.identityToken;
+    final prefs = await SharedPreferences.getInstance();
 
-    var authCode = credential.authorizationCode;
-    print("authCode = $authCode");
-    print("credential = $credential");
+    isLoading.value = true;
+    Map<String,dynamic> data = {};
+    data["idToken"] = idToken;
+    data["userPushKey"] = DataSingleton.pushToken;
+
+    loginUseCase.appleLogin(data).then((value) {
+      isLoading.value = false;
+
+      if (value.result) {
+        if ( value.errorCode == "500") {
+          _snsJoinPage(value.userEmail,value.userSnsKind,value.userSnsId);
+        } else {
+          prefs.setString(AppConst.LOGIN_TOKEN,value.token);
+          prefs.setString(AppConst.NICKNAME,value.userNickname);
+          prefs.setString(AppConst.PROFILE_IMAGE,value.userImage);
+
+          DataSingleton.userId = value.userId;
+          DataSingleton.token = value.token;
+          DataSingleton.nickName = value.userNickname;
+          DataSingleton.profile = value.userImage;
+          DataSingleton.userPushYn = value.userPushYn;
+          DataSingleton.userPushNightYn = value.userPushNightYn;
+          Get.offAllNamed(Routes.HOME);
+        }
+      } else {
+        showDialog(context: context,
+            builder: (BuildContext context){
+              return CustomDialog(
+                title: value.message,
+                okText: "확인",
+                okCallBack: alertOkCallBack,
+              );
+            }
+        );
+      }
+    });
+  }
+
+  _snsJoinPage(String userEmail,String userSnsKind,String userSnsId) {
+    Get.toNamed(Routes.AGREE, arguments: {
+      "userEmail" : userEmail,
+      "userSnsKind" : userSnsKind,
+      "userSnsId" : userSnsId
+    });
   }
 
   @override

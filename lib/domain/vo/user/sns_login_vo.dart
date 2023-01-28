@@ -9,6 +9,9 @@ class SNSLoginVo {
   final String userEmail;
   final String userSnsId;
   final String userSnsKind;
+  final int userId;
+  final bool userPushYn;
+  final bool userPushNightYn;
 
   SNSLoginVo({
     required this.result,
@@ -19,7 +22,10 @@ class SNSLoginVo {
     required this.userNickname,
     required this.userEmail,
     required this.userSnsId,
-    required this.userSnsKind
+    required this.userSnsKind,
+    required this.userId,
+    required this.userPushYn,
+    required this.userPushNightYn
   });
 
   factory SNSLoginVo.fromJson(Map<String, dynamic> json) => SNSLoginVo(
@@ -32,5 +38,8 @@ class SNSLoginVo {
     userEmail: (json["userEmail"] == null)?"":json["userEmail"] as String,
     userSnsId: (json["userSnsId"] == null)?"":json["userSnsId"] as String,
     userSnsKind: (json["userSnsKind"] == null)?"":json["userSnsKind"] as String,
+    userId : (json["userId"] == null)?-1:json["userId"] as int,
+    userPushYn: (json["userPushYn"] == null)?false:json["userPushYn"] as bool,
+    userPushNightYn: (json["userPushNightYn"] == null)?false:json["userPushNightYn"] as bool,
   );
 }

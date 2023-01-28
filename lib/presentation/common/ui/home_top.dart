@@ -77,46 +77,49 @@ class HomeNavigationBar extends StatelessWidget{
                             fit: BoxFit.fill,
                             image: AssetImage("assets/images/icon_alaert.png"),
                           ),
-                          // Positioned(
-                          //   right: 0,
-                          //   top: 0,
-                          //   child: Visibility(
-                          //     visible: true,
-                          //     child: ClipRRect(
-                          //       borderRadius: BorderRadius.circular(7),
-                          //       child: Stack(
-                          //         children: <Widget>[
-                          //           Positioned.fill(
-                          //             child: Container(
-                          //               decoration: BoxDecoration(
-                          //                   color: const Color.fromRGBO(255, 127, 34, 1),
-                          //                   borderRadius: const BorderRadius.all(Radius.circular(7)),
-                          //                   border: Border.all(
-                          //                       width: 1,
-                          //                       color: const Color.fromRGBO(255, 127, 34, 1)
-                          //                   )
-                          //               ),
-                          //             ),
-                          //           ),
-                          //           SizedBox(
-                          //               child: Row(
-                          //                 mainAxisAlignment: MainAxisAlignment.center,
-                          //                 children: const [
-                          //                   Text(
-                          //                     "99",
-                          //                     style: TextStyle(
-                          //                         fontSize: 12,
-                          //                         color: Color.fromRGBO(255, 255, 255, 1)
-                          //                     ),
-                          //                   ),
-                          //                 ],
-                          //               )
-                          //           )
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   )
-                          // ),
+                          if ( 0 < DataSingleton.notificationCount) ... [
+                            Positioned(
+                                right: 0,
+                                top: 0,
+                                child: Visibility(
+                                  visible: true,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(7),
+                                    child: Stack(
+                                      children: <Widget>[
+                                        Positioned.fill(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromRGBO(255, 127, 34, 1),
+                                                borderRadius: const BorderRadius.all(Radius.circular(7)),
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color: const Color.fromRGBO(255, 127, 34, 1)
+                                                )
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                            margin: const EdgeInsets.only(left: 2,right: 2),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "${DataSingleton.notificationCount}",
+                                                  style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Color.fromRGBO(255, 255, 255, 1)
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                            ),
+                          ]
                         ],
                       ),
                     ),

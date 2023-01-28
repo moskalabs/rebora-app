@@ -15,6 +15,7 @@ class JoinNetwork extends GetConnect implements JoinProvider {
   final _emailAuthPath = "/api/user/validationEmailCode";
   final _nickNameCheckPath = "/api/user/checkRedundancyNickname";
   final _joinPath = "/api/user/signUp";
+  final _SNSJoinPath = "/api/user/oath/signUpSns";
   final _changePasswordPath = "/api/user/changePassword";
 
   @override
@@ -67,6 +68,17 @@ class JoinNetwork extends GetConnect implements JoinProvider {
   Future<Response<JoinVo>> join(Map<String, dynamic> data) {
     return post(
         _joinPath,
+        data,
+        headers: {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"},
+        query: data,
+        decoder: (value) => JoinVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+  @override
+  Future<Response<JoinVo>> SNSJoin(Map<String, dynamic> data) {
+    return post(
+        _SNSJoinPath,
         data,
         headers: {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"},
         query: data,

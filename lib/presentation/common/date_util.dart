@@ -10,6 +10,14 @@ class DateUtil {
     return dateFormat.format(dateTime);
   }
 
+  String changeYYYMMDDHHMM(String date) {
+    DateFormat dateFormat = DateFormat("yyyy년 MM월 d일 HH:mm");
+    var dateTime = _parseDateTime(date);
+    if ( dateTime == null ) return date;
+
+    return dateFormat.format(dateTime);
+  }
+
   String changeMMDD(String date) {
     DateFormat dateFormat = DateFormat("MM월 dd일");
     var dateTime = _parseDateTime(date);

@@ -22,7 +22,13 @@ class LoginRepository implements LoginUseCase{
 
   @override
   Future<SNSLoginVo> kakaoLogin(Map<String,dynamic> data) async {
-    final login = await provider.naverLogin(data);
+    final login = await provider.kakaoLogin(data);
+    return login.body!;
+  }
+
+  @override
+  Future<SNSLoginVo> appleLogin(Map<String,dynamic> data) async {
+    final login = await provider.appleLogin(data);
     return login.body!;
   }
 }

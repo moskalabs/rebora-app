@@ -34,7 +34,7 @@ class MyPage extends GetView<MyPageController> {
         body: Obx(() {
           return Container(
             height: MediaQuery.of(context).size.height,
-            color: const Color.fromRGBO(251, 251, 251, 1),
+            color: const Color.fromRGBO(255, 255, 255, 1),
             child: Stack(
               children: [
                 SizedBox(
@@ -122,6 +122,35 @@ class MyPage extends GetView<MyPageController> {
                                               ),
                                             ),
                                           ),
+
+                                          Container(
+                                            height: 50,
+                                            margin: const EdgeInsets.only(left: 25),
+                                            child: InkWell(
+                                              onTap: () {
+                                                Get.offNamed(Routes.MY_FAVOR);
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  const SizedBox(width: 8,),
+                                                  Image.asset(
+                                                    "assets/images/icon_favor.png",
+                                                    width: 14,
+                                                    height: 13,
+                                                  ),
+                                                  const SizedBox(width: 22,),
+                                                  const Text(
+                                                    "찜 목록",
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Color.fromRGBO(66, 66, 66, 1)
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
                                           Container(
                                             height: 50,
                                             margin: const EdgeInsets.only(left: 27),
@@ -179,8 +208,7 @@ class MyPage extends GetView<MyPageController> {
                                                       child: CupertinoSwitch(
                                                         value: controller.isPushAlarm.value,
                                                         onChanged: (value) {
-                                                          controller.isPushAlarm.value = value;
-                                                          // switchValue = value;
+                                                          controller.updatePushAgree(value);
                                                         },
                                                         activeColor: const Color.fromRGBO(138, 94, 255, 1),
                                                       ),
@@ -228,7 +256,7 @@ class MyPage extends GetView<MyPageController> {
                                                     child: CupertinoSwitch(
                                                       value: controller.isNightPushAlarm.value,
                                                       onChanged: (value) {
-                                                        controller.isNightPushAlarm.value = value;
+                                                        controller.updateNightPushAgree(value);
                                                       },
                                                       activeColor: const Color.fromRGBO(138, 94, 255, 1),
                                                     ),

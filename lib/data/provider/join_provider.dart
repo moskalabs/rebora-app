@@ -13,4 +13,5 @@ abstract class JoinProvider{
   Future<Response<NickNameCheckVo>> nickNameCheck(Map<String,dynamic> data);
   Future<Response<JoinVo>> join(Map<String,dynamic> data);
   Future<Response<ChangePasswordVo>> changePassword(Map<String,dynamic> data);
+  Future<Response<JoinVo>> SNSJoin(Map<String,dynamic> data);
 }

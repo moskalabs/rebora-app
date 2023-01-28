@@ -12,4 +12,5 @@ abstract class JoinUseCase{
   Future<NickNameCheckVo> nickNameCheck(Map<String,dynamic> data);
   Future<JoinVo> join(Map<String,dynamic> data);
   Future<ChangePasswordVo> changePassword(Map<String,dynamic> data);
+  Future<JoinVo> SNSJoin(Map<String,dynamic> data);
 }

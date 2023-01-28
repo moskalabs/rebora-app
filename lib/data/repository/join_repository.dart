@@ -47,4 +47,10 @@ class JoinRepository implements JoinUseCase{
     final result = await provider.changePassword(data);
     return result.body!;
   }
+
+  @override
+  Future<JoinVo> SNSJoin(Map<String,dynamic> data) async {
+    final result = await provider.SNSJoin(data);
+    return result.body!;
+  }
 }

@@ -300,6 +300,7 @@ class JoinController extends SuperController {
     // data["userNickname"] = joinNickNameController.text;
     data["password"] =joinPasswordController.text;
     data["authKey"] = authCode;
+    data["userPushKey"] = DataSingleton.pushToken;
     data["userPushYn"] = (selectAgree) ? "true" : "false";
     data["userPushNightYn"] = "false";
 
@@ -312,8 +313,11 @@ class JoinController extends SuperController {
         prefs.setString(AppConst.LOGIN_TOKEN,value.token!);
         prefs.setString(AppConst.NICKNAME,checkNickName);
 
+        DataSingleton.userId = value.userId;
         DataSingleton.token = value.token!;
         DataSingleton.nickName = checkNickName;
+        DataSingleton.userPushYn = value.userPushYn;
+        DataSingleton.userPushNightYn = value.userPushNightYn;
         Get.offAllNamed(Routes.HOME);
       } else {
         showDialog(context: context,
