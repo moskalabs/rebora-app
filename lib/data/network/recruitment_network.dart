@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
 import 'package:rebora/data/provider/recruitment_provider.dart';
+import 'package:rebora/domain/vo/default_vo.dart';
 import 'package:rebora/domain/vo/main/recruitment_tab_vo.dart';
 import 'package:rebora/domain/vo/recruitment/participation_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_cinema_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_comment_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_create_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_day_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_default_vo.dart';
@@ -31,6 +33,8 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
   final _recruitmentInstantCompletePath = "/api/payment/saveImmediatePayment";
   final _reserveRecruitmentPath = "/api/recruitment/reserveRecruitment";
   final _createRecruitmentPath = "/api/recruitment/createRecruitment";
+  final _commentPath = "/api/comment/getCommentList";
+  final _commentWritePath = "/api/comment/createComment";
 
   @override
   void onInit() {
@@ -236,6 +240,34 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
         },
         query: data,
         decoder: (value) => RecruitmentDefaultVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+
+  @override
+  Future<Response<RecruitmentCommentVo>> recruitmentComment(String id, Map<String, dynamic> data) {
+    return get(
+        "$_commentPath/$id",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "token" : DataSingleton.token
+        },
+        query: data,
+        decoder: (value) => RecruitmentCommentVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+  @override
+  Future<Response<DefaultVo>> recruitmentCommentWrite(Map<String, dynamic> data) {
+    return post(
+        _commentWritePath,
+        data,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "token" : DataSingleton.token
+        },
+        query: data,
+        decoder: (value) => DefaultVo.fromJson(value as Map<String, dynamic>)
     );
   }
 }

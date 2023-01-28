@@ -1,6 +1,8 @@
+import 'package:rebora/domain/vo/default_vo.dart';
 import 'package:rebora/domain/vo/main/recruitment_tab_vo.dart';
 import 'package:rebora/domain/vo/recruitment/participation_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_cinema_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_comment_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_create_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_day_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_default_vo.dart';
@@ -26,4 +28,6 @@ abstract class RecruitmentUseCase{
   Future<RecruitmentDefaultVo> instantPaymentComplete(Map<String,dynamic> data);
   Future<RecruitmentReserveVo> reserveRecruitment(Map<String,dynamic> data);
   Future<RecruitmentDefaultVo> reserveRecruitmentComplete(Map<String,dynamic> data);
+  Future<RecruitmentCommentVo> recruitmentComment(String id, Map<String,dynamic> data);
+  Future<DefaultVo> recruitmentCommentWrite(Map<String,dynamic> data);
 }

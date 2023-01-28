@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rebora/domain/usecase/recruitment_usecase.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_comment_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_view_vo.dart';
 import 'package:rebora/presentation/common/app_status.dart';
 import 'package:rebora/presentation/common/data_singleton.dart';
 import 'package:rebora/presentation/common/date_util.dart';
+import 'package:rebora/presentation/common/string_util.dart';
 import 'package:rebora/presentation/common/ui/app_toast.dart';
 import 'package:rebora/presentation/dialog/custom_dialog.dart';
 import 'package:rebora/presentation/routes/app_routes.dart';
@@ -19,6 +21,7 @@ class RecruitmentViewController extends SuperController{
   final RecruitmentUseCase recruitmentUseCase;
   AppToast appToast = AppToast();
 
+  var scrollController = ScrollController();
   var isLoading = false.obs;
   var recruitmentViewVo = <RecruitmentViewVo>[].obs;
   var statusColor = const Color.fromRGBO(0, 0, 0, 0).obs;
@@ -31,6 +34,13 @@ class RecruitmentViewController extends SuperController{
   var diffDay = 0.obs;
   var id = "";
 
+  final commentController = TextEditingController();
+  var commentList = <RecruitmentCommentContentVo>[].obs;
+  var totalCount = "".obs;
+  var lastPage = false;
+  var page = 0;
+
+  StringUtil stringUtil = StringUtil();
   final DateUtil dateUtil = DateUtil();
   final AppStatus appStatus = AppStatus();
 
@@ -49,6 +59,16 @@ class RecruitmentViewController extends SuperController{
     super.onInit();
     id = "${Get.arguments}";
     _loadData();
+    _commentList();
+
+    scrollController.addListener(() {
+      if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+        if ( !isLoading.value && !lastPage) {
+          page++;
+          // _getMovieData();
+        }
+      }
+    });
   }
 
   _loadData() {
@@ -102,6 +122,47 @@ class RecruitmentViewController extends SuperController{
     });
   }
 
+  _commentList() {
+
+    Map<String,dynamic> data = {};
+    data["page"] = "$page";
+    recruitmentUseCase.recruitmentComment(id, data).then((value) {
+      if (value.result && value.page != null && value.page!.content != null) {
+        lastPage = value.page!.last;
+        totalCount.value = stringUtil.numberFormat(value.page!.totalElements);
+        commentList.addAll(value.page!.content!);
+      }
+    });
+  }
+
+  writeComment() {
+    if (commentController.text == "") {
+      showDialog(context: context,
+          builder: (BuildContext context){
+            return CustomDialog(
+              title: "댓글을 입력해주세요.",
+              okText: "확인",
+              okCallBack: () {
+                Navigator.of(context).pop();
+              },
+            );
+          }
+      );
+      return;
+    }
+    isLoading.value = true;
+    Map<String,dynamic> data = {};
+    data["recruitmentId"] = id;
+    data["commentContent"] = commentController.text;
+    recruitmentUseCase.recruitmentCommentWrite(data).then((value) {
+      isLoading.value = false;
+      if (value.result) {
+        page = 0;
+        commentList.clear();
+        _commentList();
+      }
+    });
+  }
 
   String buttonTitle() {
     if (recruitmentViewVo.isEmpty) return "";

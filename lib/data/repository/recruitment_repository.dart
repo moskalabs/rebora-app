@@ -1,8 +1,10 @@
 import 'package:rebora/data/provider/recruitment_provider.dart';
 import 'package:rebora/domain/usecase/recruitment_usecase.dart';
+import 'package:rebora/domain/vo/default_vo.dart';
 import 'package:rebora/domain/vo/main/recruitment_tab_vo.dart';
 import 'package:rebora/domain/vo/recruitment/participation_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_cinema_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_comment_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_create_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_day_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_default_vo.dart';
@@ -104,6 +106,18 @@ class RecruitmentRepository implements RecruitmentUseCase {
   @override
   Future<RecruitmentDefaultVo> reserveRecruitmentComplete(Map<String, dynamic> data) async {
     final result = await provider.reserveRecruitmentComplete(data);
+    return result.body!;
+  }
+
+  @override
+  Future<RecruitmentCommentVo> recruitmentComment(String id, Map<String, dynamic> data) async {
+    final result = await provider.recruitmentComment(id, data);
+    return result.body!;
+  }
+
+  @override
+  Future<DefaultVo> recruitmentCommentWrite(Map<String, dynamic> data) async {
+    final result = await provider.recruitmentCommentWrite(data);
     return result.body!;
   }
 }

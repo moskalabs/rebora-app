@@ -411,7 +411,7 @@ class RecruitmentView extends GetView<RecruitmentViewController> {
                           Container(
                             margin: const EdgeInsets.only(top: 28,left: 24),
                             child: const Text(
-                              "모집정보",
+                              "모집소개",
                               style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w800,
@@ -431,9 +431,123 @@ class RecruitmentView extends GetView<RecruitmentViewController> {
                             ),
                           ),
                           Container(
+                            margin: const EdgeInsets.only(top: 34,left: 24),
+                            child: Row(
+                              children: [
+                                const Text(
+                                  "댓글",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w800,
+                                      color: Color.fromRGBO(86, 86, 86, 1)
+                                  ),
+                                ),
+                                const SizedBox(width: 6,),
+                                Text(
+                                  "(${controller.totalCount.value})",
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color.fromRGBO(106, 106, 106, 1)
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          if (controller.totalCount.value != "0") ... [
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 1,
+                              margin: const EdgeInsets.only(top: 23),
+                              color: const Color.fromRGBO(238, 238, 238, 1),
+                            ),
+                            SizedBox(
+                              height: 227,
+                              child: ListView.builder(
+                                  controller: controller.scrollController,
+                                  itemCount: controller.commentList.length,
+                                  itemBuilder:(BuildContext context, int index) {
+                                    return Text("aaa");
+                                  }
+                              ),
+                            ),
+                          ],
+                          Container(
                             width: MediaQuery.of(context).size.width,
                             height: 1,
                             margin: const EdgeInsets.only(top: 23),
+                            color: const Color.fromRGBO(238, 238, 238, 1),
+                          ),
+                          Container(
+                            height: 42,
+                            decoration: BoxDecoration(
+                                color: const Color.fromRGBO(252, 252, 252, 1),
+                                borderRadius: const BorderRadius.all(Radius.circular(7)),
+                                border: Border.all(
+                                    width: 1,
+                                    color: const Color.fromRGBO(233, 233, 233, 1)
+                                )
+                            ),
+                            margin: const EdgeInsets.only(
+                              left: 20,right: 20,top: 12
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    keyboardType: TextInputType.multiline,
+                                    minLines: 1,
+                                    maxLines: 3,
+                                    controller: controller.commentController,
+                                    style: const TextStyle(
+                                      fontSize: 16,   // This is not so important
+                                    ),
+                                    decoration: const InputDecoration(
+                                        contentPadding: EdgeInsets.only(
+                                            left: 10,
+                                            right: 10,
+                                            bottom: 0
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color.fromRGBO(217, 217, 217, 0),
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color.fromRGBO(217, 217, 217, 0),
+                                            width: 1.0,
+                                          ),
+                                        )
+                                    )
+                                  )
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    controller.writeComment();
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 42,
+                                    width: 64,
+                                    child: const Text(
+                                      "입력",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color.fromRGBO(120, 120, 120, 1)
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 1,
+                            margin: const EdgeInsets.only(top: 22),
                             color: const Color.fromRGBO(238, 238, 238, 1),
                           ),
                           Container(
