@@ -23,7 +23,7 @@ class AgreeController extends SuperController<AgreeVo> {
   var showBox2 = false.obs;
   var showBox3 = false.obs;
 
-  late dynamic argument;
+  dynamic argument;
 
   AgreeController({
     required this.joinUseCase
@@ -39,7 +39,6 @@ class AgreeController extends SuperController<AgreeVo> {
 
     if ( Get.arguments != null ) {
       argument = Get.arguments;
-      print("@@@@ = ${Get.arguments}");
     }
 
     joinUseCase.agree().then((value) {

@@ -30,4 +30,5 @@ abstract class RecruitmentUseCase{
   Future<RecruitmentDefaultVo> reserveRecruitmentComplete(Map<String,dynamic> data);
   Future<RecruitmentCommentVo> recruitmentComment(String id, Map<String,dynamic> data);
   Future<DefaultVo> recruitmentCommentWrite(Map<String,dynamic> data);
+  Future<DefaultVo> recruitmentCommentDelete(String id);
 }

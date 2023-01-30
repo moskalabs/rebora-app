@@ -157,6 +157,23 @@ class RecruitmentViewController extends SuperController{
     recruitmentUseCase.recruitmentCommentWrite(data).then((value) {
       isLoading.value = false;
       if (value.result) {
+        commentController.text = "";
+        page = 0;
+        commentList.clear();
+        _commentList();
+      }
+    });
+  }
+
+  deleteComment(int id, int userId) {
+    if (DataSingleton.userId != userId) return;
+
+    isLoading.value = true;
+    recruitmentUseCase.recruitmentCommentDelete("$id").then((value) {
+      isLoading.value = false;
+
+      if (value.result) {
+        commentController.text = "";
         page = 0;
         commentList.clear();
         _commentList();

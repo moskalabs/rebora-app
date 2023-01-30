@@ -22,8 +22,8 @@ class UserNetwork extends GetConnect implements UserProvider {
   final _updatePushAgreePath = "/api/user/mypage/updatePushYn";
   final _updateNightPushAgreePath = "/api/user/mypage/updatePushNightYn";
   final _findAlarmPath = "/api/notification/getPageByUser";
-  final _findMovieFavorPath = "/api/wishList/getMovieList";
-  final _findRecruitmentFavorPath = "/api/wishList/getRecruitmentList";
+  final _findMovieFavorPath = "/api/wish/getMovieList";
+  final _findRecruitmentFavorPath = "/api/wish/getRecruitmentList";
 
   @override
   void onInit() {
@@ -73,11 +73,10 @@ class UserNetwork extends GetConnect implements UserProvider {
     if (data['filePath'] != null) {
       contentType = "multipart/form-data";
     }
-    return put(
+    return post(
         "$_profileUpdatePath/$id",
         form,
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
           "token" : DataSingleton.token
         },
         contentType: contentType,

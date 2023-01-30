@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:rebora/presentation/common/ui/navigation_bar.dart';
+import 'package:rebora/presentation/common/ui/recruitment_payment_row.dart';
 import 'package:rebora/presentation/common/ui/recruitment_row.dart';
 import 'package:rebora/presentation/mypage/controller/participation_list_controller.dart';
 import 'package:rebora/presentation/routes/app_routes.dart';
@@ -104,7 +105,7 @@ class ParticipationList extends GetView<ParticipationListController> {
                                     arguments: controller.recruitmentList[index].recruitmentId
                                 );
                               },
-                              child: RecruitmentRow(
+                              child: RecruitmentPaymentRow(
                                 recruitmentData: controller.recruitmentList[index],
                                 index: index,
                                 recruitmentWishCallBack: controller.recruitmentWishCallBack,

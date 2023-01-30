@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:rebora/presentation/common/data_singleton.dart';
 import 'package:rebora/presentation/common/date_util.dart';
 import 'package:rebora/presentation/common/ui/profile_row.dart';
 import 'package:rebora/presentation/recruitment/controller/recruitment_view_controller.dart';
@@ -458,16 +459,144 @@ class RecruitmentView extends GetView<RecruitmentViewController> {
                             Container(
                               width: MediaQuery.of(context).size.width,
                               height: 1,
-                              margin: const EdgeInsets.only(top: 23),
+                              margin: const EdgeInsets.only(top: 10),
                               color: const Color.fromRGBO(238, 238, 238, 1),
                             ),
                             SizedBox(
                               height: 227,
-                              child: ListView.builder(
+                              child: ListView.builder( //18
                                   controller: controller.scrollController,
                                   itemCount: controller.commentList.length,
                                   itemBuilder:(BuildContext context, int index) {
-                                    return Text("aaa");
+                                    return Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: 51,
+                                          height: 45,
+                                          child: Stack(
+                                            children: [
+                                              Positioned(
+                                                  top:14,
+                                                  left: 15,
+                                                  child: SizedBox(
+                                                    width: 28,
+                                                    height: 28,
+                                                    child: ClipRRect(
+                                                      borderRadius: BorderRadius.circular(20.0),
+                                                      child: CachedNetworkImage(
+                                                          width: 25,
+                                                          height: 25,
+                                                          fit: BoxFit.fill,
+                                                          imageUrl: controller.commentList[index].userImage,
+                                                          errorWidget: (context, url, error) => const Image(
+                                                            width: 25,
+                                                            height: 25,
+                                                            fit: BoxFit.fill,
+                                                            image: AssetImage("assets/images/iv_default_profile.png"),
+                                                          )
+                                                      ),
+                                                    ),
+                                                  )
+                                              ),
+                                              if (DataSingleton.userId == controller.commentList[index].userId) ... [
+                                                Positioned(
+                                                    bottom: 0,
+                                                    right: 0,
+                                                    child: Container(
+                                                        height: 18,
+                                                        width: 18,
+                                                        decoration: BoxDecoration(
+                                                            color: const Color.fromRGBO(255, 127, 34, 1),
+                                                            borderRadius: BorderRadius.circular(20.0),
+                                                            border: Border.all(
+                                                              width: 2,
+                                                              color: const Color.fromRGBO(255, 127, 34, 1),
+                                                            )
+                                                        ),
+                                                        child: const Center(
+                                                          child: Text(
+                                                            "나",
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                fontWeight: FontWeight.w500,
+                                                                color: Color.fromRGBO(255, 255, 255, 1)
+                                                            ),
+                                                          ),
+                                                        )
+                                                    )
+                                                )
+                                              ]
+
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child:Container(
+                                            margin: const EdgeInsets.only(left: 7,right: 20, top: 15),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      controller.commentList[index].userNickname,
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: Color.fromRGBO(41, 41, 41, 1)
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 8,),
+                                                    Text(
+                                                      dateUtil.oldDateFormat(controller.commentList[index].regDate),
+                                                      style: const TextStyle(
+                                                          fontSize: 13,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: Color.fromRGBO(168, 168, 168, 1)
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 6,),
+                                                Text(
+                                                  controller.commentList[index].commentContent,
+                                                  style: const TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.w300,
+                                                      color: Color.fromRGBO(80, 80, 80, 1)
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ),
+                                        if (DataSingleton.userId == controller.commentList[index].userId) ... [
+                                          InkWell(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () {
+                                              controller.deleteComment(
+                                                  controller.commentList[index].commentId,
+                                                  controller.commentList[index].userId
+                                              );
+                                            },
+                                            child: Container(
+                                              width:18,
+                                              height:18,
+                                              margin: const EdgeInsets.only(right: 20, top: 34),
+                                              child: Center(
+                                                child: Image.asset(
+                                                  "assets/images/icon_delete.png",
+                                                  width: 9,
+                                                  height: 9,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ]
+                                      ],
+                                    );
                                   }
                               ),
                             ),
@@ -595,7 +724,6 @@ class RecruitmentView extends GetView<RecruitmentViewController> {
                                 )
                               ],
                             )
-
                           ],
                           Container(
                             alignment: Alignment.center,

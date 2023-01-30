@@ -120,4 +120,10 @@ class RecruitmentRepository implements RecruitmentUseCase {
     final result = await provider.recruitmentCommentWrite(data);
     return result.body!;
   }
+
+  @override
+  Future<DefaultVo> recruitmentCommentDelete(String id) async {
+    final result = await provider.recruitmentCommentDelete(id);
+    return result.body!;
+  }
 }

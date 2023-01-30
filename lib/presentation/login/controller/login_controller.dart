@@ -191,8 +191,6 @@ class LoginController extends SuperController<LoginVo> {
   }
 
   appleLogin() async {
-    var aa = Uri.parse("${AppConst.BASE_URL}/api/user/oath/appleCallback");
-    print("@@@  = $aa");
     final credential = await SignInWithApple.getAppleIDCredential(
       scopes: [
         AppleIDAuthorizationScopes.email,

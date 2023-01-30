@@ -54,6 +54,16 @@ class DateUtil {
     return difference;
   }
 
+  int _diffDateTime(String date) {
+    var dateTime = _parseDateTime(date);
+    if ( dateTime == null ) return 0;
+
+    var toDay = DateTime.now();
+    int difference = int.parse(
+        dateTime.difference(toDay).inHours.toString());
+    return difference;
+  }
+
   DateTime? _parseDateTime(String date) {
     try{
       return DateTime.parse(date);
@@ -62,7 +72,22 @@ class DateUtil {
     }
   }
 
-  String nowYear() {
+  String oldDateFormat(String date) {
+    var dateTime = _parseDateTime(date);
+    if ( dateTime == null ) return "";
+
+    var diffTime = _diffDateTime(date);
+    if (diffTime <= 24) {
+      if (diffTime <= 0 ) return "방금전";
+      return "$diffTime시간 전";
+    }
+
+    var diffDay = diffDateDay(date);
+
+    return "$diffDay일 전";
+  }
+
+ String nowYear() {
     var toDay = DateTime.now();
     DateFormat dateFormat = DateFormat("yyyy");
 

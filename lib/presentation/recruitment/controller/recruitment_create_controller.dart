@@ -319,7 +319,12 @@ class RecruitmentCreateController extends SuperController{
           recruitmentUserImage: '',
           recruiterUserImage: '',
           recruiterNickname: '',
-          myNickname: ''
+          myNickname: '',
+          paymentAmount: 0,
+          paymentStatus : "",
+          paidAt : "",
+          paymentMethod : "",
+          paymentId : "",
       ),
       "createDate" : data,
     });

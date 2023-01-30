@@ -35,6 +35,7 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
   final _createRecruitmentPath = "/api/recruitment/createRecruitment";
   final _commentPath = "/api/comment/getCommentList";
   final _commentWritePath = "/api/comment/createComment";
+  final _commentDeletePath = "/api/comment/deleteComment";
 
   @override
   void onInit() {
@@ -267,6 +268,18 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
           "token" : DataSingleton.token
         },
         query: data,
+        decoder: (value) => DefaultVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+  @override
+  Future<Response<DefaultVo>> recruitmentCommentDelete(String id) {
+    return delete(
+        "$_commentDeletePath/$id",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "token" : DataSingleton.token
+        },
         decoder: (value) => DefaultVo.fromJson(value as Map<String, dynamic>)
     );
   }

@@ -6,7 +6,6 @@ import 'package:rebora/domain/vo/main/movie_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_vo.dart';
 import 'package:rebora/presentation/common/string_util.dart';
 import 'package:rebora/presentation/common/ui/app_toast.dart';
-import 'package:rebora/presentation/dialog/custom_dialog.dart';
 
 class FavorController extends SuperController {
 
@@ -57,7 +56,7 @@ class FavorController extends SuperController {
   @override
   void onInit() {
     super.onInit();
-    // _recruitmentList();
+    _movieData();
 
     scrollController.addListener(() {
       if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {

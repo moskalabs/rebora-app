@@ -28,6 +28,11 @@ class RecruitmentVo {
   final List<UserImageVo>? userImageVo;
   final CommentVo? commentVo;
   final String myNickname;
+  final int paymentAmount;
+  final String paymentStatus;
+  final String paidAt;
+  final String paymentMethod;
+  final String paymentId;
 
   RecruitmentVo({
     required this.userRecruitmentId,
@@ -56,6 +61,11 @@ class RecruitmentVo {
     this.userImageVo,
     this.commentVo,
     required this.myNickname,
+    required this.paymentAmount,
+    required this.paymentStatus,
+    required this.paidAt,
+    required this.paymentMethod,
+    required this.paymentId,
   });
 
   factory RecruitmentVo.fromJson(Map<String, dynamic> json) => RecruitmentVo(
@@ -89,5 +99,10 @@ class RecruitmentVo {
     commentVo: (json["pageComment"] == null ) ? null :
         CommentVo.fromJson(json["pageComment"] as Map<String, dynamic>),
     myNickname: (json["myNickname"] == null)?"":json["myNickname"] as String,
+    paymentAmount : (json["paymentAmount"] == null)?0:json["paymentAmount"] as int,
+    paymentStatus : (json["paymentStatus"] == null)?"":json["paymentStatus"] as String,
+    paidAt: (json["paidAt"] == null)?"":json["paidAt"] as String,
+    paymentMethod: (json["paymentMethod"] == null)?"":json["paymentMethod"] as String,
+    paymentId: (json["paymentId"] == null)?"":json["paymentId"] as String,
   );
 }

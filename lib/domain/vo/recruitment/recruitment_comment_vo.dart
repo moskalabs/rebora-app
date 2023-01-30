@@ -50,6 +50,7 @@ class RecruitmentCommentPageVo {
 
 class RecruitmentCommentContentVo {
   final int commentId;
+  final int userId;
   final String commentContent;
   final String userNickname;
   final String userImage;
@@ -57,6 +58,7 @@ class RecruitmentCommentContentVo {
   final String modDate;
 
   RecruitmentCommentContentVo({
+    required this.userId,
     required this.commentId,
     required this.commentContent,
     required this.userNickname,
@@ -67,6 +69,7 @@ class RecruitmentCommentContentVo {
 
   factory RecruitmentCommentContentVo.fromJson(Map<String, dynamic> json) => RecruitmentCommentContentVo(
     commentId: (json["commentId"] == null)?-1:json["commentId"] as int,
+    userId: (json["userId"] == null)?-1:json["userId"] as int,
     commentContent: (json["commentContent"] == null)?"":json["commentContent"] as String,
     userNickname: (json["userNickname"] == null)?"":json["userNickname"] as String,
     userImage: (json["userImage"] == null)?"":json["userImage"] as String,
