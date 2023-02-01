@@ -11,6 +11,7 @@ class UserVo {
   final bool userPushYn;
   final bool userPushNightYn;
   final int notificationCount;
+  final String userSnsKind;
 
   UserVo({
     required this.result,
@@ -24,6 +25,7 @@ class UserVo {
     required this.userPushYn,
     required this.userPushNightYn,
     required this.notificationCount,
+    required this.userSnsKind,
   });
 
   factory UserVo.fromJson(Map<String, dynamic> json) => UserVo(
@@ -38,5 +40,6 @@ class UserVo {
     userPushYn: (json["userPushYn"] == null)?false:json["userPushYn"] as bool,
     userPushNightYn: (json["userPushNightYn"] == null)?false:json["userPushNightYn"] as bool,
     notificationCount: (json["notificationCount"] == null)?0:json["notificationCount"] as int,
+    userSnsKind :(json["userSnsKind"] == null)?"":json["userSnsKind"] as String,
   );
 }

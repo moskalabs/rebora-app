@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:rebora/presentation/common/data_singleton.dart';
 import 'package:rebora/presentation/common/ui/navigation_bar.dart';
 import 'package:rebora/presentation/mypage/controller/profile_update_controller.dart';
 import 'package:rebora/presentation/routes/app_routes.dart';
@@ -215,134 +216,136 @@ class ProfileUpdate extends GetView<ProfileUpdateController> {
                                       )
                                   ),
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.only(left: 21,top: 26),
-                                  child: const Text(
-                                    "비밀번호 변경",
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color.fromRGBO(68, 68, 68, 1)
+                                if (DataSingleton.userSnsKind == "") ... [
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 21,top: 26),
+                                    child: const Text(
+                                      "비밀번호 변경",
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color.fromRGBO(68, 68, 68, 1)
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.fromLTRB(21, 22, 21, 0),
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 44,
-                                  child: TextField(
-                                      controller: controller.currentPasswordController,
-                                      obscureText: true,
-                                      style: const TextStyle(
-                                        fontSize: 16,   // This is not so important
-                                      ),
-                                      decoration: const InputDecoration(
-                                          hintText: "현재 비밀번호",
-                                          hintStyle: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w400,
-                                              color: Color.fromRGBO(180, 180, 180, 1)
-                                          ),
-                                          contentPadding: EdgeInsets.only(
-                                              left: 10,
-                                              right: 10,
-                                              bottom: 0
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(6)),
-                                            borderSide: BorderSide(
-                                              color: Color.fromRGBO(217, 217, 217, 1),
-                                              width: 1.0,
+                                  Container(
+                                    margin: const EdgeInsets.fromLTRB(21, 22, 21, 0),
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 44,
+                                    child: TextField(
+                                        controller: controller.currentPasswordController,
+                                        obscureText: true,
+                                        style: const TextStyle(
+                                          fontSize: 16,   // This is not so important
+                                        ),
+                                        decoration: const InputDecoration(
+                                            hintText: "현재 비밀번호",
+                                            hintStyle: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w400,
+                                                color: Color.fromRGBO(180, 180, 180, 1)
                                             ),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(6)),
-                                            borderSide: BorderSide(
-                                              color: Color.fromRGBO(217, 217, 217, 1),
-                                              width: 1.0,
+                                            contentPadding: EdgeInsets.only(
+                                                left: 10,
+                                                right: 10,
+                                                bottom: 0
                                             ),
-                                          )
-                                      )
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(6)),
+                                              borderSide: BorderSide(
+                                                color: Color.fromRGBO(217, 217, 217, 1),
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(6)),
+                                              borderSide: BorderSide(
+                                                color: Color.fromRGBO(217, 217, 217, 1),
+                                                width: 1.0,
+                                              ),
+                                            )
+                                        )
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.fromLTRB(21, 31, 21, 0),
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 44,
-                                  child: TextField(
-                                      controller: controller.changePasswordController,
-                                      obscureText: true,
-                                      style: const TextStyle(
-                                        fontSize: 16,   // This is not so important
-                                      ),
-                                      decoration: const InputDecoration(
-                                          hintText: "변경할 비밀번호",
-                                          hintStyle: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w400,
-                                              color: Color.fromRGBO(180, 180, 180, 1)
-                                          ),
-                                          contentPadding: EdgeInsets.only(
-                                              left: 10,
-                                              right: 10,
-                                              bottom: 0
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(6)),
-                                            borderSide: BorderSide(
-                                              color: Color.fromRGBO(217, 217, 217, 1),
-                                              width: 1.0,
+                                  Container(
+                                    margin: const EdgeInsets.fromLTRB(21, 31, 21, 0),
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 44,
+                                    child: TextField(
+                                        controller: controller.changePasswordController,
+                                        obscureText: true,
+                                        style: const TextStyle(
+                                          fontSize: 16,   // This is not so important
+                                        ),
+                                        decoration: const InputDecoration(
+                                            hintText: "변경할 비밀번호",
+                                            hintStyle: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w400,
+                                                color: Color.fromRGBO(180, 180, 180, 1)
                                             ),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(6)),
-                                            borderSide: BorderSide(
-                                              color: Color.fromRGBO(217, 217, 217, 1),
-                                              width: 1.0,
+                                            contentPadding: EdgeInsets.only(
+                                                left: 10,
+                                                right: 10,
+                                                bottom: 0
                                             ),
-                                          )
-                                      )
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(6)),
+                                              borderSide: BorderSide(
+                                                color: Color.fromRGBO(217, 217, 217, 1),
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(6)),
+                                              borderSide: BorderSide(
+                                                color: Color.fromRGBO(217, 217, 217, 1),
+                                                width: 1.0,
+                                              ),
+                                            )
+                                        )
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.fromLTRB(21, 31, 21, 0),
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 44,
-                                  child: TextField(
-                                      controller: controller.changeConfirmPasswordController,
-                                      obscureText: true,
-                                      style: const TextStyle(
-                                        fontSize: 16,   // This is not so important
-                                      ),
-                                      decoration: const InputDecoration(
-                                          hintText: "비밀번호 확인",
-                                          hintStyle: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w400,
-                                              color: Color.fromRGBO(180, 180, 180, 1)
-                                          ),
-                                          contentPadding: EdgeInsets.only(
-                                              left: 10,
-                                              right: 10,
-                                              bottom: 0
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(6)),
-                                            borderSide: BorderSide(
-                                              color: Color.fromRGBO(217, 217, 217, 1),
-                                              width: 1.0,
+                                  Container(
+                                    margin: const EdgeInsets.fromLTRB(21, 31, 21, 0),
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 44,
+                                    child: TextField(
+                                        controller: controller.changeConfirmPasswordController,
+                                        obscureText: true,
+                                        style: const TextStyle(
+                                          fontSize: 16,   // This is not so important
+                                        ),
+                                        decoration: const InputDecoration(
+                                            hintText: "비밀번호 확인",
+                                            hintStyle: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w400,
+                                                color: Color.fromRGBO(180, 180, 180, 1)
                                             ),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(6)),
-                                            borderSide: BorderSide(
-                                              color: Color.fromRGBO(217, 217, 217, 1),
-                                              width: 1.0,
+                                            contentPadding: EdgeInsets.only(
+                                                left: 10,
+                                                right: 10,
+                                                bottom: 0
                                             ),
-                                          )
-                                      )
-                                  ),
-                                ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(6)),
+                                              borderSide: BorderSide(
+                                                color: Color.fromRGBO(217, 217, 217, 1),
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(6)),
+                                              borderSide: BorderSide(
+                                                color: Color.fromRGBO(217, 217, 217, 1),
+                                                width: 1.0,
+                                              ),
+                                            )
+                                        )
+                                    ),
+                                  )
+                                ],
                                 InkWell(
                                   onTap: () {
                                     FocusManager.instance.primaryFocus?.unfocus();

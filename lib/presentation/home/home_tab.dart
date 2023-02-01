@@ -42,53 +42,61 @@ class HomeTab extends GetView<HomeTabController> {
                           },
                         ),
                         items: controller.bannerList.value.map((data) {
-                          return Stack(
-                            children: [
-                              SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: CachedNetworkImage(
-                                      fit: BoxFit.fill,
-                                      height: double.infinity,
-                                      imageUrl: data.bannerImage!,
-                                      errorWidget: (context, url, error) => const Image(
+                          return InkWell(
+                            onTap: () {
+                              Get.toNamed(
+                                  Routes.RECRUITMENT_VIEW,
+                                  arguments: data.recruitmentId
+                              );
+                            },
+                            child: Stack(
+                              children: [
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: CachedNetworkImage(
                                         fit: BoxFit.fill,
                                         height: double.infinity,
-                                        image: AssetImage("assets/images/img_banner_default.png"),
-                                      )
-                                  )
-                              ),
-                              Positioned(
-                                  left: 23,
-                                  bottom: 0,
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        width:258,
-                                        child: Text(
-                                          data.bannerMainText!,
-                                          style: const TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromRGBO(255, 255, 255, 1)
+                                        imageUrl: data.bannerImage!,
+                                        errorWidget: (context, url, error) => const Image(
+                                          fit: BoxFit.fill,
+                                          height: double.infinity,
+                                          image: AssetImage("assets/images/img_banner_default.png"),
+                                        )
+                                    )
+                                ),
+                                Positioned(
+                                    left: 23,
+                                    bottom: 0,
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          width:258,
+                                          child: Text(
+                                            data.bannerMainText!,
+                                            style: const TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color.fromRGBO(255, 255, 255, 1)
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        width: 258,
-                                        margin: const EdgeInsets.fromLTRB(0, 12, 0, 21),
-                                        child: Text(
-                                          data.bannerSubText!,
-                                          style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.normal,
-                                              color: Color.fromRGBO(248, 248, 248, 1)
+                                        Container(
+                                          width: 258,
+                                          margin: const EdgeInsets.fromLTRB(0, 12, 0, 21),
+                                          child: Text(
+                                            data.bannerSubText!,
+                                            style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.normal,
+                                                color: Color.fromRGBO(248, 248, 248, 1)
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    ],
-                                  )
-                              ),
-                            ],
+                                        )
+                                      ],
+                                    )
+                                ),
+                              ],
+                            )
                           );
                         }).toList()
                     ),

@@ -3,6 +3,7 @@ import 'package:rebora/domain/usecase/recruitment_usecase.dart';
 import 'package:rebora/domain/vo/default_vo.dart';
 import 'package:rebora/domain/vo/main/recruitment_tab_vo.dart';
 import 'package:rebora/domain/vo/recruitment/participation_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_area_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_cinema_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_comment_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_create_vo.dart';
@@ -10,6 +11,7 @@ import 'package:rebora/domain/vo/recruitment/recruitment_day_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_default_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_instant_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_list_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_merchant_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_reservation_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_reserve_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_view_vo.dart';
@@ -44,8 +46,8 @@ class RecruitmentRepository implements RecruitmentUseCase {
   }
 
   @override
-  Future<RecruitmentCreateVo> recruitmentCreate(Map<String, dynamic> data) async {
-    final result = await provider.recruitmentCreate(data);
+  Future<RecruitmentMerchantVo> createRecruitmentMerchantID() async {
+    final result = await provider.createRecruitmentMerchantID();
     return result.body!;
   }
 
@@ -124,6 +126,12 @@ class RecruitmentRepository implements RecruitmentUseCase {
   @override
   Future<DefaultVo> recruitmentCommentDelete(String id) async {
     final result = await provider.recruitmentCommentDelete(id);
+    return result.body!;
+  }
+
+  @override
+  Future<RecruitmentAreaVo> recruitmentArea(Map<String, dynamic> data) async {
+    final result = await provider.recruitmentArea(data);
     return result.body!;
   }
 }

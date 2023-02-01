@@ -16,6 +16,7 @@ class MovieNetwork extends GetConnect implements MovieProvider {
   @override
   void onInit() {
     httpClient.baseUrl = AppConst.BASE_URL;
+    httpClient.timeout = const Duration(seconds: AppConst.API_CONNECT_TIMEOUT);
   }
 
   @override

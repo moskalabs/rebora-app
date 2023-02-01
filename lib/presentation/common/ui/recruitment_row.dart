@@ -134,7 +134,7 @@ class RecruitmentRow extends StatelessWidget {
                                     image: AssetImage("assets/images/iv_people.png"),
                                   ),
                                   const Text(
-                                    "모집입원",
+                                    "모집인원",
                                     style: TextStyle(
                                       height: 0.8,
                                       fontSize: 13,
@@ -144,12 +144,12 @@ class RecruitmentRow extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 4,),
                                   Text(
-                                    "${recruitmentData.userRecruitmentPeople}",
+                                    "${recruitmentData.recruitmentPeople}",
                                     style: TextStyle(
                                         height: 0.8,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
-                                        color: (recruitmentData.userRecruitmentPeople < recruitmentData.theaterMinPeople)
+                                        color: (recruitmentData.recruitmentPeople < recruitmentData.theaterMinPeople)
                                             ? const Color.fromRGBO(138, 94, 255, 1)
                                             : const Color.fromRGBO(50, 195, 225, 1)
                                     ),
@@ -171,7 +171,7 @@ class RecruitmentRow extends StatelessWidget {
                                         diffDay,
                                         confirmationDay,
                                         recruitmentData.recruitmentStatus,
-                                        (recruitmentData.userRecruitmentPeople
+                                        (recruitmentData.recruitmentPeople
                                             >= recruitmentData.theaterMaxPeople)
                                     ),
                                     alignment: Alignment.center,
@@ -180,7 +180,7 @@ class RecruitmentRow extends StatelessWidget {
                                           diffDay,
                                           confirmationDay,
                                           recruitmentData.recruitmentStatus,
-                                          (recruitmentData.userRecruitmentPeople
+                                          (recruitmentData.recruitmentPeople
                                               >= recruitmentData.theaterMaxPeople)
                                       ),
                                       style: TextStyle(
@@ -191,7 +191,7 @@ class RecruitmentRow extends StatelessWidget {
                                               diffDay,
                                               confirmationDay,
                                               recruitmentData.recruitmentStatus,
-                                              (recruitmentData.userRecruitmentPeople
+                                              (recruitmentData.recruitmentPeople
                                                   >= recruitmentData.theaterMaxPeople)
                                           )
                                       ),

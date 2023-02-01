@@ -10,6 +10,10 @@ class AppStatus {
       "color" : const Color.fromRGBO(50, 195, 225, 1),
       "title" : "상영확정"
     },
+    "COMPLETED" : {
+      "color" : const Color.fromRGBO(174, 174, 174, 1),
+      "title" : "상영완료"
+    },
     "RECRUITING" : {
       "color" : const Color.fromRGBO(138, 94, 255, 1),
       "title" : "모집중"
@@ -138,5 +142,16 @@ class AppStatus {
     }
 
     return "OVER_DAY";
+  }
+
+  String payStatus(String status) {
+    if (status == "COMPLETE") {
+      return "결제완료";
+    } else if (status == "COMPLETE") {
+      return "결제취소";
+    } else {
+      return "결제실패";
+    }
+
   }
 }

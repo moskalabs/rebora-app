@@ -4,6 +4,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:rebora/domain/usecase/user_usecase.dart';
 import 'package:rebora/presentation/common/const.dart';
 import 'package:rebora/presentation/common/data_singleton.dart';
+import 'package:rebora/presentation/common/ui/app_toast.dart';
 import 'package:rebora/presentation/dialog/custom_dialog.dart';
 import 'package:rebora/presentation/routes/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,6 +37,7 @@ class ProfileUpdateController extends SuperController {
   final changeConfirmPasswordController = TextEditingController();
 
 
+  AppToast appToast = AppToast();
   alertOkCallBack() => {
     Navigator.of(context).pop(),
   };
@@ -112,7 +114,6 @@ class ProfileUpdateController extends SuperController {
 
   updateProfile() {
     if (isLoading.value) return;
-    isLoading.value = true;
     var isUpdateCheck = true;
     isUpdateCheck = nickNameCheck();
     if (!isUpdateCheck) {
@@ -126,23 +127,31 @@ class ProfileUpdateController extends SuperController {
       return;
     }
 
+    var isUpdate = false;
     Map<String,dynamic> data = {};
     if (selectImage.value != "") {
       data["filePath"] = selectImage.value;
+      isUpdate = true;
     }
 
     if (nickName != nickNameController.text) {
       data["userNickname"] = nickNameController.text;
+      isUpdate = true;
     }
 
     if (changePasswordController.text != "") {
       data["currentPassword"] = currentPasswordController.text;
       data["changePassword"] = changePasswordController.text;
+      isUpdate = true;
     }
+
+    if (!isUpdate) return;
+    isLoading.value = true;
 
     userUseCase.profileUpdate("$userId", data).then((value) {
       isLoading.value = false;
       if (value.result) {
+        appToast.show("적용이 완료 되었습니다.");
         getProfile();
       } else {
         var message = value.message;

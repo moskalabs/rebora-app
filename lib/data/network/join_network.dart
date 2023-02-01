@@ -21,7 +21,7 @@ class JoinNetwork extends GetConnect implements JoinProvider {
   @override
   void onInit() {
     httpClient.baseUrl = AppConst.BASE_URL;
-    httpClient.timeout = const Duration(seconds: 10);
+    httpClient.timeout = const Duration(seconds: AppConst.API_CONNECT_TIMEOUT);
   }
 
   @override

@@ -15,6 +15,7 @@ class HomeNetwork extends GetConnect implements HomeProvider {
   @override
   void onInit() {
     httpClient.baseUrl = AppConst.BASE_URL;
+    httpClient.timeout = const Duration(seconds: AppConst.API_CONNECT_TIMEOUT);
   }
 
   @override

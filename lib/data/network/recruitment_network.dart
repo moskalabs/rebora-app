@@ -3,6 +3,7 @@ import 'package:rebora/data/provider/recruitment_provider.dart';
 import 'package:rebora/domain/vo/default_vo.dart';
 import 'package:rebora/domain/vo/main/recruitment_tab_vo.dart';
 import 'package:rebora/domain/vo/recruitment/participation_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_area_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_cinema_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_comment_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_create_vo.dart';
@@ -10,6 +11,7 @@ import 'package:rebora/domain/vo/recruitment/recruitment_day_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_default_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_instant_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_list_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_merchant_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_reservation_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_reserve_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_view_vo.dart';
@@ -22,7 +24,7 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
   final _participationPath = "/api/recruitment/applyRecruitment/";
   final _recruitmentDayPath = "/api/theater/getAvailableDate";
   final _recruitmentCinemaPath = "/api/theater/getPageTheater";
-  final _recruitmentCreatePath = "/api/recruitment/createRecruitment";
+  final _recruitmentCreatePath = "/api/payment/getNewRecruitmentMerchantUid";
   final _recruitmentListPath = "/api/user/mypage/getParticipationHistory";
   final _myRecruitmentListPath = "/api/user/mypage/getMyRecruiter";
   final _recruitmentCancelPath = "/api/recruitment/cancelRecruitment";
@@ -36,10 +38,12 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
   final _commentPath = "/api/comment/getCommentList";
   final _commentWritePath = "/api/comment/createComment";
   final _commentDeletePath = "/api/comment/deleteComment";
+  final _reserveRecruitmentAreaPath = "/api/theater/getAvailableRegion";
 
   @override
   void onInit() {
     httpClient.baseUrl = AppConst.BASE_URL;
+    httpClient.timeout = const Duration(seconds: AppConst.API_CONNECT_TIMEOUT);
   }
 
   @override
@@ -95,16 +99,14 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
   }
 
   @override
-  Future<Response<RecruitmentCreateVo>> recruitmentCreate(Map<String, dynamic> data) {
-    return post(
+  Future<Response<RecruitmentMerchantVo>> createRecruitmentMerchantID() {
+    return get(
         _recruitmentCreatePath,
-        data,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
           "token" : DataSingleton.token
         },
-        query: data,
-        decoder: (value) => RecruitmentCreateVo.fromJson(value as Map<String, dynamic>)
+        decoder: (value) => RecruitmentMerchantVo.fromJson(value as Map<String, dynamic>)
     );
   }
 
@@ -233,7 +235,7 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
   @override
   Future<Response<RecruitmentDefaultVo>> reserveRecruitmentComplete(Map<String, dynamic> data) {
     return post(
-        "$_createRecruitmentPath/${data["recruitmentId"]}",
+        _createRecruitmentPath,
         data,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -243,7 +245,6 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
         decoder: (value) => RecruitmentDefaultVo.fromJson(value as Map<String, dynamic>)
     );
   }
-
 
   @override
   Future<Response<RecruitmentCommentVo>> recruitmentComment(String id, Map<String, dynamic> data) {
@@ -281,6 +282,20 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
           "token" : DataSingleton.token
         },
         decoder: (value) => DefaultVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+
+  @override
+  Future<Response<RecruitmentAreaVo>> recruitmentArea(Map<String, dynamic> data) {
+    return get(
+        _reserveRecruitmentAreaPath,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "token" : DataSingleton.token
+        },
+        query: data,
+        decoder: (value) => RecruitmentAreaVo.fromJson(value as Map<String, dynamic>)
     );
   }
 }

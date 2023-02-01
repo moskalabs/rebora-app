@@ -54,6 +54,7 @@ class HomeController extends SuperController with GetSingleTickerProviderStateMi
         DataSingleton.userId = value.id;
         DataSingleton.userPushNightYn = value.userPushNightYn;
         DataSingleton.notificationCount = value.notificationCount;
+        DataSingleton.userSnsKind = value.userSnsKind;
       }
     });
   }

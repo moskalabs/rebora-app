@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:rebora/domain/usecase/recruitment_usecase.dart';
 import 'package:rebora/domain/vo/main/movie_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_cinema_row_vo.dart';
-import 'package:rebora/domain/vo/recruitment/recruitment_default_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_vo.dart';
 import 'package:rebora/presentation/common/date_util.dart';
 import 'package:rebora/presentation/common/ui/app_toast.dart';
@@ -43,20 +42,13 @@ class RecruitmentCreateController extends SuperController{
   var alertBannerSubTextInfo = "".obs;
 
   final List<String> areaItems = [
-    '서울',
-    '경기',
-    '인천',
-    '대전/충청',
-    '대구',
-    '부산/울산',
-    '경상',
-    '광주/전라/제주',
+    '영화를 선택해주세요',
   ];
 
   final List<String> yearItems = [];
   final List<String> monthItems = [];
   final List<String> dayItems = [];
-  var changeAreaSelected = "서울".obs;
+  var changeAreaSelected = "영화를 선택해주세요".obs;
   var changeYearSelected = "".obs;
   var changeMonthSelected = "".obs;
   var changeDaySelected = "".obs;
@@ -67,6 +59,7 @@ class RecruitmentCreateController extends SuperController{
   String? selectedMonthValue;
   String? selectedDayValue;
 
+  String merchantID = "";
 
   selectedCinema(RecruitmentCinemaRowVo recruitmentCinemaRowVo) => {
     Navigator.of(context).pop(),
@@ -179,8 +172,6 @@ class RecruitmentCreateController extends SuperController{
             }
           }
         } else {
-          dayItems.add('15일');
-          dayItems.add('25일');
           selectedDayValue = "선택";
           changeDaySelected.value = "선택";
         }
@@ -230,7 +221,7 @@ class RecruitmentCreateController extends SuperController{
     if ( result != null ) {
       isMovieSelected.value = false;
       _setMovieData(result);
-      _clearForm();
+      _clearForm(result);
     }
   }
 
@@ -247,50 +238,50 @@ class RecruitmentCreateController extends SuperController{
 
     if ( checkSubmit ) {
       isLoading.value = true;
-      Map<String,dynamic> data = {};
-      data["movieId"] = "${movieVo!.id}";
-      data["theaterId"] = "${recruitmentCinemaRowVo!.theaterId}";
-      data["recruitmentIntroduce"] = movieInfoController.text;
-      data["bannerYn"] ="${isCheckedBanner.value}";
-      data["bannerMainText"] = movieBannerMainTextController.text;
-      data["bannerSubText"] = movieBannerSubTextController.text;
 
-      recruitmentUseCase.reserveRecruitment(data).then((value) {
+      recruitmentUseCase.createRecruitmentMerchantID().then((value) {
         isLoading.value = false;
         if (value.result && value.content != null) {
-          showDialog(context: context,
-              builder: (BuildContext context){
-                return CustomDialog(
-                  title: "선택하신 상영관을 임시 예약 했습니다.\n15분내 결제 완료 진행해 주세요",
-                  okText: "확인",
-                  okCallBack: () {
-                    Navigator.of(context).pop();
-                    _payment(value.content!.recruitmentId, value.content!.merchantUid);
-                  },
-                );
-              }
-          );
-        } else {
-
-          showDialog(context: context,
-              builder: (BuildContext context){
-                return CustomDialog(
-                  title: "죄송합니다. \n선택하신 상영관이 다른회원에 먼저 예약되었습니다. 상영관을 다시 선택해 주세요.",
-                  okText: "확인",
-                  okCallBack: () {
-                    Navigator.of(context).pop();
-                  },
-                );
-              }
-          );
+          merchantID = value.content!.merchantUid;
+          _payment(value.content!.merchantUid);
         }
       });
+      // recruitmentUseCase.reserveRecruitment(data).then((value) {
+      //   isLoading.value = false;
+      //   if (value.result && value.content != null) {
+      //     showDialog(context: context,
+      //         builder: (BuildContext context){
+      //           return CustomDialog(
+      //             title: "선택하신 상영관을 임시 예약 했습니다.\n15분내 결제 완료 진행해 주세요",
+      //             okText: "확인",
+      //             okCallBack: () {
+      //               Navigator.of(context).pop();
+      //               _payment(value.content!.recruitmentId, value.content!.merchantUid);
+      //             },
+      //           );
+      //         }
+      //     );
+      //   } else {
+      //
+      //     showDialog(context: context,
+      //         builder: (BuildContext context){
+      //           return CustomDialog(
+      //             title: "죄송합니다. \n선택하신 상영관이 다른회원에 먼저 예약되었습니다. 상영관을 다시 선택해 주세요.",
+      //             okText: "확인",
+      //             okCallBack: () {
+      //               Navigator.of(context).pop();
+      //             },
+      //           );
+      //         }
+      //     );
+      //   }
+      // });
     }
   }
 
-  _payment(int recruitmentId, String merchantUid) async {
+  _payment(String merchantUid) async {
     Map<String,dynamic> data = {};
-    data["recruitmentId"] = "$recruitmentId";
+    data["recruitmentId"] = "";
     data["merchantUid"] = merchantUid;
 
     var result = await Get.toNamed(Routes.PARTICIPATION, arguments: {
@@ -329,22 +320,82 @@ class RecruitmentCreateController extends SuperController{
       "createDate" : data,
     });
 
-    if ( result != null ) {
-      var resultValue = result as RecruitmentDefaultVo;
-      if (resultValue.result) {
-        Get.back(result: true);
-      } else {
-        showDialog(context: context,
-            builder: (BuildContext context){
-              return CustomDialog(
-                title: resultValue.message,
-                okText: "확인",
-                okCallBack: alertOkCallBack,
-              );
-            }
+
+    if (result["impUid"] != "") {
+      isLoading.value = true;
+
+      Map<String,dynamic> data = {};
+      data["movieId"] = "${movieVo!.id}";
+      data["theaterId"] = "${recruitmentCinemaRowVo!.theaterId}";
+      data["recruitmentIntroduce"] = movieInfoController.text;
+      data["bannerYn"] ="${isCheckedBanner.value}";
+      data["bannerMainText"] = movieBannerMainTextController.text;
+      data["bannerSubText"] = movieBannerSubTextController.text;
+      data["impUid"] = result["impUid"];
+      data["merchantUid"] = merchantID;
+      data["userRecruitmentPeople"] = result["peopleCount"];
+
+      recruitmentUseCase.reserveRecruitmentComplete(data).then((value) {
+        isLoading.value = false;
+        if (value.result) { //
+
+          showDialog(context: context,
+              builder: (BuildContext context){
+                return CustomDialog(
+                  title: "게시되었습니다.",
+                  okText: "확인",
+                  okCallBack: () => {
+                    Navigator.of(context).pop(),
+                    Get.back(result: true),
+                  },
+                );
+              }
+          );
+        } else {
+          showDialog(context: context,
+              builder: (BuildContext context){
+                return CustomDialog(
+                  title: value.message,
+                  okText: "확인",
+                  okCallBack: () => {
+                    Navigator.of(context).pop(),
+                  },
+                );
+              }
+          );
+        }
+      });
+    } else {
+
+      showDialog(context: context,
+          builder: (BuildContext context){
+        return CustomDialog(
+          title: result["error_msg"] ?? '',
+          okText: "확인",
+          okCallBack: () => {
+            Navigator.of(context).pop(),
+          },
         );
       }
+    );
     }
+
+    // if ( result != null ) {
+    //   var resultValue = result as RecruitmentDefaultVo;
+    //   if (resultValue.result) {
+    //     Get.back(result: true);
+    //   } else {
+    //     showDialog(context: context,
+    //         builder: (BuildContext context){
+    //           return CustomDialog(
+    //             title: resultValue.message,
+    //             okText: "확인",
+    //             okCallBack: alertOkCallBack,
+    //           );
+    //         }
+    //     );
+    //   }
+    // }
   }
 
   bool _checkMovie() {
@@ -512,10 +563,21 @@ class RecruitmentCreateController extends SuperController{
     isSelectCinema.value = false;
   }
 
-  _clearForm() {
+  _clearForm(MovieVo movieVo) async {
 
-    selectedValue = "서울";
+    // selectedValue = "서울";
     recruitmentCinemaRowVo = null;
+
+    Map<String,dynamic> data = {};
+    data["movieId"] ="${movieVo.id}";
+    await recruitmentUseCase.recruitmentArea(data).then((value) {
+      if (value.result && value.areas != null) {
+        selectedValue = value.areas![0];
+        areaItems.clear();
+        areaItems.addAll(value.areas!);
+        changeAreaSelected.value = value.areas![0];
+      }
+    });
 
     _setYear();
     _setMonth();
@@ -529,7 +591,10 @@ class RecruitmentCreateController extends SuperController{
     isSelectCinema.value = false;
     isCheckedBanner.value = false;
     isAgree.value = false;
-    changeAreaSelected.value = "서울";
+
+
+
+    // changeAreaSelected.value = "서울";
   }
 
   _clearDate(String type) {

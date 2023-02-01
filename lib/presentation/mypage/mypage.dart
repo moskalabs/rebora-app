@@ -128,7 +128,7 @@ class MyPage extends GetView<MyPageController> {
                                             margin: const EdgeInsets.only(left: 25),
                                             child: InkWell(
                                               onTap: () {
-                                                Get.offNamed(Routes.MY_FAVOR);
+                                                Get.toNamed(Routes.MY_FAVOR);
                                               },
                                               child: Row(
                                                 children: [

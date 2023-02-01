@@ -4,7 +4,7 @@ class BannerVo {
   final String bannerMainText;
   final String bannerSubText;
   final String bannerImage;
-  final String recruitmentId;
+  final int recruitmentId;
 
   BannerVo({
     required this.bannerId,
@@ -21,6 +21,6 @@ class BannerVo {
     bannerMainText: (json["bannerMainText"] == null)?"":json["bannerMainText"] as String,
     bannerSubText: (json["bannerSubText"] == null)?"":json["bannerSubText"] as String,
     bannerImage: (json["bannerImage"] == null)?"":json["bannerImage"] as String,
-    recruitmentId: (json["recruitmentId"] == null)?"":json["recruitmentId"] as String,
+    recruitmentId: (json["recruitment_id"] == null)?0:json["recruitment_id"] as int,
   );
 }

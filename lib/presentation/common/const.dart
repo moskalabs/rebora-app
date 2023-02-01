@@ -8,4 +8,6 @@ class AppConst {
 
   static const PRIVACY_POLICY = "https://re-bora.com/kr-privacy-policy/";
   static const POLICY = "https://re-bora.com/kr-terms-and-conditions/";
+
+  static const API_CONNECT_TIMEOUT = 30;
 }

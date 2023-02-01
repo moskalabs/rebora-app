@@ -21,7 +21,7 @@ class MyPageController extends SuperController {
   var participationHistory = "".obs;
   var isLoading = false.obs;
   var isPushAlarm = false.obs;
-  var isNightPushAlarm = false.obs;
+  var isNightPushAlarm = true.obs;
 
   StringUtil stringUtil = StringUtil();
 
@@ -43,7 +43,7 @@ class MyPageController extends SuperController {
     });
 
     isPushAlarm.value = DataSingleton.userPushYn;
-    isNightPushAlarm.value = DataSingleton.userPushNightYn;
+    isNightPushAlarm.value = !DataSingleton.userPushNightYn;
   }
   
   updatePushAgree(bool selectAgree) {
@@ -92,7 +92,7 @@ class MyPageController extends SuperController {
   updateNightPushAgree(bool selectAgree) {
     var title = "";
     var descriptions = "";
-    if (selectAgree) {
+    if (!selectAgree) {
       title = "야간푸시알림을 받습니다.";
       descriptions = "영화 상영 확정 및 결제 등 주요 내용에 대한 알림을 푸시를 통해서 확인하실 수 있습니다.";
     } else {
@@ -110,7 +110,7 @@ class MyPageController extends SuperController {
               isLoading.value = true;
 
               Map<String,dynamic> data = {};
-              data["userPushNightYn"] = "$selectAgree";
+              data["userPushNightYn"] = "${!selectAgree}";
               data["userPushKey"] = DataSingleton.pushToken;
 
               userUseCase.updateNightPushAgree("${DataSingleton.userId}", data).then((value) {

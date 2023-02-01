@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_vo.dart';
 import 'package:rebora/presentation/common/app_status.dart';
 import 'package:rebora/presentation/common/date_util.dart';
+import 'package:rebora/presentation/common/string_util.dart';
 
 class RecruitmentPaymentRow extends StatelessWidget {
   final RecruitmentVo recruitmentData;
@@ -22,6 +23,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final DateUtil dateUtil = DateUtil();
     final AppStatus appStatus = AppStatus();
+    final StringUtil stringUtil = StringUtil();
 
     var userProfileWidth = [
       26.0, 45.0, 64.0, 74.0
@@ -136,7 +138,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                           image: AssetImage("assets/images/iv_people.png"),
                                         ),
                                         const Text(
-                                          "모집입원",
+                                          "모집인원",
                                           style: TextStyle(
                                               height: 0.8,
                                               fontSize: 13,
@@ -146,12 +148,12 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                         ),
                                         const SizedBox(width: 4,),
                                         Text(
-                                          "${recruitmentData.userRecruitmentPeople}",
+                                          "${recruitmentData.recruitmentPeople}",
                                           style: TextStyle(
                                               height: 0.8,
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
-                                              color: (recruitmentData.userRecruitmentPeople < recruitmentData.theaterMinPeople)
+                                              color: (recruitmentData.recruitmentPeople < recruitmentData.theaterMinPeople)
                                                   ? const Color.fromRGBO(138, 94, 255, 1)
                                                   : const Color.fromRGBO(50, 195, 225, 1)
                                           ),
@@ -173,7 +175,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                               diffDay,
                                               confirmationDay,
                                               recruitmentData.recruitmentStatus,
-                                              (recruitmentData.userRecruitmentPeople
+                                              (recruitmentData.recruitmentPeople
                                                   >= recruitmentData.theaterMaxPeople)
                                           ),
                                           alignment: Alignment.center,
@@ -182,7 +184,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                                 diffDay,
                                                 confirmationDay,
                                                 recruitmentData.recruitmentStatus,
-                                                (recruitmentData.userRecruitmentPeople
+                                                (recruitmentData.recruitmentPeople
                                                     >= recruitmentData.theaterMaxPeople)
                                             ),
                                             style: TextStyle(
@@ -193,7 +195,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                                     diffDay,
                                                     confirmationDay,
                                                     recruitmentData.recruitmentStatus,
-                                                    (recruitmentData.userRecruitmentPeople
+                                                    (recruitmentData.recruitmentPeople
                                                         >= recruitmentData.theaterMaxPeople)
                                                 )
                                             ),
@@ -409,6 +411,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
             ),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 7,),
               Row(
@@ -423,44 +426,85 @@ class RecruitmentPaymentRow extends StatelessWidget {
                         color: Color.fromRGBO(54, 54, 54, 1)
                     ),
                   ),
-                  const SizedBox(width: 17,),
+                  const SizedBox(width: 5,),
                   Stack(
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            "${recruitmentData.recruitmentPeople}명",
-                            style: const TextStyle(
-                                height: 0.8,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color.fromRGBO(118, 118, 118, 1)
+                      SizedBox(
+                        height: 18,
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 4,),
+                            Text(
+                              "${recruitmentData.userRecruitmentPeople}명",
+                              style: const TextStyle(
+                                  height: 0.8,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color.fromRGBO(118, 118, 118, 1)
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 10,),
-                          Text(
-                            "${recruitmentData.paymentAmount}원",
-                            style: const TextStyle(
-                                height: 0.8,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: Color.fromRGBO(74, 74, 74, 1)
+                            const SizedBox(width: 10,),
+                            Text(
+                              "${stringUtil.numberFormat(recruitmentData.paymentAmount)}원",
+                              style: const TextStyle(
+                                  height: 0.8,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color.fromRGBO(74, 74, 74, 1)
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 4,),
-                        ],
-                      ),
-                      Center(
-                        child: Container(
-                          height: 1,
-                          width: 100,
-                          color: Colors.deepOrange,
+                            const SizedBox(width: 4,),
+                          ],
                         ),
-                      )
+                      ),
+                      if (recruitmentData.paymentStatus == 'CANCEL'
+                          || recruitmentData.paymentStatus == 'FAILURE') ... [
+                        Positioned(
+                          top: 6,
+                          child: Container(
+                              height: 2,
+                              width: 120,
+                              color: const Color.fromRGBO(171, 171, 171, 1)
+                          ),
+                        )
+                      ]
                     ],
-                  )
+                  ),
+                  Text(
+                    appStatus.payStatus(recruitmentData.paymentStatus),
+                    style: const TextStyle(
+                        height: 0.8,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w400,
+                        color: Color.fromRGBO(255, 127, 34, 1)
+                    ),
+                  ),
                 ],
               ),
+              Container(
+                margin: const EdgeInsets.only(left: 22, top: 8),
+                child: Text(
+                  "승인시간 : ${dateUtil.changeYYYMMDDHHMMDot(recruitmentData.paidAt)} 카드결제",
+                  style: const TextStyle(
+                      height: 0.8,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      color: Color.fromRGBO(122, 122, 122, 1)
+                  ),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 22, top: 8, bottom: 15),
+                child: Text(
+                  "주문번호 : ${recruitmentData.paymentId}",
+                  style: const TextStyle(
+                      height: 0.8,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      color: Color.fromRGBO(122, 122, 122, 1)
+                  ),
+                ),
+              )
             ],
           ),
         )

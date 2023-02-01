@@ -235,7 +235,7 @@ class RecruitmentView extends GetView<RecruitmentViewController> {
                                         width: 33,
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "${controller.recruitmentViewVo[0].recruitmentVo!.userRecruitmentPeople}",
+                                          "${controller.recruitmentViewVo[0].recruitmentVo!.recruitmentPeople}",
                                           style: TextStyle(
                                               color: controller.statusColor.value,
                                               fontSize: 14,
@@ -783,7 +783,7 @@ class RecruitmentView extends GetView<RecruitmentViewController> {
                                                       ),
                                                     ),
 
-                                                    if (controller.recruitmentViewVo[0].recruitmentVo!.userRecruitmentPeople > 0 ) ... [
+                                                    if (controller.recruitmentViewVo[0].recruitmentVo!.userRecruitmentYn ) ... [
                                                       const SizedBox(height: 5,),
                                                       Text(
                                                         "예약 ${controller.recruitmentViewVo[0].recruitmentVo!.userRecruitmentPeople}명",

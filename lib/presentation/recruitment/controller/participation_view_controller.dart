@@ -125,8 +125,8 @@ class ParticipationViewController extends SuperController{
 
     if (isLoading.value) return;
 
-    isLoading.value = true;
     if ( createDate == null ) {
+      isLoading.value = true;
       if (_status == "RECRUITING") {
         _reservation();
         return;
@@ -141,7 +141,6 @@ class ParticipationViewController extends SuperController{
   }
   _createPayment() async {
     if (createDate == null) return;
-    var recruitmentId = createDate!["recruitmentId"];
 
     var resultValue = await Get.toNamed(Routes.PAYMENT, arguments: {
       "title" : title.value,
@@ -150,36 +149,11 @@ class ParticipationViewController extends SuperController{
       "amount" : (price * peopleCount.value),
     });
 
-    if (resultValue["impUid"] != "") {
-      isLoading.value = true;
-
-      Map<String,dynamic> data = {};
-      data["recruitmentId"] = recruitmentId;
-      data["userRecruitmentPeople"] = "${peopleCount.value}";
-      data["impUid"] = resultValue["impUid"];
-      data["merchantUid"] = createDate!["merchantUid"];
-
-      recruitmentUseCase.reserveRecruitmentComplete(data).then((value) {
-        isLoading.value = false;
-        if (value.result) { //
-
-          showDialog(context: context,
-              builder: (BuildContext context){
-                return CustomDialog(
-                  title: "게시되었습니다.",
-                  okText: "확인",
-                  okCallBack: () => {
-                    Navigator.of(context).pop(),
-                    Get.back(result: value),
-                  },
-                );
-              }
-          );
-        } else {
-          Get.back(result: value);
-        }
-      });
+    if (resultValue != null) {
+      resultValue["peopleCount"] = "${peopleCount.value}";
+      Get.back(result: resultValue);
     }
+
   }
 
   _payment() {
@@ -227,7 +201,6 @@ class ParticipationViewController extends SuperController{
   }
 
   _reservation() {
-    //서버 통신 해야한다. 일단 임시로 열어보자.. 잘되는지 그다음에 한다잉.
     Map<String,dynamic> data = {};
     data["recruitmentId"] = "${recruitmentVo.recruitmentId}";
     data["userRecruitmentPeople"] = "${peopleCount.value}";
