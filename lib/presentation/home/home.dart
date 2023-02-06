@@ -90,6 +90,7 @@ class Home extends GetView<HomeController> {
                 Expanded(
                   flex: 1,
                   child: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
                     controller: controller.tabController,
                     children: [
                       HomeTab(

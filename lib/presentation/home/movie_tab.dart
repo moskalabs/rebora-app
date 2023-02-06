@@ -176,7 +176,7 @@ class MovieTab extends GetView<MovieTabController> {
                       ),
                       Positioned(
                           right: 22,
-                          top: 23,
+                          top: 22,
                           child: SizedBox(
                             child: CustomDropdownButton2(
                               buttonWidth: 119,

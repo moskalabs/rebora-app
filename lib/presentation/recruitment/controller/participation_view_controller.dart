@@ -58,6 +58,8 @@ class ParticipationViewController extends SuperController{
     _status = Get.arguments["status"] as String;
     recruitmentVo = Get.arguments["data"] as RecruitmentVo;
 
+    print(recruitmentVo.movieImage);
+
     price = recruitmentVo.theaterPrice;
     displayPrice.value = _stringUtil.numberFormat(price);
     if ( Get.arguments["createDate"] != null ) {

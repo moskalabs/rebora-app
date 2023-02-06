@@ -656,6 +656,7 @@ class RecruitmentCreateView extends GetView<RecruitmentCreateController> {
                                 width: MediaQuery.of(context).size.width,
                                 height: 60,
                                 child: TextField(
+                                    readOnly: !controller.isCheckedBanner.value,
                                     keyboardType: TextInputType.multiline,
                                     minLines: 3,
                                     maxLines: 3,
@@ -719,6 +720,7 @@ class RecruitmentCreateView extends GetView<RecruitmentCreateController> {
                                 width: MediaQuery.of(context).size.width,
                                 height: 60,
                                 child: TextField(
+                                    readOnly: !controller.isCheckedBanner.value,
                                     keyboardType: TextInputType.multiline,
                                     minLines: 3,
                                     maxLines: 3,

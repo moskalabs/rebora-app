@@ -82,7 +82,8 @@ class RecruitmentTabController extends SuperController{
   void changeTab(int tabIndex, bool isClean) {
     if ( tabIndex == currentTabIndex && !isClean) return;
     currentTabIndex = tabIndex;
-
+    selectedValue = "전국";
+    theaterRegion = "전국";
     _clearListData(false);
     if ( tabIndex == 0 ) {
       recruitmentStatus = "";
