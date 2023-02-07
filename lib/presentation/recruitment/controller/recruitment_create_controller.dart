@@ -42,13 +42,13 @@ class RecruitmentCreateController extends SuperController{
   var alertBannerSubTextInfo = "".obs;
 
   final List<String> areaItems = [
-    '영화를 선택해주세요',
+    '지역을 선택해 주세요.',
   ];
 
   final List<String> yearItems = [];
   final List<String> monthItems = [];
   final List<String> dayItems = [];
-  var changeAreaSelected = "영화를 선택해주세요".obs;
+  var changeAreaSelected = "지역을 선택해 주세요.".obs;
   var changeYearSelected = "".obs;
   var changeMonthSelected = "".obs;
   var changeDaySelected = "".obs;
@@ -246,36 +246,6 @@ class RecruitmentCreateController extends SuperController{
           _payment(value.content!.merchantUid);
         }
       });
-      // recruitmentUseCase.reserveRecruitment(data).then((value) {
-      //   isLoading.value = false;
-      //   if (value.result && value.content != null) {
-      //     showDialog(context: context,
-      //         builder: (BuildContext context){
-      //           return CustomDialog(
-      //             title: "선택하신 상영관을 임시 예약 했습니다.\n15분내 결제 완료 진행해 주세요",
-      //             okText: "확인",
-      //             okCallBack: () {
-      //               Navigator.of(context).pop();
-      //               _payment(value.content!.recruitmentId, value.content!.merchantUid);
-      //             },
-      //           );
-      //         }
-      //     );
-      //   } else {
-      //
-      //     showDialog(context: context,
-      //         builder: (BuildContext context){
-      //           return CustomDialog(
-      //             title: "죄송합니다. \n선택하신 상영관이 다른회원에 먼저 예약되었습니다. 상영관을 다시 선택해 주세요.",
-      //             okText: "확인",
-      //             okCallBack: () {
-      //               Navigator.of(context).pop();
-      //             },
-      //           );
-      //         }
-      //     );
-      //   }
-      // });
     }
   }
 

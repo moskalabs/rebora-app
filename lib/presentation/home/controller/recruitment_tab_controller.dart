@@ -172,6 +172,18 @@ class RecruitmentTabController extends SuperController{
     }
   }
 
+  moveRecruitment(int index) async {
+    await Get.toNamed(
+        Routes.RECRUITMENT_VIEW,
+        arguments: recruitmentList[index].recruitmentId
+    );
+
+    if ( DataSingleton.recruitmentMore == "RE_LOAD" ) {
+      DataSingleton.recruitmentMore = "";
+      changeTab(currentTabIndex, true);
+    }
+  }
+
 
   @override
   void onDetached() {
@@ -179,6 +191,7 @@ class RecruitmentTabController extends SuperController{
 
   @override
   void onInactive() {
+    print("111");
   }
 
   @override

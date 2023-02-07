@@ -188,10 +188,7 @@ class RecruitmentTab extends GetView<RecruitmentTabController> {
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () {
-                                Get.toNamed(
-                                    Routes.RECRUITMENT_VIEW,
-                                    arguments: controller.recruitmentList[index].recruitmentId
-                                );
+                                controller.moveRecruitment(index);
                               },
                               child: RecruitmentRow(
                                   recruitmentData: controller.recruitmentList[index],

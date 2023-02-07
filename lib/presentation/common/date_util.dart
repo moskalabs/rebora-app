@@ -52,6 +52,16 @@ class DateUtil {
     return difference;
   }
 
+  int _diffDateDay(String date) {
+    var dateTime = _parseDateTime(date);
+    if ( dateTime == null ) return 0;
+
+    var toDay = DateTime.now();
+    int difference = int.parse(
+        toDay.difference(dateTime).inDays.toString());
+    return difference;
+  }
+
   int diffDateMinutes(String date) {
     var dateTime = _parseDateTime(date);
     if ( dateTime == null ) return 0;
@@ -68,7 +78,7 @@ class DateUtil {
 
     var toDay = DateTime.now();
     int difference = int.parse(
-        dateTime.difference(toDay).inHours.toString());
+        toDay.difference(dateTime).inHours.toString());
     return difference;
   }
 
@@ -90,7 +100,7 @@ class DateUtil {
       return "$diffTime시간 전";
     }
 
-    var diffDay = diffDateDay(date);
+    var diffDay = _diffDateDay(date);
 
     return "$diffDay일 전";
   }

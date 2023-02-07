@@ -356,7 +356,7 @@ class RecruitmentView extends GetView<RecruitmentViewController> {
                                 splashColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () {
-                                  // recruitmentWishCallBack(index);
+                                  controller.recruitmentWish();
                                 },
                                 child: Image.asset(
                                     (controller.recruitmentViewVo[0].recruitmentVo!.userRecruitmentWish)

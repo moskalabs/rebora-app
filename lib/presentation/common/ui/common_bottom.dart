@@ -136,7 +136,7 @@ class CommonBottom extends StatelessWidget{
 대표자 : 모성환 | 사업자등록번호 851-81-02201
 소재지 : 충청남도 천안시 서북구 불당 14로 48, 512호(불당동)
 개인정보보호책임자 모성환
-Copyright c 2022 MOSCA. All rights Reserved.""",
+Copyright c 2022 MOSKA STUDIO LTD. All rights Reserved.""",
               style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w100,

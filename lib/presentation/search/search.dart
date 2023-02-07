@@ -335,11 +335,21 @@ class Search extends GetView<SearchController> {
                               controller: controller.scrollController,
                               itemCount: controller.movieList.length,
                               itemBuilder:(BuildContext context, int index) {
-                                return MovieRecruitmentRow(
-                                    searchText: controller.searchText,
-                                    movieVo: controller.movieList[index],
-                                    index: index,
-                                    movieWishCallBack: controller.movieWishCallBack
+                                return InkWell(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () {
+                                    Get.toNamed(
+                                        Routes.MOVIE_RECRUITMENT_VIEW,
+                                        arguments: controller.movieList[index]
+                                    );
+                                  },
+                                  child: MovieRecruitmentRow(
+                                      searchText: controller.searchText,
+                                      movieVo: controller.movieList[index],
+                                      index: index,
+                                      movieWishCallBack: controller.movieWishCallBack
+                                  )
                                 );
                               }
                             ),

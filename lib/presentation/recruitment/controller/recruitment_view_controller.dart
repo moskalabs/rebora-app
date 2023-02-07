@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rebora/domain/usecase/recruitment_usecase.dart';
+import 'package:rebora/domain/usecase/wish_usecase.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_comment_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_view_vo.dart';
 import 'package:rebora/presentation/common/app_status.dart';
@@ -14,11 +15,13 @@ import 'package:rebora/presentation/routes/app_routes.dart';
 class RecruitmentViewController extends SuperController{
 
   RecruitmentViewController({
-    required this.recruitmentUseCase
+    required this.recruitmentUseCase,
+    required this.wishUseCase
   });
 
   late BuildContext context;
   final RecruitmentUseCase recruitmentUseCase;
+  final WishUseCase wishUseCase;
   AppToast appToast = AppToast();
 
   var scrollController = ScrollController();
@@ -131,6 +134,33 @@ class RecruitmentViewController extends SuperController{
         lastPage = value.page!.last;
         totalCount.value = stringUtil.numberFormat(value.page!.totalElements);
         commentList.addAll(value.page!.content!);
+      }
+    });
+  }
+
+  void recruitmentWish() {
+
+    isLoading.value = true;
+
+    var userRecruitmentId = "${recruitmentViewVo[0].recruitmentVo!.userRecruitmentId}";
+    if (userRecruitmentId == "-1" ) userRecruitmentId = "";
+    var setWishData = (recruitmentViewVo[0].recruitmentVo!.userRecruitmentWish)?false:true;
+
+    Map<String,dynamic> data = {};
+    data["userRecruitmentId"] = userRecruitmentId;
+    data["recruitmentId"] = id;
+    data["userRecruitmentWish"] = "$setWishData";
+
+    wishUseCase.recruitmentWish(data).then((value) {
+      isLoading.value = false;
+      DataSingleton.recruitmentMore = "RE_LOAD";
+      if (value.result) {
+        recruitmentViewVo[0].recruitmentVo!.userRecruitmentWish = setWishData;
+        var message = "찜 목록에 추가되었습니다.";
+        if (!setWishData) {
+          message = "찜 목록에서 제거되었습니다.";
+        }
+        appToast.show(message);
       }
     });
   }

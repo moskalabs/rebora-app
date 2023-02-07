@@ -23,26 +23,14 @@ class HomeNavigationBar extends StatelessWidget{
                 highlightColor: Colors.transparent,
                 onTap: () {
                 },
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(24, 12, 0, 0),
-                      child: const Image(
-                        width: 25,
-                        height: 25,
-                        image: AssetImage("assets/images/icon_main_top.png"),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(6, 10, 0, 0),
-                      child: const Image(
-                        width: 87,
-                        height: 29,
-                        image: AssetImage("assets/images/icon_main_top_logo.png"),
-                      ),
-                    )
-                  ],
-                ),
+                child: Container(
+                  margin: const EdgeInsets.fromLTRB(27, 8, 0, 0),
+                  child: const Image(
+                    width: 131,
+                    height: 31,
+                    image: AssetImage("assets/images/icon_main_top_logo.png"),
+                  ),
+                )
               ),
               Positioned(
                 top: 10,
