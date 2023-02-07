@@ -191,7 +191,6 @@ class RecruitmentTabController extends SuperController{
 
   @override
   void onInactive() {
-    print("111");
   }
 
   @override

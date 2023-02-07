@@ -5,7 +5,9 @@ class PaymentController extends SuperController{
   var name = "리보라 - 영화 예매";
   var title = "결제";
   var userCode = "imp43437372";
-  var pgCode = "tosspayments.627175";
+  var pgCode = "tosspayments.627175"; //DEV
+  // var pgCode = "tosspayments.bill_im_re53dk"; //PROD
+
   var payMethod = "card";
   var appScheme = "rebora";
   var merchantUid = "";

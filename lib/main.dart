@@ -122,7 +122,6 @@ class _MyAppState extends State<MyApp> {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      print(message);
     });
     super.initState();
   }

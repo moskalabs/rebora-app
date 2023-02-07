@@ -98,7 +98,6 @@ class LoginController extends SuperController<LoginVo> {
   kakaoLogin() async {
     try {
       OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
-      print('카카오톡으로 로그인 성공 ${token.accessToken}');
       final prefs = await SharedPreferences.getInstance();
 
       isLoading.value = true;
@@ -138,7 +137,6 @@ class LoginController extends SuperController<LoginVo> {
         }
       });
     } catch (error) {
-      print('카카오톡으로 로그인 실패 $error');
     }
   }
 
