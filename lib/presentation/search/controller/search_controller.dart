@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rebora/domain/usecase/home_usecase.dart';
@@ -31,6 +32,7 @@ class SearchController extends SuperController {
   var scrollController = ScrollController();
   var isLoading = false.obs;
   var isDefaultSearchTitle = true.obs;
+  Timer? searchTimer;
 
   var lastPage = false;
   var totalCount = "";
@@ -77,6 +79,17 @@ class SearchController extends SuperController {
         }
       }
     });
+
+    searchController.addListener(() {
+      _searchTimer();
+    });
+  }
+
+  _searchTimer() {
+    if (searchTimer?.isActive ?? false) searchTimer!.cancel();
+    searchTimer = Timer(const Duration(milliseconds: 300), () {
+      search(tabMenu.value);
+    });
   }
 
   _initSearchData() {
@@ -94,22 +107,23 @@ class SearchController extends SuperController {
   }
 
   search(String tag) {
-    if (searchController.text == "") {
-      showDialog(context: context,
-          builder: (BuildContext context){
-            return CustomDialog(
-              title: "검색어를 입력해주세요.",
-              okText: "확인",
-              okCallBack: alertOkCallBack,
-            );
-          }
-      );
+    var searchText = searchController.text.replaceAll(" ", "");
+    if (searchText == "") {
+      // showDialog(context: context,
+      //     builder: (BuildContext context){
+      //       return CustomDialog(
+      //         title: "검색어를 입력해주세요.",
+      //         okText: "확인",
+      //         okCallBack: alertOkCallBack,
+      //       );
+      //     }
+      // );
       return;
     }
     page = 0;
     lastPage = false;
     isDefaultSearchTitle.value = true;
-    searchText = searchController.text;
+    this.searchText = searchController.text;
 
     movieList.clear();
     recruitmentList.clear();

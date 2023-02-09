@@ -136,7 +136,7 @@ class Search extends GetView<SearchController> {
                           Expanded(
                               child: TextField(
                                   onSubmitted: (value) {
-                                    controller.search('movie');
+                                    // controller.search('movie');
                                   },
                                   textInputAction: TextInputAction.go,
                                   controller: controller.searchController,

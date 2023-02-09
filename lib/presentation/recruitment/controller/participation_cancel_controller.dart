@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:rebora/domain/usecase/recruitment_usecase.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_vo.dart';
 import 'package:rebora/presentation/common/app_status.dart';
+import 'package:rebora/presentation/common/data_singleton.dart';
 import 'package:rebora/presentation/common/date_util.dart';
 import 'package:rebora/presentation/common/ui/app_toast.dart';
 
@@ -57,6 +58,7 @@ class ParticipationCancelController extends SuperController{
     recruitmentUseCase.participationCancel("$id", data).then((value) {
       isLoading.value = false;
       if (value.result) {
+        DataSingleton.recruitmentMore = "RE_LOAD";
         Get.back(result: "참여 취소되었습니다.");
       } else {
         Get.back(result: "참여취소에 실패하였습니다.\n증상이 계속되면 고객센터로 문의해주세요.");

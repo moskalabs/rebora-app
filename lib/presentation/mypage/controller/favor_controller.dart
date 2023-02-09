@@ -107,6 +107,16 @@ class FavorController extends SuperController {
     }
   }
 
+  _reloadData() {
+    _clearData();
+
+    if (tabMenu.value == 'movie') {
+      _movieData();
+    } else {
+      _recruitmentData();
+    }
+  }
+
   void _recruitmentWish(int index) {
 
     var userRecruitmentId = "${recruitmentList[index].userRecruitmentId}";
@@ -152,6 +162,7 @@ class FavorController extends SuperController {
       isLoading.value = false;
       if (value.result) {
         movieList[index].userMovieWish = setWishData;
+        _reloadData();
         var message = "찜 목록에 추가되었습니다.";
         if (!setWishData) {
           message = "찜 목록에서 제거되었습니다.";

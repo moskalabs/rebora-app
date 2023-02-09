@@ -93,67 +93,71 @@ class RecruitmentCreateView extends GetView<RecruitmentCreateController> {
                                                         ),
                                                       ),
                                                     ),
-                                                    Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        const SizedBox(height: 14,),
-                                                        Row(
+                                                    Expanded(
+                                                        child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
+                                                            const SizedBox(height: 14,),
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                  controller.movieVo!.movieName,
+                                                                  style: const TextStyle(
+                                                                    fontSize: 14,
+                                                                    fontWeight: FontWeight.w500,
+                                                                    color: Color.fromRGBO(18, 18, 18, 1),
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  " (${controller.movieVo!.movieRunningTime}분)",
+                                                                  style: const TextStyle(
+                                                                    fontSize: 13,
+                                                                    fontWeight: FontWeight.w500,
+                                                                    color: Color.fromRGBO(92, 92, 92, 1),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                            const SizedBox(height: 14,),
                                                             Text(
-                                                              controller.movieVo!.movieName,
+                                                              controller.category.value,
                                                               style: const TextStyle(
-                                                                fontSize: 14,
-                                                                fontWeight: FontWeight.w500,
-                                                                color: Color.fromRGBO(18, 18, 18, 1),
+                                                                  fontSize: 14,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  color: Color.fromRGBO(73, 73, 73, 1)
                                                               ),
                                                             ),
+                                                            const SizedBox(height: 5,),
                                                             Text(
-                                                              " (${controller.movieVo!.movieRunningTime}분)",
+                                                              controller.movieVo!.movieRating,
                                                               style: const TextStyle(
-                                                                fontSize: 13,
-                                                                fontWeight: FontWeight.w500,
-                                                                color: Color.fromRGBO(92, 92, 92, 1),
+                                                                  fontSize: 14,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  color: Color.fromRGBO(73, 73, 73, 1)
                                                               ),
-                                                            )
+                                                            ),
+                                                            const SizedBox(height: 5,),
+                                                            Text(
+                                                              "감독 : ${controller.movieVo!.movieDirector}",
+                                                              maxLines: 1,
+                                                              overflow: TextOverflow.ellipsis,
+                                                              style: const TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  color: Color.fromRGBO(73, 73, 73, 1)
+                                                              ),
+                                                            ),
+                                                            const SizedBox(height: 5,),
+                                                            Text(
+                                                              "평점 : ${controller.movieVo!.convertStartRation}",
+                                                              style: const TextStyle(
+                                                                  fontSize: 15,
+                                                                  fontWeight: FontWeight.w500,
+                                                                  color: Color.fromRGBO(73, 73, 73, 1)
+                                                              ),
+                                                            ),
                                                           ],
-                                                        ),
-                                                        const SizedBox(height: 14,),
-                                                        Text(
-                                                          controller.category.value,
-                                                          style: const TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: Color.fromRGBO(73, 73, 73, 1)
-                                                          ),
-                                                        ),
-                                                        const SizedBox(height: 5,),
-                                                        Text(
-                                                          controller.movieVo!.movieRating,
-                                                          style: const TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: Color.fromRGBO(73, 73, 73, 1)
-                                                          ),
-                                                        ),
-                                                        const SizedBox(height: 5,),
-                                                        Text(
-                                                          "감독 : ${controller.movieVo!.movieDirector}",
-                                                          style: const TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight: FontWeight.w400,
-                                                              color: Color.fromRGBO(73, 73, 73, 1)
-                                                          ),
-                                                        ),
-                                                        const SizedBox(height: 5,),
-                                                        Text(
-                                                          "평점 : ${controller.movieVo!.convertStartRation}",
-                                                          style: const TextStyle(
-                                                              fontSize: 15,
-                                                              fontWeight: FontWeight.w500,
-                                                              color: Color.fromRGBO(73, 73, 73, 1)
-                                                          ),
-                                                        ),
-                                                      ],
+                                                        )
                                                     )
                                                   ],
                                                 ),

@@ -215,10 +215,10 @@ class RecruitmentViewController extends SuperController{
     if (recruitmentViewVo.isEmpty) return "";
     if (recruitmentViewVo[0].recruitmentVo == null) return "";
 
-    if ( recruitmentViewVo[0].recruitmentVo!.recruiterNickname == DataSingleton.nickName) {
-      buttonStatus.value = "wait";
-      return "참여중";
-    }
+    // if ( recruitmentViewVo[0].recruitmentVo!.recruiterNickname == DataSingleton.nickName) {
+    //   buttonStatus.value = "wait";
+    //   return "참여중";
+    // }
 
     if (recruitmentStatus.value == "CONFIRMATION_DAY") {
       if (recruitmentViewVo[0].recruitmentVo!.userRecruitmentYn) {
