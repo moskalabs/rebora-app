@@ -209,19 +209,18 @@ class Login extends GetView<LoginController> {
                               image:AssetImage("assets/images/btn_sns_kakao.png")
                           )
                       ),
-                      const SizedBox(width: 37,),
-                      // Container(
-                      //   margin: const EdgeInsets.fromLTRB(37, 0, 37, 0),
-                      //   child: IconButton(
-                      //       padding: const EdgeInsets.all(0.0),
-                      //       onPressed: (){
-                      //         controller.naverLogin();
-                      //       },
-                      //       icon: const Image(
-                      //           image:AssetImage("assets/images/btn_sns_naver.png")
-                      //       )
-                      //   ),
-                      // ),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(37, 0, 37, 0),
+                        child: IconButton(
+                            padding: const EdgeInsets.all(0.0),
+                            onPressed: (){
+                              controller.naverLogin();
+                            },
+                            icon: const Image(
+                                image:AssetImage("assets/images/btn_sns_naver.png")
+                            )
+                        ),
+                      ),
                       IconButton(
                           padding: const EdgeInsets.all(0.0),
                           onPressed: (){

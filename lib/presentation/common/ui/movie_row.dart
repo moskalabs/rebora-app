@@ -84,6 +84,7 @@ class MovieRow extends StatelessWidget {
                 ],
               ),
               Container(
+                alignment: Alignment.center,
                 width: 117,
                 margin: const EdgeInsets.fromLTRB(0, 14, 0, 0),
                 child: Text(

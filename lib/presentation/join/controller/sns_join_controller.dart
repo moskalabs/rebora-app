@@ -52,9 +52,8 @@ class SNSJoinController extends SuperController {
     super.onInit();
     argument = Get.arguments["snsObj"];
     selectAgree = Get.arguments["check3"];
+    joinNameController.text = argument["userName"];
 
-    print("argument = ${argument}");
-    print("selectAgree = ${selectAgree}");
   }
 
   void setContext(BuildContext context) {

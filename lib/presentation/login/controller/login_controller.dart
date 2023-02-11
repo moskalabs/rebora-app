@@ -110,7 +110,7 @@ class LoginController extends SuperController<LoginVo> {
 
         if (value.result) {
           if ( value.errorCode == "500") {
-            _snsJoinPage(value.userEmail,value.userSnsKind,value.userSnsId);
+            _snsJoinPage(value.userEmail,value.userSnsKind,value.userSnsId, "");
           } else {
             prefs.setString(AppConst.LOGIN_TOKEN,value.token);
             prefs.setString(AppConst.NICKNAME,value.userNickname);
@@ -158,7 +158,7 @@ class LoginController extends SuperController<LoginVo> {
 
       if (value.result) {
         if ( value.errorCode == "500") {
-          _snsJoinPage(value.userEmail,value.userSnsKind,value.userSnsId);
+          _snsJoinPage(value.userEmail,value.userSnsKind,value.userSnsId, "");
         } else {
           prefs.setString(AppConst.LOGIN_TOKEN,value.token);
           prefs.setString(AppConst.NICKNAME,value.userNickname);
@@ -192,6 +192,7 @@ class LoginController extends SuperController<LoginVo> {
     final credential = await SignInWithApple.getAppleIDCredential(
       scopes: [
         AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName
       ],
       webAuthenticationOptions: WebAuthenticationOptions(
         clientId: "rebora.com.moca",
@@ -199,8 +200,11 @@ class LoginController extends SuperController<LoginVo> {
       )
     );
 
+    var name = (credential.familyName == null ) ? "" : credential.familyName;
+    var subName =  (credential.givenName == null ) ? "" : credential.givenName;
     var idToken = credential.identityToken;
     final prefs = await SharedPreferences.getInstance();
+    print("$idToken");
 
     isLoading.value = true;
     Map<String,dynamic> data = {};
@@ -212,7 +216,7 @@ class LoginController extends SuperController<LoginVo> {
 
       if (value.result) {
         if ( value.errorCode == "500") {
-          _snsJoinPage(value.userEmail,value.userSnsKind,value.userSnsId);
+          _snsJoinPage(value.userEmail,value.userSnsKind,value.userSnsId, "$name $subName");
         } else {
           prefs.setString(AppConst.LOGIN_TOKEN,value.token);
           prefs.setString(AppConst.NICKNAME,value.userNickname);
@@ -240,11 +244,12 @@ class LoginController extends SuperController<LoginVo> {
     });
   }
 
-  _snsJoinPage(String userEmail,String userSnsKind,String userSnsId) {
+  _snsJoinPage(String userEmail,String userSnsKind,String userSnsId, String name) {
     Get.toNamed(Routes.AGREE, arguments: {
       "userEmail" : userEmail,
       "userSnsKind" : userSnsKind,
-      "userSnsId" : userSnsId
+      "userSnsId" : userSnsId,
+      "userName" : name
     });
   }
 
