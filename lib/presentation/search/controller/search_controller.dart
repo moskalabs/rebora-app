@@ -109,6 +109,13 @@ class SearchController extends SuperController {
   search(String tag) {
     var searchText = searchController.text.replaceAll(" ", "");
     if (searchText == "") {
+      _clearData();
+
+      if (tag == 'movie') {
+        _initSearchData();
+      } else {
+        _initRecruitment();
+      }
       // showDialog(context: context,
       //     builder: (BuildContext context){
       //       return CustomDialog(
