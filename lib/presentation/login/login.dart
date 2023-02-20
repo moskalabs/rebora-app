@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:rebora/presentation/common/ui/navigation_bar.dart';
 import 'package:rebora/presentation/login/controller/login_controller.dart';
 import 'package:rebora/presentation/routes/app_routes.dart';
 
@@ -9,6 +10,10 @@ class Login extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     controller.setContext(context);
+
+    void backEvent() {
+      Get.back();
+    }
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -28,6 +33,10 @@ class Login extends GetView<LoginController> {
               scrollDirection: Axis.vertical,
               child: Column(
                 children: [
+                  CustomNavigationBar(
+                    title: "로그인",
+                    backEvent : backEvent,
+                  ),
                   Container(
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width ,

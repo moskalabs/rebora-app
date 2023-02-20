@@ -39,6 +39,8 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
   final _commentWritePath = "/api/comment/createComment";
   final _commentDeletePath = "/api/comment/deleteComment";
   final _reserveRecruitmentAreaPath = "/api/theater/getAvailableRegion";
+  final _updateRecruitmentCommentUsePath = "/api/recruitment/updateRecruitmentCommentUse";
+  final _updateRecruitmentPath = "/api/recruitment/updateRecruitment";
 
   @override
   void onInit() {
@@ -296,6 +298,34 @@ class RecruitmentNetwork extends GetConnect implements RecruitmentProvider {
         },
         query: data,
         decoder: (value) => RecruitmentAreaVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+  @override
+  Future<Response<DefaultVo>> updateRecruitmentCommentUse(Map<String, dynamic> data) {
+    return put(
+        "$_updateRecruitmentCommentUsePath/${data["id"]}",
+        data,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "token" : DataSingleton.token
+        },
+        query: data,
+        decoder: (value) => DefaultVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+  @override
+  Future<Response<DefaultVo>> updateRecruitment(Map<String, dynamic> data) {
+    return put(
+        "$_updateRecruitmentPath/${data["id"]}",
+        data,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "token" : DataSingleton.token
+        },
+        query: data,
+        decoder: (value) => DefaultVo.fromJson(value as Map<String, dynamic>)
     );
   }
 }

@@ -33,6 +33,7 @@ class RecruitmentVo {
   final String paidAt;
   final String paymentMethod;
   final String paymentId;
+  final bool recruitmentCommentUseYn;
 
   RecruitmentVo({
     required this.userRecruitmentId,
@@ -66,6 +67,7 @@ class RecruitmentVo {
     required this.paidAt,
     required this.paymentMethod,
     required this.paymentId,
+    required this.recruitmentCommentUseYn,
   });
 
   factory RecruitmentVo.fromJson(Map<String, dynamic> json) => RecruitmentVo(
@@ -104,5 +106,6 @@ class RecruitmentVo {
     paidAt: (json["paidAt"] == null)?"":json["paidAt"] as String,
     paymentMethod: (json["paymentMethod"] == null)?"":json["paymentMethod"] as String,
     paymentId: (json["paymentId"] == null)?"":json["paymentId"] as String,
+    recruitmentCommentUseYn: (json["recruitmentCommentUseYn"] == null)?false:json["recruitmentCommentUseYn"] as bool,
   );
 }

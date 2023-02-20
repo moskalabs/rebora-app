@@ -286,6 +286,7 @@ class RecruitmentCreateController extends SuperController{
           paidAt : "",
           paymentMethod : "",
           paymentId : "",
+          recruitmentCommentUseYn: false,
       ),
       "createDate" : data,
     });

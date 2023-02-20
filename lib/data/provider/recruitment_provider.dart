@@ -35,4 +35,6 @@ abstract class RecruitmentProvider{
   Future<Response<DefaultVo>> recruitmentCommentWrite(Map<String,dynamic> data);
   Future<Response<DefaultVo>> recruitmentCommentDelete(String id);
   Future<Response<RecruitmentAreaVo>> recruitmentArea(Map<String, dynamic> data);
+  Future<Response<DefaultVo>> updateRecruitmentCommentUse(Map<String, dynamic> data);
+  Future<Response<DefaultVo>> updateRecruitment(Map<String, dynamic> data);
 }

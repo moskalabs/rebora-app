@@ -134,4 +134,16 @@ class RecruitmentRepository implements RecruitmentUseCase {
     final result = await provider.recruitmentArea(data);
     return result.body!;
   }
+
+  @override
+  Future<DefaultVo> updateRecruitmentCommentUse(Map<String, dynamic> data) async {
+    final result = await provider.updateRecruitmentCommentUse(data);
+    return result.body!;
+  }
+
+  @override
+  Future<DefaultVo> updateRecruitment(Map<String, dynamic> data) async {
+    final result = await provider.updateRecruitment(data);
+    return result.body!;
+  }
 }

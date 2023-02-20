@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:rebora/domain/usecase/recruitment_usecase.dart';
 import 'package:rebora/domain/usecase/wish_usecase.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_comment_vo.dart';
+import 'package:rebora/domain/vo/recruitment/recruitment_more_item.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_view_vo.dart';
 import 'package:rebora/presentation/common/app_status.dart';
 import 'package:rebora/presentation/common/data_singleton.dart';
@@ -25,7 +26,10 @@ class RecruitmentViewController extends SuperController{
   AppToast appToast = AppToast();
 
   var scrollController = ScrollController();
+  var isMoreButton = false.obs;
   var isLoading = false.obs;
+  var isCommentView = true.obs;
+  var isUpdateView = false.obs;
   var recruitmentViewVo = <RecruitmentViewVo>[].obs;
   var statusColor = const Color.fromRGBO(0, 0, 0, 0).obs;
   var statusTitleText = "".obs;
@@ -34,9 +38,12 @@ class RecruitmentViewController extends SuperController{
   var recruitmentDay = "".obs;
   var recruitmentTime = "".obs;
   var buttonStatus = "".obs;
+  var infoMessage = "".obs;
   var diffDay = 0.obs;
   var id = "";
+  var recruitmentMoreItem = <RecruitmentMoreItem>[].obs;
 
+  final movieInfoController = TextEditingController();
   final commentController = TextEditingController();
   var commentList = <RecruitmentCommentContentVo>[].obs;
   var totalCount = "".obs;
@@ -72,6 +79,10 @@ class RecruitmentViewController extends SuperController{
         }
       }
     });
+
+
+    recruitmentMoreItem.add(const RecruitmentMoreItem(text: '모집글 수정', iconSrc: "assets/images/icon_update.png"));
+    recruitmentMoreItem.add(const RecruitmentMoreItem(text: '댓글 비활성', iconSrc: "assets/images/comment.png"));
   }
 
   _loadData() {
@@ -81,8 +92,22 @@ class RecruitmentViewController extends SuperController{
       isLoading.value = false;
       if (result.result) {
         if ( result.recruitmentVo != null ) {
+
           var recruitmentVo = result.recruitmentVo!;
           var confirmationDay = dateUtil.diffDateMinutes(recruitmentVo.theaterEndDatetime);
+
+          isCommentView.value = recruitmentVo.recruitmentCommentUseYn;
+          movieInfoController.text = recruitmentVo.recruitmentIntroduce;
+          infoMessage.value = recruitmentVo.recruitmentIntroduce;
+
+          if ( recruitmentVo.recruiterNickname == DataSingleton.nickName) {
+            isMoreButton.value = true;
+          }
+
+          if (!recruitmentVo.recruitmentCommentUseYn) {
+            recruitmentMoreItem.removeAt(1);
+            recruitmentMoreItem.add(const RecruitmentMoreItem(text: '댓글 활성', iconSrc: "assets/images/comment.png"));
+          }
 
           diffDay.value = dateUtil.diffDateDay(recruitmentVo.recruitmentEndDate);
           statusColor.value = appStatus.getRecruitmentViewEndDayColor(
@@ -165,6 +190,103 @@ class RecruitmentViewController extends SuperController{
     });
   }
 
+  selectBox(RecruitmentMoreItem value) {
+    if (value.iconSrc == "assets/images/icon_update.png") {
+      isUpdateView.value = true;
+    } else {
+      _updateComment();
+    }
+  }
+
+  updateInfo() {
+    if (movieInfoController.text == "")  {
+      showDialog(context: context,
+          builder: (BuildContext context){
+            return CustomDialog(
+              title: "모집 소개글을 입력해주세요.",
+              okText: "확인",
+              okCallBack: () {
+                Navigator.of(context).pop();
+              },
+            );
+          }
+      );
+      return false;
+    }
+
+    isLoading.value = true;
+
+    Map<String,dynamic> data = {};
+    data["id"] = id;
+    data["recruitmentIntroduce"] = movieInfoController.text;
+    recruitmentUseCase.updateRecruitment(data).then((value) {
+      isLoading.value = false;
+      if (value.result) {
+        infoMessage.value = movieInfoController.text;
+        showDialog(context: context,
+            builder: (BuildContext context){
+              return CustomDialog(
+                title: "수정이 완료되었습니다.",
+                okText: "확인",
+                okCallBack: () {
+                  Navigator.of(context).pop();
+                  isUpdateView.value = false;
+                },
+              );
+            }
+        );
+      } else {
+        showDialog(context: context,
+            builder: (BuildContext context){
+              return CustomDialog(
+                title: value.message,
+                okText: "확인",
+                okCallBack: () {
+                  Navigator.of(context).pop();
+                },
+              );
+            }
+        );
+      }
+    });
+  }
+
+  _updateComment() {
+    isLoading.value = true;
+
+    var updateValue = (isCommentView.value) ? "false" : "true";
+    Map<String,dynamic> data = {};
+    data["id"] = id;
+    data["recruitmentCommentUseYn"] = updateValue;
+
+    recruitmentUseCase.updateRecruitmentCommentUse(data).then((value) {
+
+      isLoading.value = false;
+
+      if (value.result) {
+        isCommentView.value = !isCommentView.value;
+        recruitmentMoreItem.removeAt(1);
+        if (isCommentView.value) {
+          recruitmentMoreItem.add(const RecruitmentMoreItem(text: '댓글 비활성', iconSrc: "assets/images/comment.png"));
+        } else {
+          recruitmentMoreItem.add(const RecruitmentMoreItem(text: '댓글 활성', iconSrc: "assets/images/comment.png"));
+        }
+      }else {
+        showDialog(context: context,
+            builder: (BuildContext context){
+              return CustomDialog(
+                title: value.message,
+                okText: "확인",
+                okCallBack: () {
+                  Navigator.of(context).pop();
+                },
+              );
+            }
+        );
+      }
+    });
+  }
+
   writeComment() {
     if (commentController.text == "") {
       showDialog(context: context,
@@ -209,6 +331,10 @@ class RecruitmentViewController extends SuperController{
         _commentList();
       }
     });
+  }
+
+  cancelUpdate() {
+    isUpdateView.value = false;
   }
 
   String buttonTitle() {
