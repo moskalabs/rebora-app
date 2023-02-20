@@ -85,10 +85,4 @@ class HomeController extends SuperController with GetSingleTickerProviderStateMi
     // TODO: implement onResumed
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-    tabController.dispose();
-  }
-
 }
