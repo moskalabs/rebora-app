@@ -117,7 +117,7 @@ class CommonBottom extends StatelessWidget{
                     ),
                     SizedBox(width: 8,),
                     Text(
-                      "010-3599-7682",
+                      "070-7682-3599",
                       style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w400,

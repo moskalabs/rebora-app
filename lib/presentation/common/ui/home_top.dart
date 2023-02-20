@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rebora/presentation/common/data_singleton.dart';
+import 'package:rebora/presentation/dialog/custom_dialog.dart';
 import 'package:rebora/presentation/routes/app_routes.dart';
 class HomeNavigationBar extends StatelessWidget{
 
@@ -55,7 +56,26 @@ class HomeNavigationBar extends StatelessWidget{
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () {
-                        Get.toNamed(Routes.MY_ALARM);
+                        if (DataSingleton.token == "") {
+                          showDialog(context: context,
+                              builder: (BuildContext context){
+                                return CustomDialog(
+                                  title: "로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?",
+                                  cancelText: "확인",
+                                  cancelCallBack: ()  {
+                                    Navigator.of(context).pop();
+                                    Get.toNamed(Routes.LOGIN);
+                                  },
+                                  okText: "취소",
+                                  okCallBack: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                );
+                              }
+                          );
+                        } else {
+                          Get.toNamed(Routes.MY_ALARM);
+                        }
                       },
                       child: Stack(
                         children: [
@@ -116,7 +136,26 @@ class HomeNavigationBar extends StatelessWidget{
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () {
-                        Get.toNamed(Routes.MY_PAGE);
+                        if (DataSingleton.token == "") {
+                          showDialog(context: context,
+                              builder: (BuildContext context){
+                                return CustomDialog(
+                                  title: "로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?",
+                                  cancelText: "확인",
+                                  cancelCallBack: ()  {
+                                    Navigator.of(context).pop();
+                                    Get.toNamed(Routes.LOGIN);
+                                  },
+                                  okText: "취소",
+                                  okCallBack: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                );
+                              }
+                          );
+                        } else {
+                          Get.toNamed(Routes.MY_PAGE);
+                        }
                       },
                       child: SizedBox(
                         width: 28,

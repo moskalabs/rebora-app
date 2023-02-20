@@ -19,6 +19,7 @@ class HomeTab extends GetView<HomeTabController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.setContext(context);
     return Obx(() {
       return Stack(
         children: [
@@ -44,10 +45,7 @@ class HomeTab extends GetView<HomeTabController> {
                         items: controller.bannerList.value.map((data) {
                           return InkWell(
                             onTap: () {
-                              Get.toNamed(
-                                  Routes.RECRUITMENT_VIEW,
-                                  arguments: data.recruitmentId
-                              );
+                              controller.moveRecruitment(data.recruitmentId);
                             },
                             child: Stack(
                               children: [

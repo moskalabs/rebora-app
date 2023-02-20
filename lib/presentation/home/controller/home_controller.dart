@@ -41,6 +41,8 @@ class HomeController extends SuperController with GetSingleTickerProviderStateMi
   }
 
   _initProfile() async {
+    if (DataSingleton.token == "") return;
+
     final prefs = await SharedPreferences.getInstance();
     userUseCase.findProfile().then((value) {
       isLoading.value = false;

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rebora/presentation/common/ui/recruitment_row.dart';
 import 'package:rebora/presentation/home/controller/recruitment_tab_controller.dart';
-import 'package:rebora/presentation/routes/app_routes.dart';
 
 class RecruitmentTab extends GetView<RecruitmentTabController> {
 
   const RecruitmentTab({super.key});
   @override
   Widget build(BuildContext context) {
+    controller.setContext(context);
     controller.reload();
     return Obx(() {
       return Stack(

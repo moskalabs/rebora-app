@@ -10,6 +10,7 @@ class MovieTab extends GetView<MovieTabController> {
   const MovieTab({super.key});
   @override
   Widget build(BuildContext context) {
+    controller.setContext(context);
     return Obx((){
       return Stack(
         children: [
@@ -244,10 +245,7 @@ class MovieTab extends GetView<MovieTabController> {
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () {
-                                      Get.toNamed(
-                                          Routes.MOVIE_RECRUITMENT_VIEW,
-                                          arguments: controller.movieList[j]
-                                      );
+                                      controller.moveMovie(j);
                                     },
                                     child: MovieRow(
                                       startMargin: 5,

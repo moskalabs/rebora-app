@@ -131,7 +131,7 @@ class _MyAppState extends State<MyApp> {
     //initialRoute: (token == "")?AppPages.LOGIN:AppPages.HOME,
     return GetMaterialApp(
       enableLog: false,
-      initialRoute: (token == "")?AppPages.LOGIN:AppPages.HOME,
+      initialRoute:AppPages.HOME,
       getPages: AppPages.routes,
     );
   }

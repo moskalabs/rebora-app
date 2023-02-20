@@ -204,7 +204,7 @@ class LoginController extends SuperController<LoginVo> {
     var subName =  (credential.givenName == null ) ? "" : credential.givenName;
     var idToken = credential.identityToken;
     final prefs = await SharedPreferences.getInstance();
-    print("$idToken");
+    print("1111 = $idToken");
 
     isLoading.value = true;
     Map<String,dynamic> data = {};

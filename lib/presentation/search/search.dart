@@ -339,10 +339,7 @@ class Search extends GetView<SearchController> {
                                   splashColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () {
-                                    Get.toNamed(
-                                        Routes.MOVIE_RECRUITMENT_VIEW,
-                                        arguments: controller.movieList[index]
-                                    );
+                                    controller.moveMovie(index);
                                   },
                                   child: MovieRecruitmentRow(
                                       searchText: controller.searchText,
@@ -430,10 +427,7 @@ class Search extends GetView<SearchController> {
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () {
-                                      Get.toNamed(
-                                          Routes.RECRUITMENT_VIEW,
-                                          arguments: controller.recruitmentList[index].recruitmentId
-                                      );
+                                      controller.moveRecruitment(index);
                                     },
                                     child: RecruitmentRow(
                                         recruitmentData: controller.recruitmentList[index],

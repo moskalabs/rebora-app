@@ -7,9 +7,11 @@ import 'package:rebora/domain/usecase/recruitment_usecase.dart';
 import 'package:rebora/domain/usecase/wish_usecase.dart';
 import 'package:rebora/domain/vo/main/movie_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_vo.dart';
+import 'package:rebora/presentation/common/data_singleton.dart';
 import 'package:rebora/presentation/common/string_util.dart';
 import 'package:rebora/presentation/common/ui/app_toast.dart';
 import 'package:rebora/presentation/dialog/custom_dialog.dart';
+import 'package:rebora/presentation/routes/app_routes.dart';
 
 class SearchController extends SuperController {
 
@@ -106,6 +108,26 @@ class SearchController extends SuperController {
     });
   }
 
+
+  void _loginPrc() {
+    showDialog(context: context,
+        builder: (BuildContext context){
+          return CustomDialog(
+            title: "로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?",
+            cancelText: "확인",
+            cancelCallBack: ()  {
+              Navigator.of(context).pop();
+              Get.toNamed(Routes.LOGIN);
+            },
+            okText: "취소",
+            okCallBack: () {
+              Navigator.of(context).pop();
+            },
+          );
+        }
+    );
+  }
+
   search(String tag) {
     var searchText = searchController.text.replaceAll(" ", "");
     if (searchText == "") {
@@ -116,15 +138,6 @@ class SearchController extends SuperController {
       } else {
         _initRecruitment();
       }
-      // showDialog(context: context,
-      //     builder: (BuildContext context){
-      //       return CustomDialog(
-      //         title: "검색어를 입력해주세요.",
-      //         okText: "확인",
-      //         okCallBack: alertOkCallBack,
-      //       );
-      //     }
-      // );
       return;
     }
     page = 0;
@@ -140,6 +153,30 @@ class SearchController extends SuperController {
     } else {
       _searchRecruitmentData();
     }
+  }
+
+  void moveMovie(int index) {
+    if (DataSingleton.token == "") {
+      _loginPrc();
+      return;
+    }
+    Get.toNamed(
+        Routes.MOVIE_RECRUITMENT_VIEW,
+        arguments: movieList[index]
+    );
+  }
+
+  void moveRecruitment(int index) {
+
+    if (DataSingleton.token == "") {
+      _loginPrc();
+      return;
+    }
+
+    Get.toNamed(
+        Routes.RECRUITMENT_VIEW,
+        arguments: recruitmentList[index].recruitmentId
+    );
   }
 
   _searchMovieData() {
@@ -205,6 +242,10 @@ class SearchController extends SuperController {
 
   void _recruitmentWish(int index) {
 
+    if (DataSingleton.token == "") {
+      _loginPrc();
+      return;
+    }
     var userRecruitmentId = "${recruitmentList[index].userRecruitmentId}";
     if (userRecruitmentId == "-1" ) userRecruitmentId = "";
     if (recruitmentList[index].recruitmentId == -1 ) return;
@@ -232,6 +273,10 @@ class SearchController extends SuperController {
 
   _movieWish(int index) {
 
+    if (DataSingleton.token == "") {
+      _loginPrc();
+      return;
+    }
     var userMovieId = "${movieList[index].userMovieId}";
     if (userMovieId == "-1" ) userMovieId = "";
     if (movieList[index].id == -1 ) return;

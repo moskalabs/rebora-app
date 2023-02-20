@@ -5,7 +5,10 @@ import 'package:rebora/domain/usecase/wish_usecase.dart';
 import 'package:rebora/domain/vo/main/banner_vo.dart';
 import 'package:rebora/domain/vo/main/movie_vo.dart';
 import 'package:rebora/domain/vo/recruitment/recruitment_vo.dart';
+import 'package:rebora/presentation/common/data_singleton.dart';
 import 'package:rebora/presentation/common/ui/app_toast.dart';
+import 'package:rebora/presentation/dialog/custom_dialog.dart';
+import 'package:rebora/presentation/routes/app_routes.dart';
 
 class HomeTabController extends SuperController {
 
@@ -54,7 +57,23 @@ class HomeTabController extends SuperController {
       }
     });
   }
+
+  void moveRecruitment(int id) {
+
+    if (DataSingleton.token == "") {
+      _loginPrc();
+      return;
+    }
+    Get.toNamed(
+        Routes.RECRUITMENT_VIEW,
+        arguments: id
+    );
+  }
   void _movieWish(int index) {
+    if (DataSingleton.token == "") {
+      _loginPrc();
+      return;
+    }
 
     var userMovieId = "${movieList[index].userMovieId}";
     if (userMovieId == "-1" ) userMovieId = "";
@@ -80,7 +99,31 @@ class HomeTabController extends SuperController {
       }
     });
   }
+
+  void _loginPrc() {
+    showDialog(context: context,
+        builder: (BuildContext context){
+          return CustomDialog(
+            title: "로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?",
+            cancelText: "확인",
+            cancelCallBack: ()  {
+              Navigator.of(context).pop();
+              Get.toNamed(Routes.LOGIN);
+            },
+            okText: "취소",
+            okCallBack: () {
+              Navigator.of(context).pop();
+            },
+          );
+        }
+    );
+  }
+
   void _recruitmentWish(int index) {
+    if (DataSingleton.token == "") {
+      _loginPrc();
+      return;
+    }
 
     var userRecruitmentId = "${recruitmentList[index].userRecruitmentId}";
     if (userRecruitmentId == "-1" ) userRecruitmentId = "";
