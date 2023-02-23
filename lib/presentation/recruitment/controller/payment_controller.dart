@@ -6,7 +6,7 @@ class PaymentController extends SuperController{
   var title = "결제";
   var userCode = "imp43437372";
   // var pgCode = "tosspayments.627175"; //DEV
-  var pgCode = ""; //PROD
+  var pgCode = "tosspayments.bill_im_re53dk"; //PROD
 
   var payMethod = "card";
   var appScheme = "rebora";
@@ -23,11 +23,11 @@ class PaymentController extends SuperController{
     customerUid = Get.arguments["customerUid"] as String;
     amount = Get.arguments["amount"] as int;
 
-    if (amount > 0) {
-      pgCode = "uplus.bill_im_re53dk";
-    } else {
-      pgCode = "tosspayments.bill_im_re53dk";
-    }
+    // if (amount > 0) {
+    //   pgCode = "uplus.bill_im_re53dk";
+    // } else {
+    //   pgCode = "tosspayments.bill_im_re53dk";
+    // }
 
   }
 

@@ -84,19 +84,20 @@ class RecruitmentCreateController extends SuperController{
   void onInit() {
     super.onInit();
 
-    if ( Get.arguments == null ) {
-      movieVo = null;
-    } else {
-      _setMovieData(Get.arguments);
-    }
     recruitmentCinemaRowVo = null;
 
     DateTime now = DateTime.now();
     addThreeMount = now.add(const Duration(days: 90));
+    if ( Get.arguments == null ) {
+      movieVo = null;
+    } else {
+      _setMovieData(Get.arguments);
+      _clearForm(Get.arguments);
+    }
 
-    _setYear();
-    _setMonth();
-    _setDay();
+    // _setYear();
+    // _setMonth();
+    // _setDay();
   }
 
   _setYear() {
