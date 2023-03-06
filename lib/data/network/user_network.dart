@@ -24,6 +24,7 @@ class UserNetwork extends GetConnect implements UserProvider {
   final _findAlarmPath = "/api/notification/getPageByUser";
   final _findMovieFavorPath = "/api/wish/getMovieList";
   final _findRecruitmentFavorPath = "/api/wish/getRecruitmentList";
+  final _updateUserAuthenticatedPath = "/api/user/updateUserAuthenticated";
 
   @override
   void onInit() {
@@ -162,6 +163,20 @@ class UserNetwork extends GetConnect implements UserProvider {
         },
         query: data,
         decoder: (value) => MovieRecruitmentVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+  @override
+  Future<Response<DefaultVo>> updateUserAuthenticated(Map<String,dynamic> data) {
+    return put(
+        "$_updateUserAuthenticatedPath/${data["userId"]}",
+        data,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "token" : DataSingleton.token
+        },
+        query: data,
+        decoder: (value) => DefaultVo.fromJson(value as Map<String, dynamic>)
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:rebora/data/provider/join_provider.dart';
 import 'package:rebora/domain/vo/join/agree_vo.dart';
+import 'package:rebora/domain/vo/join/user_auth_vo.dart';
 import 'package:rebora/domain/vo/user/change_password_vo.dart';
 import 'package:rebora/domain/vo/join/email_auth_vo.dart';
 import 'package:rebora/domain/vo/join/email_check_vo.dart';
@@ -17,6 +18,8 @@ class JoinNetwork extends GetConnect implements JoinProvider {
   final _joinPath = "/api/user/signUp";
   final _SNSJoinPath = "/api/user/oath/signUpSns";
   final _changePasswordPath = "/api/user/changePassword";
+  final _getUserAuthenticatedPath = "/api/user/getUserAuthenticated";
+
 
   @override
   void onInit() {
@@ -94,6 +97,16 @@ class JoinNetwork extends GetConnect implements JoinProvider {
         headers: {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"},
         query: data,
         decoder: (value) => ChangePasswordVo.fromJson(value as Map<String, dynamic>)
+    );
+  }
+
+  @override
+  Future<Response<UserAuthVo>> getUserAuthenticated(Map<String, dynamic> data) {
+
+    return get(
+        _getUserAuthenticatedPath,
+        query: data,
+        decoder: (value) => UserAuthVo.fromJson(value as Map<String, dynamic>)
     );
   }
 }

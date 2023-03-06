@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:rebora/presentation/common/ui/navigation_bar.dart';
 import 'package:rebora/presentation/join/controller/join_controller.dart';
+import 'package:rebora/presentation/routes/app_routes.dart';
 
 class Join extends GetView<JoinController> {
 
@@ -281,6 +282,7 @@ class Join extends GetView<JoinController> {
                                   width: MediaQuery.of(context).size.width,
                                   height: 44,
                                   child: TextField(
+                                      enabled: !controller.isAuth.value,
                                       controller: controller.joinNameController,
                                       style: const TextStyle(
                                         fontSize: 16,   // This is not so important
@@ -551,6 +553,82 @@ class Join extends GetView<JoinController> {
                                 margin: const EdgeInsets.fromLTRB(21, 5, 0, 0),
                                 child: Text(
                                   controller.passwordConfirmText.value,
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Color.fromRGBO(255, 114, 114, 1)
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () {
+                                  controller.moveAuth();
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.fromLTRB(21, 45, 21, 0),
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 111,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(7),
+                                      border: Border.all(
+                                          width: 1,
+                                          color: const Color.fromRGBO(222, 222, 222, 1)
+                                      ),
+                                      color: const Color.fromRGBO(248, 248, 248, 1)
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      const SizedBox(width: 16,),
+                                      Image.asset(
+                                          "assets/images/icon_phone.png",
+                                          width: 66,
+                                          height: 66,
+                                          fit:BoxFit.fill
+                                      ),
+                                      const SizedBox(width: 7,),
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: const [
+                                          Text(
+                                            "휴대폰 본인인증",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromRGBO(106, 106, 106, 1)
+                                            ),
+                                          ),
+                                          SizedBox(height: 7,),
+                                          Text(
+                                            "본인 명의 휴대폰번호로 인증이 필요합니다.",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w400,
+                                                color: Color.fromRGBO(152, 152, 152, 1)
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(21, 14, 21, 0),
+                                child: const Text(
+                                  "리:보라는 연령별 맞춤 콘텐츠를 제공하고 있기에, 본인인증서비스를 필수로 진행하고 있습니다.",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color.fromRGBO(152, 152, 152, 1)
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(21, 5, 0, 0),
+                                child: Text(
+                                  controller.authConfirmText.value,
                                   style: const TextStyle(
                                       fontSize: 14,
                                       color: Color.fromRGBO(255, 114, 114, 1)

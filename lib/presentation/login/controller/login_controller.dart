@@ -80,6 +80,7 @@ class LoginController extends SuperController<LoginVo> {
         DataSingleton.profile = value.userImage;
         DataSingleton.userPushYn = value.userPushYn;
         DataSingleton.userPushNightYn = value.userPushNightYn;
+        DataSingleton.isAuthenticated = value.isAuthenticated;
 
         Get.offAllNamed(Routes.HOME);
       } else {

@@ -6,6 +6,7 @@ import 'package:rebora/domain/vo/recruitment/movie_recruitment_vo.dart';
 import 'package:rebora/domain/vo/user/alarm_vo.dart';
 import 'package:rebora/domain/vo/user/mypage_vo.dart';
 import 'package:rebora/domain/vo/user/profile_update_vo.dart';
+import 'package:rebora/domain/vo/join/user_auth_vo.dart';
 import 'package:rebora/domain/vo/user/user_vo.dart';
 import 'package:rebora/domain/vo/user/withdrawal_vo.dart';
 
@@ -65,6 +66,12 @@ class UserRepository implements UserUseCase{
   @override
   Future<MovieRecruitmentVo> findRecruitmentFavor(Map<String,dynamic> data) async {
     final result = await provider.findRecruitmentFavor(data);
+    return result.body!;
+  }
+
+  @override
+  Future<DefaultVo> updateUserAuthenticated(Map<String,dynamic> data) async {
+    final result = await provider.updateUserAuthenticated(data);
     return result.body!;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:rebora/data/provider/join_provider.dart';
 import 'package:rebora/domain/usecase/join_usecase.dart';
 import 'package:rebora/domain/vo/join/agree_vo.dart';
+import 'package:rebora/domain/vo/join/user_auth_vo.dart';
 import 'package:rebora/domain/vo/user/change_password_vo.dart';
 import 'package:rebora/domain/vo/join/email_auth_vo.dart';
 import 'package:rebora/domain/vo/join/email_check_vo.dart';
@@ -51,6 +52,12 @@ class JoinRepository implements JoinUseCase{
   @override
   Future<JoinVo> SNSJoin(Map<String,dynamic> data) async {
     final result = await provider.SNSJoin(data);
+    return result.body!;
+  }
+
+  @override
+  Future<UserAuthVo> getUserAuthenticated(Map<String, dynamic> data) async {
+    final result = await provider.getUserAuthenticated(data);
     return result.body!;
   }
 }

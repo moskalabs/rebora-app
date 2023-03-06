@@ -33,7 +33,11 @@ class JoinController extends SuperController {
   var nickNameText = " ".obs;
   var passwordText = " ".obs;
   var passwordConfirmText = " ".obs;
+  var authConfirmText = " ".obs;
   var checkNickName = "";
+  var userBirth = "";
+  var userCarrierType = "";
+  var userPhone = "";
 
   final joinIdController = TextEditingController();
   final joinAuthController = TextEditingController();
@@ -46,6 +50,7 @@ class JoinController extends SuperController {
 
   var authEmailText = "";
   var authCode = "";
+  var isAuth = false.obs;
 
   JoinController({
     required this.joinUseCase
@@ -292,6 +297,15 @@ class JoinController extends SuperController {
     }
     if (!passwordFocusOut()) return;
     if (!passwordConfirmFocusOut()) return;
+    if ( authCode == "") {
+      emailAuthText.value = "이메일 인증 후 회원가입이 가능합니다.";
+      return;
+    }
+
+    if (!isAuth.value) {
+      authConfirmText.value = "휴대폰 본인인증을 진행해 주세요.";
+      return;
+    }
 
     Map<String,dynamic> data = {};
     data["userEmail"] =authEmailText;
@@ -303,6 +317,10 @@ class JoinController extends SuperController {
     data["userPushKey"] = DataSingleton.pushToken;
     data["userPushYn"] = (selectAgree) ? "true" : "false";
     data["userPushNightYn"] = "false";
+    data["userBirth"] = userBirth;
+    data["userCarrierType"] = userCarrierType;
+    data["userPhone"] = userPhone;
+    data["isAuthenticated"] = "true";
 
     final prefs = await SharedPreferences.getInstance();
 
@@ -318,6 +336,7 @@ class JoinController extends SuperController {
         DataSingleton.nickName = checkNickName;
         DataSingleton.userPushYn = value.userPushYn;
         DataSingleton.userPushNightYn = value.userPushNightYn;
+        DataSingleton.isAuthenticated = value.isAuthenticated;
         Get.offAllNamed(Routes.HOME);
       } else {
         showDialog(context: context,
@@ -331,7 +350,32 @@ class JoinController extends SuperController {
         );
       }
     });
+  }
 
+  moveAuth() async {
+    authConfirmText.value = "";
+    var authResult = await Get.toNamed(Routes.AUTH);
+
+    if (authResult != null ) {
+      print("authResult = $authResult");
+      var success = (authResult["success"] == null) ? "false" : authResult["success"] as String;
+      if (success == "true") {
+        Map<String,dynamic> data = {};
+        data["impUid"] = authResult["imp_uid"] as String;
+
+        isLoading.value = true;
+        joinUseCase.getUserAuthenticated(data).then((value) {
+          isLoading.value = false;
+          if (value.result && value.content != null) {
+            isAuth.value = true;
+            joinNameController.text = value.content!.userName;
+            userBirth = value.content!.userBirth;
+            userCarrierType = value.content!.userCarrierType;
+            userPhone = value.content!.userPhone;
+          }
+        });
+      }
+    }
   }
 
   @override

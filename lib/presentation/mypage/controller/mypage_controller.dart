@@ -143,6 +143,7 @@ class MyPageController extends SuperController {
               prefs.setString(AppConst.NICKNAME,"");
               prefs.setString(AppConst.PROFILE_IMAGE,"");
 
+              DataSingleton.userId = -1;
               DataSingleton.token = "";
               DataSingleton.nickName = "";
               DataSingleton.profile = "";

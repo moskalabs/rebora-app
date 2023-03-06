@@ -5,6 +5,7 @@ import 'package:rebora/domain/vo/recruitment/movie_recruitment_vo.dart';
 import 'package:rebora/domain/vo/user/alarm_vo.dart';
 import 'package:rebora/domain/vo/user/mypage_vo.dart';
 import 'package:rebora/domain/vo/user/profile_update_vo.dart';
+import 'package:rebora/domain/vo/join/user_auth_vo.dart';
 import 'package:rebora/domain/vo/user/user_vo.dart';
 import 'package:rebora/domain/vo/user/withdrawal_vo.dart';
 
@@ -18,4 +19,5 @@ abstract class UserProvider{
   Future<Response<AlarmVo>> findAlarmList(Map<String,dynamic> data);
   Future<Response<MovieTabVo>> findMovieFavor(Map<String,dynamic> data);
   Future<Response<MovieRecruitmentVo>> findRecruitmentFavor(Map<String,dynamic> data);
+  Future<Response<DefaultVo>> updateUserAuthenticated(Map<String,dynamic> data);
 }

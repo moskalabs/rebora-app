@@ -6,7 +6,9 @@ import 'package:rebora/presentation/find_password/find_password.dart';
 import 'package:rebora/presentation/home/binding/home_binding.dart';
 import 'package:rebora/presentation/home/home.dart';
 import 'package:rebora/presentation/join/agree.dart';
+import 'package:rebora/presentation/join/auth.dart';
 import 'package:rebora/presentation/join/binding/agree_binding.dart';
+import 'package:rebora/presentation/join/binding/auth_binding.dart';
 import 'package:rebora/presentation/join/binding/join_binding.dart';
 import 'package:rebora/presentation/join/binding/sns_join_binding.dart';
 import 'package:rebora/presentation/join/join.dart';
@@ -143,6 +145,11 @@ class AppPages {
       name: Routes.MY_FAVOR,
       page: ()=> const Favor(),
       binding: FavorBinding(),
+    ),
+    GetPage(
+      name: Routes.AUTH,
+      page: ()=> const Auth(),
+      binding: AuthBinding(),
     ),
   ];
 

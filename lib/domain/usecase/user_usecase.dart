@@ -17,4 +17,5 @@ abstract class UserUseCase{
   Future<AlarmVo> findAlarmList(Map<String,dynamic> data);
   Future<MovieTabVo> findMovieFavor(Map<String,dynamic> data);
   Future<MovieRecruitmentVo> findRecruitmentFavor(Map<String,dynamic> data);
+  Future<DefaultVo> updateUserAuthenticated(Map<String,dynamic> data);
 }

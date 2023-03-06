@@ -19,4 +19,5 @@ abstract class Routes {
   static const SEARCH = '/search';
   static const MOVIE_RECRUITMENT_CANCEL = '/movieRecruitmentCancel';
   static const PAYMENT = '/payment';
+  static const AUTH = '/auth';
 }

@@ -12,6 +12,7 @@ class DataSingleton {
   static String pushToken = "";
   static bool userPushYn = false;
   static bool userPushNightYn = false;
+  static bool isAuthenticated = false;
   static String userSnsKind = "";
 
   factory DataSingleton(){

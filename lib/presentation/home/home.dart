@@ -12,6 +12,7 @@ class Home extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.setContext(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

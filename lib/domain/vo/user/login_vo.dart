@@ -9,6 +9,7 @@ class LoginVo {
   final int userId;
   final bool userPushYn;
   final bool userPushNightYn;
+  final bool isAuthenticated;
 
   LoginVo({
     required this.result,
@@ -19,7 +20,9 @@ class LoginVo {
     required this.userNickname,
     required this.userId,
     required this.userPushYn,
-    required this.userPushNightYn
+    required this.userPushNightYn,
+    required this.isAuthenticated
+
   });
 
   factory LoginVo.fromJson(Map<String, dynamic> json) => LoginVo(
@@ -32,5 +35,6 @@ class LoginVo {
     userId : (json["userId"] == null)?-1:json["userId"] as int,
     userPushYn: (json["userPushYn"] == null)?false:json["userPushYn"] as bool,
     userPushNightYn: (json["userPushNightYn"] == null)?false:json["userPushNightYn"] as bool,
+    isAuthenticated: (json["isAuthenticated"] == null)?false:json["isAuthenticated"] as bool,
   );
 }

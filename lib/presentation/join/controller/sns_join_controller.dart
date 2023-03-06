@@ -26,6 +26,11 @@ class SNSJoinController extends SuperController {
   var nameText = " ".obs;
   var nickNameText = " ".obs;
   var checkNickName = "";
+  var authConfirmText = " ".obs;
+  var isAuth = false.obs;
+  var userBirth = "";
+  var userCarrierType = "";
+  var userPhone = "";
 
   final joinNameController = TextEditingController();
   final joinNickNameController = TextEditingController();
@@ -124,6 +129,11 @@ class SNSJoinController extends SuperController {
       return;
     }
 
+    if (!isAuth.value) {
+      authConfirmText.value = "휴대폰 본인인증을 진행해 주세요.";
+      return;
+    }
+
     Map<String,dynamic> data = {};
     data["userEmail"] =argument["userEmail"];
     data["userName"] =joinNameController.text;
@@ -133,6 +143,10 @@ class SNSJoinController extends SuperController {
     data["userPushKey"] = DataSingleton.pushToken;
     data["userPushYn"] = (selectAgree) ? "true" : "false";
     data["userPushNightYn"] = "false";
+    data["userBirth"] = userBirth;
+    data["userCarrierType"] = userCarrierType;
+    data["userPhone"] = userPhone;
+    data["isAuthenticated"] = "true";
 
     final prefs = await SharedPreferences.getInstance();
 
@@ -165,6 +179,31 @@ class SNSJoinController extends SuperController {
 
   }
 
+  moveAuth() async {
+    authConfirmText.value = "";
+    var authResult = await Get.toNamed(Routes.AUTH);
+
+    if (authResult != null ) {
+      print("authResult = $authResult");
+      var success = (authResult["success"] == null) ? "false" : authResult["success"] as String;
+      if (success == "true") {
+        Map<String,dynamic> data = {};
+        data["impUid"] = authResult["imp_uid"] as String;
+
+        isLoading.value = true;
+        joinUseCase.getUserAuthenticated(data).then((value) {
+          isLoading.value = false;
+          if (value.result && value.content != null) {
+            isAuth.value = true;
+            joinNameController.text = value.content!.userName;
+            userBirth = value.content!.userBirth;
+            userCarrierType = value.content!.userCarrierType;
+            userPhone = value.content!.userPhone;
+          }
+        });
+      }
+    }
+  }
   @override
   void onDetached() {
     // TODO: implement onDetached
