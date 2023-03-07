@@ -217,7 +217,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                     width: 28,
                                     height: 28,
                                     fit: BoxFit.fill,
-                                    imageUrl: recruitmentData.recruitmentUserImage,
+                                    imageUrl: recruitmentData.recruiterUserImage,
                                     errorWidget: (context, url, error) => const Image(
                                       width: 28,
                                       height: 28,

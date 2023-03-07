@@ -149,6 +149,7 @@ class MyPageController extends SuperController {
               DataSingleton.profile = "";
               DataSingleton.userPushYn = false;
               DataSingleton.userPushNightYn = false;
+              DataSingleton.isAuthenticated = false;
 
               Get.offAllNamed(Routes.LOGIN);
             },

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:rebora/domain/usecase/user_usecase.dart';
 import 'package:rebora/domain/vo/user/alarm_vo.dart';
 import 'package:rebora/presentation/common/string_util.dart';
+import 'package:rebora/presentation/routes/app_routes.dart';
 
 class MyPageAlarmController extends SuperController {
 
@@ -23,7 +24,10 @@ class MyPageAlarmController extends SuperController {
   StringUtil stringUtil = StringUtil();
 
   final _statusTitle = {
-    "CONFORMATION": "보러가기 >"
+    "RECRUITMENT": "보러가기 >", //모집 게시판
+    "WISH_MOVIE": "보러가기 >", //찜 목록
+    "WISH_RECRUITMENT": "보러가기 >", //찜 목록
+    "HISTORY": "참여내역 가기 >", //참여내역
   };
 
   void setContext(BuildContext context) {
@@ -58,8 +62,24 @@ class MyPageAlarmController extends SuperController {
     });
   }
 
+  move(int index) {
+    var kind = alarmContentList[index].notificationKind;
+    if (kind == "RECRUITMENT") {
+      Get.offNamed(
+          Routes.RECRUITMENT_VIEW,
+          arguments: alarmContentList[index].recruitmentId
+      );
+      return;
+    } else if (kind == "WISH_MOVIE" || kind == "WISH_RECRUITMENT") {
+      Get.offNamed(Routes.MY_FAVOR);
+      return;
+    } else if (kind == "HISTORY" ) {
+      Get.offNamed(Routes.MY_PAGE_RECRUITMENT);
+      return;
+    }
+  }
+
   moveTitle(String status) {
-    print(status);
     return (_statusTitle[status] == null) ? "" : _statusTitle[status];
   }
 

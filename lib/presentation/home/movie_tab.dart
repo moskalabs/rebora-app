@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rebora/presentation/common/ui/movie_new_row.dart';
 import 'package:rebora/presentation/common/ui/movie_row.dart';
 import 'package:rebora/presentation/home/controller/movie_tab_controller.dart';
 import 'package:rebora/presentation/routes/app_routes.dart';
@@ -227,39 +228,73 @@ class MovieTab extends GetView<MovieTabController> {
                       )
                   )
                 ] else ... [
+                  // 기존
+                  // Expanded(
+                  //     flex: 1,
+                  //     child: SingleChildScrollView(
+                  //         controller: controller.scrollController,
+                  //         child: Container(
+                  //           width: MediaQuery.of(context).size.width,
+                  //           margin: const EdgeInsets.only(right: 5, left: 5),
+                  //           color: Colors.white,
+                  //           child: Wrap(
+                  //             direction: Axis.horizontal,
+                  //             // crossAxisAlignment: WrapCrossAlignment.center,
+                  //             alignment: WrapAlignment.center,
+                  //             children: [
+                  //               for (var j=0;j<controller.movieList.length;j++)...[
+                  //                 InkWell(
+                  //                   splashColor: Colors.transparent,
+                  //                   highlightColor: Colors.transparent,
+                  //                   onTap: () {
+                  //                     controller.moveMovie(j);
+                  //                   },
+                  //                   child: MovieRow(
+                  //                     startMargin: 5,
+                  //                     movieData: controller.movieList[j],
+                  //                     lastMargin: 5,
+                  //                     bottomMargin: 45,
+                  //                     index: j,
+                  //                     movieWishCallBack: controller.movieWishCallBack,
+                  //                   ),
+                  //                 )
+                  //               ]
+                  //             ],
+                  //           ),
+                  //         )
+                  //     )
+                  // )
+
+                  //수정
                   Expanded(
                       flex: 1,
-                      child: SingleChildScrollView(
+                      child: Container(
+                        margin: const EdgeInsets.only(right: 5,left: 5),
+                        child: GridView.builder(
                           controller: controller.scrollController,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.only(right: 5, left: 5),
-                            color: Colors.white,
-                            child: Wrap(
-                              direction: Axis.horizontal,
-                              // crossAxisAlignment: WrapCrossAlignment.center,
-                              alignment: WrapAlignment.center,
-                              children: [
-                                for (var j=0;j<controller.movieList.length;j++)...[
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () {
-                                      controller.moveMovie(j);
-                                    },
-                                    child: MovieRow(
-                                      startMargin: 5,
-                                      movieData: controller.movieList[j],
-                                      lastMargin: 5,
-                                      bottomMargin: 45,
-                                      index: j,
-                                      movieWishCallBack: controller.movieWishCallBack,
-                                    ),
-                                  )
-                                ]
-                              ],
-                            ),
-                          )
+                          itemCount: controller.movieList.length,   //item 개수
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            childAspectRatio: 1 / 2,
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return InkWell(
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () {
+                                controller.moveMovie(index);
+                              },
+                              child: MovieNewRow(
+                                startMargin: 8,
+                                movieData: controller.movieList[index],
+                                lastMargin: 8,
+                                bottomMargin: 0,
+                                index: index,
+                                movieWishCallBack: controller.movieWishCallBack,
+                              )
+                            );
+                          },   //item 의 반목문 항목 형성
+                        ),
                       )
                   )
                 ]

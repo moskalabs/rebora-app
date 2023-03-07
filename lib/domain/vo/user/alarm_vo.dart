@@ -52,6 +52,7 @@ class AlarmContentVo {
   final int notificationId;
   final String notificationSubject;
   final String notificationContent;
+  final String movieName;
   final String notificationKind;
   final bool notificationReadYn;
   final int recruitmentId;
@@ -63,6 +64,7 @@ class AlarmContentVo {
     required this.notificationId,
     required this.notificationSubject,
     required this.notificationContent,
+    required this.movieName,
     required this.notificationKind,
     required this.notificationReadYn,
     required this.recruitmentId,
@@ -75,6 +77,7 @@ class AlarmContentVo {
     notificationId: (json["notificationId"] == null)?-1:json["notificationId"] as int,
     notificationSubject: (json["notificationSubject"] == null)?"":json["notificationSubject"] as String,
     notificationContent: (json["notificationContent"] == null)?"":json["notificationContent"] as String,
+    movieName: (json["movieName"] == null)?"":json["movieName"] as String,
     notificationKind: (json["notificationKind"] == null)?"":json["notificationKind"] as String,
     notificationReadYn: (json["notificationReadYn"] == null)?false:json["notificationReadYn"] as bool,
     recruitmentId: (json["recruitmentId"] == null)?-1:json["recruitmentId"] as int,
