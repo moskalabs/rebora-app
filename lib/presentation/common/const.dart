@@ -1,6 +1,6 @@
 class AppConst {
-    // static const BASE_URL = "https://m.re-bora.com";
-  static const BASE_URL = "http://dev.re-bora.com";
+    static const BASE_URL = "https://m.re-bora.com";
+  // static const BASE_URL = "http://dev.re-bora.com";
   static const LOGIN_TOKEN = "loginToken";
   static const NICKNAME = "nickName";
   static const PROFILE_IMAGE = "profileImage";
