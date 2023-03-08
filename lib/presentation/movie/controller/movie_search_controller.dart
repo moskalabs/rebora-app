@@ -1,13 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rebora/domain/usecase/movie_usecase.dart';
-import 'package:rebora/domain/usecase/wish_usecase.dart';
 import 'package:rebora/domain/vo/main/movie_vo.dart';
-import 'package:rebora/domain/vo/recruitment/recruitment_vo.dart';
 import 'package:rebora/presentation/common/string_util.dart';
-import 'package:rebora/presentation/common/ui/app_toast.dart';
-import 'package:rebora/presentation/dialog/custom_dialog.dart';
-import 'package:rebora/presentation/routes/app_routes.dart';
 
 class MovieSearchController extends SuperController{
 
@@ -29,6 +26,7 @@ class MovieSearchController extends SuperController{
   var movieList = <MovieVo>[].obs;
   var scrollController = ScrollController();
   final searchController = TextEditingController();
+  Timer? searchTimer;
 
   var searchText = "";
   var totalCount = "";
@@ -48,15 +46,7 @@ class MovieSearchController extends SuperController{
   void onInit() {
     super.onInit();
 
-    Map<String,dynamic> data = {};
-    data["sort"] = "";
-    data["category"] = "";
-    data["page"] = "0";
-    movieUseCase.movieTab(data).then((value) {
-      if (value.result && value.page != null && value.page!.movieList != null) {
-        movieList.addAll(value.page!.movieList!);
-      }
-    });
+    _initSearchData();
 
     scrollController.addListener(() {
       if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
@@ -66,19 +56,48 @@ class MovieSearchController extends SuperController{
         }
       }
     });
+
+
+    searchController.addListener(() {
+      _searchTimer();
+    });
+  }
+
+  _initSearchData() {
+
+    Map<String,dynamic> data = {};
+    data["sort"] = "";
+    data["category"] = "";
+    data["page"] = "0";
+    movieUseCase.movieTab(data).then((value) {
+      if (value.result && value.page != null && value.page!.movieList != null) {
+        movieList.addAll(value.page!.movieList!);
+      }
+    });
+  }
+
+  _searchTimer() {
+    if (searchTimer?.isActive ?? false) searchTimer!.cancel();
+    searchTimer = Timer(const Duration(milliseconds: 300), () {
+      search();
+    });
   }
 
   search() {
     if (searchController.text == "") {
-      showDialog(context: context,
-          builder: (BuildContext context){
-            return CustomDialog(
-              title: "검색어를 입력해주세요.",
-              okText: "확인",
-              okCallBack: alertOkCallBack,
-            );
-          }
-      );
+      isDefaultSearchTitle.value = true;
+      totalCount = "";
+      movieList.clear();
+      _initSearchData();
+      // showDialog(context: context,
+      //     builder: (BuildContext context){
+      //       return CustomDialog(
+      //         title: "검색어를 입력해주세요.",
+      //         okText: "확인",
+      //         okCallBack: alertOkCallBack,
+      //       );
+      //     }
+      // );
       return;
     }
     totalCount = "";
