@@ -45,6 +45,7 @@ class HomeTab extends GetView<HomeTabController> {
                         items: controller.bannerList.value.map((data) {
                           return InkWell(
                             onTap: () {
+                              if (data.bannerId == 1) return;
                               controller.moveRecruitment(data.recruitmentId);
                             },
                             child: Stack(
