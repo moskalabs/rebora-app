@@ -22,11 +22,13 @@ import 'package:rebora/presentation/movie/movie_search_view.dart';
 import 'package:rebora/presentation/mypage/binding/favor_binding.dart';
 import 'package:rebora/presentation/mypage/binding/mypage_alarm_binding.dart';
 import 'package:rebora/presentation/mypage/binding/mypage_binding.dart';
+import 'package:rebora/presentation/mypage/binding/participation_item_binding.dart';
 import 'package:rebora/presentation/mypage/binding/participation_list_binding.dart';
 import 'package:rebora/presentation/mypage/binding/profile_update_binding.dart';
 import 'package:rebora/presentation/mypage/favor.dart';
 import 'package:rebora/presentation/mypage/mypage.dart';
 import 'package:rebora/presentation/mypage/mypage_alarm.dart';
+import 'package:rebora/presentation/mypage/participation_item.dart';
 import 'package:rebora/presentation/mypage/participation_list.dart';
 import 'package:rebora/presentation/mypage/profile_update.dart';
 import 'package:rebora/presentation/recruitment/binding/participation_view_binding.dart';
@@ -48,109 +50,113 @@ class AppPages {
   static final routes = [
     GetPage(
       name: Routes.HOME,
-      page: ()=> const Home(),
+      page: () => const Home(),
       binding: HomeBinding(),
     ),
     GetPage(
       name: Routes.LOGIN,
-      page: ()=> const Login(),
+      page: () => const Login(),
       binding: LoginBinding(),
     ),
     GetPage(
       name: Routes.AGREE,
-      page: ()=> const Agree(),
+      page: () => const Agree(),
       binding: AgreeBinding(),
     ),
     GetPage(
       name: Routes.JOIN,
-      page: ()=> const Join(),
+      page: () => const Join(),
       binding: JoinBinding(),
     ),
     GetPage(
       name: Routes.SNS_JOIN,
-      page: ()=> const SNSJoin(),
+      page: () => const SNSJoin(),
       binding: SNSJoinBinding(),
     ),
     GetPage(
       name: Routes.FIND_PASSWORD,
-      page: ()=> const FindPassword(),
+      page: () => const FindPassword(),
       binding: FindPasswordBinding(),
     ),
     GetPage(
       name: Routes.CHANGE_PASSWORD,
-      page: ()=> const ChangePassword(),
+      page: () => const ChangePassword(),
       binding: ChangePasswordBinding(),
     ),
     GetPage(
       name: Routes.RECRUITMENT_VIEW,
-      page: ()=> const RecruitmentView(),
+      page: () => const RecruitmentView(),
       binding: RecruitmentViewBinding(),
     ),
     GetPage(
       name: Routes.PARTICIPATION,
-      page: ()=> const ParticipationView(),
+      page: () => const ParticipationView(),
       binding: ParticipationViewBinding(),
     ),
     GetPage(
       name: Routes.MOVIE_RECRUITMENT_VIEW,
-      page: ()=> const MovieRecruitmentView(),
+      page: () => const MovieRecruitmentView(),
       binding: MovieRecruitmentViewBinding(),
     ),
     GetPage(
       name: Routes.MOVIE_RECRUITMENT_CREATE,
-      page: ()=> const RecruitmentCreateView(),
+      page: () => const RecruitmentCreateView(),
       binding: RecruitmentCreateBinding(),
     ),
     GetPage(
       name: Routes.MOVIE_SEARCH_CREATE,
-      page: ()=> const MovieSearchView(),
+      page: () => const MovieSearchView(),
       binding: MovieSearchViewBinding(),
     ),
     GetPage(
       name: Routes.MY_PAGE,
-      page: ()=> const MyPage(),
+      page: () => const MyPage(),
       binding: MyPageBinding(),
     ),
     GetPage(
       name: Routes.MY_PAGE_RECRUITMENT,
-      page: ()=> const ParticipationList(),
+      page: () => const ParticipationList(),
       binding: ParticipationListBinding(),
     ),
     GetPage(
+      name: Routes.MY_PAGE_PARTICIPATION_ITEM,
+      page: () => const ParticipationItem(),
+      binding: ParticipationItemBinding(),
+    ),
+    GetPage(
       name: Routes.PROFILE_UPDATE,
-      page: ()=> const ProfileUpdate(),
+      page: () => const ProfileUpdate(),
       binding: ProfileUpdateBinding(),
     ),
     GetPage(
       name: Routes.MY_ALARM,
-      page: ()=> const MyPageAlarm(),
+      page: () => const MyPageAlarm(),
       binding: MyPageAlarmBinding(),
     ),
     GetPage(
       name: Routes.SEARCH,
-      page: ()=> const Search(),
+      page: () => const Search(),
       binding: SearchBinding(),
     ),
     GetPage(
       name: Routes.MOVIE_RECRUITMENT_CANCEL,
-      page: ()=> const ParticipationCancel(),
+      page: () => const ParticipationCancel(),
       binding: ParticipationViewBinding(),
     ),
     GetPage(
       name: Routes.PAYMENT,
-      page: ()=> const Payment(),
+      page: () => const Payment(),
       binding: PaymentBinding(),
     ),
     GetPage(
       name: Routes.MY_FAVOR,
-      page: ()=> const Favor(),
+      page: () => const Favor(),
       binding: FavorBinding(),
     ),
     GetPage(
       name: Routes.AUTH,
-      page: ()=> const Auth(),
+      page: () => const Auth(),
       binding: AuthBinding(),
     ),
   ];
-
 }
