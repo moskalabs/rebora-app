@@ -10,12 +10,10 @@ import 'package:rebora/presentation/mypage/controller/participation_list_control
 import 'package:rebora/presentation/routes/app_routes.dart';
 
 class ParticipationList extends GetView<ParticipationListController> {
-
   const ParticipationList({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     final AppStatus appStatus = AppStatus();
     final DateUtil dateUtil = DateUtil();
     controller.setContext(context);
@@ -32,111 +30,91 @@ class ParticipationList extends GetView<ParticipationListController> {
           systemOverlayStyle: const SystemUiOverlayStyle(
               statusBarColor: Colors.white,
               statusBarIconBrightness: Brightness.dark,
-              statusBarBrightness: Brightness.light
-          ),
+              statusBarBrightness: Brightness.light),
         ),
         body: Obx(() {
           return Stack(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children:  [
-                  CustomNavigationBar(
-                    title: "참여내역",
-                    backEvent : backEvent,
-                  ),
-                  Container(
-                    alignment: Alignment.bottomRight,
-                    width: MediaQuery.of(context).size.width,
-                    height: 40,
-                    margin: const EdgeInsets.only(right: 17),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () {
-                        controller.changeMyRecruitment();
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          if (controller.isMyRecruitment.value) ... [
-                            const SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: Image(
-                                  width: 17,
-                                  height: 17,
-                                  image: AssetImage("assets/images/iv_checked.png")
-                              ),
-                            ),
-                          ] else ... [
-                            const SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: Image(
-                                  width: 17,
-                                  height: 17,
-                                  image: AssetImage("assets/images/iv_unchecked.png")
-                              ),
-                            ),
-                          ],
-                          const Text(
-                            "나의 모집",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: Color.fromRGBO(71, 71, 71, 1)
-                            ),
-                          )
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                CustomNavigationBar(
+                  title: "참여내역",
+                  backEvent: backEvent,
+                ),
+                Container(
+                  alignment: Alignment.bottomRight,
+                  width: MediaQuery.of(context).size.width,
+                  height: 40,
+                  margin: const EdgeInsets.only(right: 17),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      controller.changeMyRecruitment();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        if (controller.isMyRecruitment.value) ...[
+                          const SizedBox(
+                            width: 30,
+                            height: 30,
+                            child: Image(width: 17, height: 17, image: AssetImage("assets/images/iv_checked.png")),
+                          ),
+                        ] else ...[
+                          const SizedBox(
+                            width: 30,
+                            height: 30,
+                            child: Image(width: 17, height: 17, image: AssetImage("assets/images/iv_unchecked.png")),
+                          ),
                         ],
-                      )
-                    )
+                        const Text(
+                          "나의 모집",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w400, color: Color.fromRGBO(71, 71, 71, 1)),
+                        )
+                      ],
+                    ),
                   ),
-                  Expanded(
+                ),
+                Expanded(
                     child: Container(
-                      margin: const EdgeInsets.only(top: 18),
-                      width: MediaQuery.of(context).size.width,
-                      child: ListView.builder(
-                          controller: controller.scrollController,
-                          itemCount: controller.recruitmentList.length,
-                          itemBuilder:(BuildContext context, int index) {
-                            return InkWell(
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () {
+                  margin: const EdgeInsets.only(top: 18),
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                      controller: controller.scrollController,
+                      itemCount: controller.recruitmentList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () {
+                            var confirmationDay =
+                                dateUtil.diffDateMinutes(controller.recruitmentList[index].theaterEndDatetime);
+                            var diffDay = dateUtil.diffDateDay(controller.recruitmentList[index].recruitmentEndDate);
+                            var status = appStatus.recruitmentViewEndDayStatus(
+                                diffDay,
+                                confirmationDay,
+                                controller.recruitmentList[index].recruitmentStatus,
+                                (controller.recruitmentList[index].userRecruitmentPeople >=
+                                    controller.recruitmentList[index].theaterMaxPeople));
 
-                                var confirmationDay = dateUtil.diffDateMinutes(controller.recruitmentList[index].theaterEndDatetime);
-                                var diffDay = dateUtil.diffDateDay(controller.recruitmentList[index].recruitmentEndDate);
-                                var status = appStatus.recruitmentViewEndDayStatus(
-                                    diffDay,
-                                    confirmationDay,
-                                    controller.recruitmentList[index].recruitmentStatus,
-                                    (controller.recruitmentList[index].userRecruitmentPeople
-                                        >= controller.recruitmentList[index].theaterMaxPeople)
-                                );
+                            // if (status == "OVER_DAY") {
+                            //   return;
+                            // }
 
-                                if (status == "OVER_DAY") {
-                                  return;
-                                }
-
-                                Get.toNamed(
-                                    Routes.RECRUITMENT_VIEW,
-                                    arguments: controller.recruitmentList[index].recruitmentId
-                                );
-                              },
-                              child: RecruitmentPaymentRow(
-                                recruitmentData: controller.recruitmentList[index],
-                                index: index,
-                                recruitmentWishCallBack: controller.recruitmentWishCallBack,
-                                isLikeShow: false,
-                              ),
-                            );
-                          }
-                      ),
-                    )
-                  )
-                ]
-              ),
+                            Get.toNamed(Routes.MY_PAGE_PARTICIPATION_ITEM,
+                                arguments: controller.recruitmentList[index]);
+                          },
+                          child: RecruitmentPaymentRow(
+                            recruitmentData: controller.recruitmentList[index],
+                            index: index,
+                            recruitmentWishCallBack: controller.recruitmentWishCallBack,
+                            isLikeShow: false,
+                          ),
+                        );
+                      }),
+                ))
+              ]),
               Visibility(
                 visible: controller.isLoading.value,
                 child: const Center(
@@ -145,7 +123,6 @@ class ParticipationList extends GetView<ParticipationListController> {
               ),
             ],
           );
-        })
-    );
+        }));
   }
 }
