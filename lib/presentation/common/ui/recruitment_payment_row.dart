@@ -10,7 +10,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
   final int index;
   final void Function(int index) recruitmentWishCallBack;
   final bool? isLikeShow;
-  
+
   const RecruitmentPaymentRow({
     super.key,
     required this.recruitmentData,
@@ -25,12 +25,8 @@ class RecruitmentPaymentRow extends StatelessWidget {
     final AppStatus appStatus = AppStatus();
     final StringUtil stringUtil = StringUtil();
 
-    var userProfileWidth = [
-      26.0, 45.0, 64.0, 74.0
-    ];
-    var userProfileIndex = (recruitmentData.userImageVo == null)
-        ? 0
-        : recruitmentData.userImageVo!.length -1;
+    var userProfileWidth = [26.0, 45.0, 64.0, 74.0];
+    var userProfileIndex = (recruitmentData.userImageVo == null) ? 0 : recruitmentData.userImageVo!.length - 1;
     var confirmationDay = dateUtil.diffDateMinutes(recruitmentData.theaterEndDatetime);
     int diffDay = dateUtil.diffDateDay(recruitmentData.recruitmentEndDate);
 
@@ -42,19 +38,16 @@ class RecruitmentPaymentRow extends StatelessWidget {
         Container(
             margin: const EdgeInsets.fromLTRB(17, 13, 17, 0),
             child: ClipRRect(
-              borderRadius: const BorderRadius.only(topLeft: Radius.circular(7),topRight: Radius.circular(7)),
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(7), topRight: Radius.circular(7)),
               child: Stack(
                 children: <Widget>[
                   Positioned.fill(
                     child: Container(
                       decoration: BoxDecoration(
                           color: const Color.fromRGBO(249, 249, 249, 1),
-                          borderRadius: const BorderRadius.only(topLeft: Radius.circular(7),topRight: Radius.circular(7)),
-                          border: Border.all(
-                              width: 1,
-                              color: const Color.fromRGBO(233, 233, 233, 1)
-                          )
-                      ),
+                          borderRadius:
+                              const BorderRadius.only(topLeft: Radius.circular(7), topRight: Radius.circular(7)),
+                          border: Border.all(width: 1, color: const Color.fromRGBO(233, 233, 233, 1))),
                     ),
                   ),
                   SizedBox(
@@ -74,12 +67,11 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                       fit: BoxFit.fill,
                                       imageUrl: recruitmentData.movieImage,
                                       errorWidget: (context, url, error) => const Image(
-                                        width: 121,
-                                        height: 174,
-                                        fit: BoxFit.fill,
-                                        image: AssetImage("assets/images/iv_default_movie.png"),
-                                      )
-                                  ),
+                                            width: 121,
+                                            height: 174,
+                                            fit: BoxFit.fill,
+                                            image: AssetImage("assets/images/iv_default_movie.png"),
+                                          )),
                                 ),
                               ),
                               Column(
@@ -92,8 +84,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                         height: 0.8,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
-                                        color: Color.fromRGBO(54, 54, 54, 1)
-                                    ),
+                                        color: Color.fromRGBO(54, 54, 54, 1)),
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
@@ -102,8 +93,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                         height: 0.8,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
-                                        color: Color.fromRGBO(54, 54, 54, 1)
-                                    ),
+                                        color: Color.fromRGBO(54, 54, 54, 1)),
                                   ),
                                   const SizedBox(height: 5),
                                   Text(
@@ -112,19 +102,17 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                         height: 0.8,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
-                                        color: Color.fromRGBO(54, 54, 54, 1)
-                                    ),
+                                        color: Color.fromRGBO(54, 54, 54, 1)),
                                   ),
                                   const SizedBox(height: 7),
                                   Text(
                                     "${dateUtil.changeTime(recruitmentData.theaterStartDatetime)} - "
-                                        "${dateUtil.changeTime(recruitmentData.theaterEndDatetime)}",
+                                    "${dateUtil.changeTime(recruitmentData.theaterEndDatetime)}",
                                     style: const TextStyle(
                                         height: 0.8,
                                         fontSize: 13,
                                         fontWeight: FontWeight.w500,
-                                        color: Color.fromRGBO(133, 133, 133, 1)
-                                    ),
+                                        color: Color.fromRGBO(133, 133, 133, 1)),
                                   ),
                                   Container(
                                     margin: const EdgeInsets.fromLTRB(0, 5, 12, 0),
@@ -143,20 +131,21 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                               height: 0.8,
                                               fontSize: 13,
                                               fontWeight: FontWeight.w300,
-                                              color: Color.fromRGBO(107, 107, 107, 1)
-                                          ),
+                                              color: Color.fromRGBO(107, 107, 107, 1)),
                                         ),
-                                        const SizedBox(width: 4,),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
                                         Text(
                                           "${recruitmentData.recruitmentPeople}",
                                           style: TextStyle(
                                               height: 0.8,
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
-                                              color: (recruitmentData.recruitmentPeople < recruitmentData.theaterMinPeople)
-                                                  ? const Color.fromRGBO(138, 94, 255, 1)
-                                                  : const Color.fromRGBO(50, 195, 225, 1)
-                                          ),
+                                              color:
+                                                  (recruitmentData.recruitmentPeople < recruitmentData.theaterMinPeople)
+                                                      ? const Color.fromRGBO(138, 94, 255, 1)
+                                                      : const Color.fromRGBO(50, 195, 225, 1)),
                                         ),
                                         Text(
                                           " / ${recruitmentData.theaterMaxPeople}",
@@ -164,8 +153,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                               height: 0.8,
                                               fontSize: 13,
                                               fontWeight: FontWeight.w400,
-                                              color: Color.fromRGBO(151, 151, 151, 1)
-                                          ),
+                                              color: Color.fromRGBO(151, 151, 151, 1)),
                                         ),
                                         Container(
                                           height: 18,
@@ -175,18 +163,15 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                               diffDay,
                                               confirmationDay,
                                               recruitmentData.recruitmentStatus,
-                                              (recruitmentData.recruitmentPeople
-                                                  >= recruitmentData.theaterMaxPeople)
-                                          ),
+                                              (recruitmentData.recruitmentPeople >= recruitmentData.theaterMaxPeople)),
                                           alignment: Alignment.center,
                                           child: Text(
                                             appStatus.getRecruitmentEndDayTitle(
                                                 diffDay,
                                                 confirmationDay,
                                                 recruitmentData.recruitmentStatus,
-                                                (recruitmentData.recruitmentPeople
-                                                    >= recruitmentData.theaterMaxPeople)
-                                            ),
+                                                (recruitmentData.recruitmentPeople >=
+                                                    recruitmentData.theaterMaxPeople)),
                                             style: TextStyle(
                                                 height: 0.8,
                                                 fontSize: 13,
@@ -195,10 +180,8 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                                     diffDay,
                                                     confirmationDay,
                                                     recruitmentData.recruitmentStatus,
-                                                    (recruitmentData.recruitmentPeople
-                                                        >= recruitmentData.theaterMaxPeople)
-                                                )
-                                            ),
+                                                    (recruitmentData.recruitmentPeople >=
+                                                        recruitmentData.theaterMaxPeople))),
                                           ),
                                         )
                                       ],
@@ -219,14 +202,12 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                     fit: BoxFit.fill,
                                     imageUrl: recruitmentData.recruiterUserImage,
                                     errorWidget: (context, url, error) => const Image(
-                                      width: 28,
-                                      height: 28,
-                                      fit: BoxFit.fill,
-                                      image: AssetImage("assets/images/iv_default_profile.png"),
-                                    )
-                                ),
-                              )
-                          ),
+                                          width: 28,
+                                          height: 28,
+                                          fit: BoxFit.fill,
+                                          image: AssetImage("assets/images/iv_default_profile.png"),
+                                        )),
+                              )),
                           Positioned(
                               bottom: 15,
                               right: 40,
@@ -234,9 +215,9 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                 width: userProfileWidth[userProfileIndex],
                                 child: Stack(
                                   children: [
-                                    if (recruitmentData.userImageVo != null) ... [
-                                      for (var index = 0; index < recruitmentData.userImageVo!.length ; index++) ... [
-                                        if (index == 0 ) ... [
+                                    if (recruitmentData.userImageVo != null) ...[
+                                      for (var index = 0; index < recruitmentData.userImageVo!.length; index++) ...[
+                                        if (index == 0) ...[
                                           Positioned(
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.circular(20.0),
@@ -246,15 +227,14 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                                   fit: BoxFit.fill,
                                                   imageUrl: recruitmentData.userImageVo![0].userImage,
                                                   errorWidget: (context, url, error) => const Image(
-                                                    width: 28,
-                                                    height: 28,
-                                                    fit: BoxFit.fill,
-                                                    image: AssetImage("assets/images/iv_default_profile.png"),
-                                                  )
-                                              ),
+                                                        width: 28,
+                                                        height: 28,
+                                                        fit: BoxFit.fill,
+                                                        image: AssetImage("assets/images/iv_default_profile.png"),
+                                                      )),
                                             ),
                                           ),
-                                        ] else if ( index == 1 ) ... [
+                                        ] else if (index == 1) ...[
                                           Positioned(
                                               top: 0,
                                               left: 19,
@@ -266,8 +246,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                                     border: Border.all(
                                                       width: 2,
                                                       color: Colors.white,
-                                                    )
-                                                ),
+                                                    )),
                                                 child: ClipRRect(
                                                   borderRadius: BorderRadius.circular(20.0),
                                                   child: CachedNetworkImage(
@@ -276,16 +255,14 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                                       fit: BoxFit.fill,
                                                       imageUrl: recruitmentData.userImageVo![index].userImage,
                                                       errorWidget: (context, url, error) => const Image(
-                                                        width: 28,
-                                                        height: 28,
-                                                        fit: BoxFit.fill,
-                                                        image: AssetImage("assets/images/iv_default_profile.png"),
-                                                      )
-                                                  ),
+                                                            width: 28,
+                                                            height: 28,
+                                                            fit: BoxFit.fill,
+                                                            image: AssetImage("assets/images/iv_default_profile.png"),
+                                                          )),
                                                 ),
-                                              )
-                                          )
-                                        ] else if ( index == 2 ) ... [
+                                              ))
+                                        ] else if (index == 2) ...[
                                           Positioned(
                                               top: 0,
                                               left: 38,
@@ -297,8 +274,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                                     border: Border.all(
                                                       width: 2,
                                                       color: Colors.white,
-                                                    )
-                                                ),
+                                                    )),
                                                 child: ClipRRect(
                                                   borderRadius: BorderRadius.circular(20.0),
                                                   child: CachedNetworkImage(
@@ -307,16 +283,14 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                                       fit: BoxFit.fill,
                                                       imageUrl: recruitmentData.userImageVo![index].userImage,
                                                       errorWidget: (context, url, error) => const Image(
-                                                        width: 28,
-                                                        height: 28,
-                                                        fit: BoxFit.fill,
-                                                        image: AssetImage("assets/images/iv_default_profile.png"),
-                                                      )
-                                                  ),
+                                                            width: 28,
+                                                            height: 28,
+                                                            fit: BoxFit.fill,
+                                                            image: AssetImage("assets/images/iv_default_profile.png"),
+                                                          )),
                                                 ),
-                                              )
-                                          )
-                                        ] else if ( index == 3 ) ... [
+                                              ))
+                                        ] else if (index == 3) ...[
                                           const Positioned(
                                             top: 6,
                                             left: 59,
@@ -327,14 +301,12 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                               image: AssetImage("assets/images/icon_plus_black_people.png"),
                                             ),
                                           )
-
                                         ]
                                       ]
                                     ]
                                   ],
                                 ),
-                              )
-                          ),
+                              )),
                           Positioned(
                             top: 0,
                             child: ClipRRect(
@@ -361,17 +333,15 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                                 height: 0.8,
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w300,
-                                                color: Colors.white
-                                            ),
+                                                color: Colors.white),
                                           ),
                                         ],
-                                      )
-                                  )
+                                      ))
                                 ],
                               ),
                             ),
                           ),
-                          if (isLikeShow!) ... [
+                          if (isLikeShow!) ...[
                             Positioned(
                                 top: 10,
                                 right: 8,
@@ -387,23 +357,19 @@ class RecruitmentPaymentRow extends StatelessWidget {
                                           : "assets/images/icon_heart_gray.png",
                                       width: 25,
                                       height: 25,
-                                      fit:BoxFit.fill
-                                  ),
-                                )
-                            )
+                                      fit: BoxFit.fill),
+                                ))
                           ]
                         ],
-                      )
-                  )
+                      ))
                 ],
               ),
-            )
-        ),
+            )),
         Container(
           width: MediaQuery.of(context).size.width,
           margin: const EdgeInsets.fromLTRB(17, 0, 17, 0),
           decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(bottomRight: Radius.circular(7),bottomLeft: Radius.circular(7)),
+            borderRadius: const BorderRadius.only(bottomRight: Radius.circular(7), bottomLeft: Radius.circular(7)),
             color: const Color.fromRGBO(249, 249, 249, 1),
             border: Border.all(
               width: 1,
@@ -413,59 +379,60 @@ class RecruitmentPaymentRow extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 7,),
+              const SizedBox(
+                height: 7,
+              ),
               Row(
                 children: [
-                  const SizedBox(width: 22,),
+                  const SizedBox(
+                    width: 22,
+                  ),
                   const Text(
                     "참여",
                     style: TextStyle(
-                        height: 0.8,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Color.fromRGBO(54, 54, 54, 1)
-                    ),
+                        height: 0.8, fontSize: 14, fontWeight: FontWeight.w400, color: Color.fromRGBO(54, 54, 54, 1)),
                   ),
-                  const SizedBox(width: 5,),
+                  const SizedBox(
+                    width: 5,
+                  ),
                   Stack(
                     children: [
                       SizedBox(
                         height: 18,
                         child: Row(
                           children: [
-                            const SizedBox(width: 4,),
+                            const SizedBox(
+                              width: 4,
+                            ),
                             Text(
                               "${recruitmentData.userRecruitmentPeople}명",
                               style: const TextStyle(
                                   height: 0.8,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
-                                  color: Color.fromRGBO(118, 118, 118, 1)
-                              ),
+                                  color: Color.fromRGBO(118, 118, 118, 1)),
                             ),
-                            const SizedBox(width: 10,),
+                            const SizedBox(
+                              width: 10,
+                            ),
                             Text(
                               "${stringUtil.numberFormat(recruitmentData.paymentAmount)}원",
                               style: const TextStyle(
                                   height: 0.8,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
-                                  color: Color.fromRGBO(74, 74, 74, 1)
-                              ),
+                                  color: Color.fromRGBO(74, 74, 74, 1)),
                             ),
-                            const SizedBox(width: 4,),
+                            const SizedBox(
+                              width: 4,
+                            ),
                           ],
                         ),
                       ),
-                      if (recruitmentData.paymentStatus == 'CANCEL'
-                          || recruitmentData.paymentStatus == 'FAILURE') ... [
+                      if (recruitmentData.paymentStatus == 'CANCEL' || recruitmentData.paymentStatus == 'FAILURE') ...[
                         Positioned(
                           top: 6,
-                          child: Container(
-                              height: 2,
-                              width: 120,
-                              color: const Color.fromRGBO(171, 171, 171, 1)
-                          ),
+                          child: Container(height: 2, width: 120, color: const Color.fromRGBO(171, 171, 171, 1)),
                         )
                       ]
                     ],
@@ -473,11 +440,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
                   Text(
                     appStatus.payStatus(recruitmentData.paymentStatus),
                     style: const TextStyle(
-                        height: 0.8,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: Color.fromRGBO(255, 127, 34, 1)
-                    ),
+                        height: 0.8, fontSize: 13, fontWeight: FontWeight.w400, color: Color.fromRGBO(255, 127, 34, 1)),
                   ),
                 ],
               ),
@@ -486,11 +449,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
                 child: Text(
                   "승인시간 : ${dateUtil.changeYYYMMDDHHMMDot(recruitmentData.paidAt)} 카드결제",
                   style: const TextStyle(
-                      height: 0.8,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      color: Color.fromRGBO(122, 122, 122, 1)
-                  ),
+                      height: 0.8, fontSize: 13, fontWeight: FontWeight.w400, color: Color.fromRGBO(122, 122, 122, 1)),
                 ),
               ),
               Container(
@@ -498,11 +457,7 @@ class RecruitmentPaymentRow extends StatelessWidget {
                 child: Text(
                   "주문번호 : ${recruitmentData.paymentId}",
                   style: const TextStyle(
-                      height: 0.8,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      color: Color.fromRGBO(122, 122, 122, 1)
-                  ),
+                      height: 0.8, fontSize: 13, fontWeight: FontWeight.w400, color: Color.fromRGBO(122, 122, 122, 1)),
                 ),
               )
             ],
