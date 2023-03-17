@@ -1,6 +1,7 @@
-# rebora
+# Rebora
 
-rebora
+Rebora
+Mobile Application built with Flutter and Dart
 
 ## Getting Started
 
