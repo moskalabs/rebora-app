@@ -13,6 +13,7 @@ abstract class Routes {
   static const MOVIE_SEARCH_CREATE = '/movieSearch';
   static const MY_PAGE = '/mypage';
   static const MY_PAGE_RECRUITMENT = '/myPageRecruitment';
+  static const MY_PAGE_PARTICIPATION_ITEM = '/myPageParticipationItem';
   static const PROFILE_UPDATE = '/profileUpdate';
   static const MY_ALARM = '/myAlarm';
   static const MY_FAVOR = '/myFavor';
